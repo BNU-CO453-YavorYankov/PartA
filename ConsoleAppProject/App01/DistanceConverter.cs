@@ -3,13 +3,13 @@
 namespace ConsoleAppProject.App01
 {
     /// <summary>
-    /// This App allows the user to convert distances measured in 
-    /// one unit of distance into another unit of distance, 
+    /// This App version allows the user to convert distances measured in 
+    /// miles into feet and feet into miles, 
     /// for example it will convert a distance measured in miles 
     /// into the same distance measured in feet.
     /// </summary>
     /// <author>
-    /// Yavor Yankov version 0.1
+    /// Yavor Yankov version 0.2
     /// </author>
     public class DistanceConverter
     {
@@ -17,15 +17,27 @@ namespace ConsoleAppProject.App01
         /// 1 mile is 5280 feet
         /// </summary>
         private const double MILE_IN_FEET = 5280;
+        /// <summary>
+        /// 1 mile is 1609.34 metres
+        /// </summary>
+        private const double MILE_IN_METRES = 1609.34;
 
         /// <summary>
-        /// Inputed miles by the user
+        /// Feet in miles
         /// </summary>
         private double miles = 0.00d;
         /// <summary>
-        /// Converted miles into feet
+        /// Inputed miles by the user
         /// </summary>
-        private double feet;
+        private double inputedMiles = 0.00d;
+        /// <summary>
+        /// Miles in feet 
+        /// </summary>
+        private double feet = 0.00d;
+        /// <summary>
+        /// Inputed feet by the user
+        /// </summary>
+        private double inputedFeet = 0.00d;
 
         /// <summary>
         /// The constructor of this distance converter 
@@ -37,27 +49,21 @@ namespace ConsoleAppProject.App01
         }
 
         /// <summary>
-        /// Print app heading and invoke input miles,
-        /// calculate feet and print feet methods.
-        /// If miles field is equal to its default value, 
-        /// it araises recursion.
+        /// This method runs the app
         /// </summary>
         public void Run()
         {
             PrintHeading();
             InputMiles();
-            
-            if(this.miles == 0)
-            {
-                Run();
-            }
-
+            InputFeet();
             CalculateFeet();
+            CalculateMiles();
             PrintFeet();
+            PrintMiles();
         }
 
         /// <summary>
-        /// Read and convert the user input.
+        /// Read and convert the user input in miles unit.
         /// </summary>
         private void InputMiles()
         {
@@ -71,12 +77,28 @@ namespace ConsoleAppProject.App01
                 Console.WriteLine("Invalid input!");
             }
         }
+        
+        /// <summary>
+        /// Read and convert the user input.
+        /// </summary>
+        private void InputFeet()
+        {
+            try
+            {
+                Console.Write("Input feet: ");
+                SetFeet(double.Parse(Console.ReadLine()));
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("Invalid input!");
+            }
+        }
 
         /// <summary>
         /// Check is the user input less than zero if true print out error msg,
         /// if false set it to miles field.
         /// </summary>
-        /// <param name="miles"></param>
+        /// <param name="miles">Inputed miles by the user</param>
         private void SetMiles(double miles)
         {
             if(miles < 0)
@@ -85,7 +107,24 @@ namespace ConsoleAppProject.App01
             }
             else
             {
-                this.miles = miles;
+                this.inputedMiles = miles;
+            }
+        }
+
+        /// <summary>
+        /// Check is the user input less than zero if true print out error msg,
+        /// if false set it to feet field.
+        /// </summary>
+        /// <param name="feet">Inputed feet by the user</param>
+        private void SetFeet(double feet)
+        {
+            if (feet < 0)
+            {
+                Console.WriteLine("Feet cannot be less than zero!");
+            }
+            else
+            {
+                this.inputedFeet = feet;
             }
         }
 
@@ -94,14 +133,29 @@ namespace ConsoleAppProject.App01
         /// Formula: 1 mile = 5280 feet.
         /// </summary>
         private void CalculateFeet()
-            => this.feet = this.miles * MILE_IN_FEET;
+            => this.feet = this.inputedMiles * MILE_IN_FEET;
+
+        /// <summary>
+        /// Calculate feet into miles
+        /// Formula: 5280 feet = 1 mile.
+        /// </summary>
+        private void CalculateMiles()
+            => this.miles = this.inputedFeet / MILE_IN_FEET;
 
         /// <summary>
         /// Print out the miles into feet.
         /// </summary>
         private void PrintFeet()
         {
-            Console.WriteLine($"{this.miles:f2} miles is {this.feet:f2} feet");
+            Console.WriteLine($"{this.inputedMiles} miles is {this.feet} feet");
+        }
+
+        /// <summary>
+        /// Print out the feet into miles.
+        /// </summary>
+        private void PrintMiles()
+        {
+            Console.WriteLine($"{this.inputedFeet} feet is {this.miles} miles");
         }
 
         /// <summary>
