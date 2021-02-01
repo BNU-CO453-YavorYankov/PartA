@@ -38,6 +38,10 @@ namespace ConsoleAppProject.App01
         /// Inputed feet by the user
         /// </summary>
         private double inputedFeet = 0.00d;
+        /// <summary>
+        /// Miles in metres
+        /// </summary>
+        private double metres = 0.00d;
 
         /// <summary>
         /// The constructor of this distance converter 
@@ -54,12 +58,18 @@ namespace ConsoleAppProject.App01
         public void Run()
         {
             PrintHeading();
+
             InputMiles();
-            InputFeet();
             CalculateFeet();
-            CalculateMiles();
             PrintFeet();
+            
+            InputFeet();
+            CalculateMiles();
             PrintMiles();
+
+            InputMiles();
+            CalculateMetres();
+            PrintMetres();
         }
 
         /// <summary>
@@ -143,6 +153,13 @@ namespace ConsoleAppProject.App01
             => this.miles = this.inputedFeet / MILE_IN_FEET;
 
         /// <summary>
+        /// Calculate miles into metres
+        /// Formula: 1 mile = 1609.34 metres
+        /// </summary>
+        private void CalculateMetres()
+            => this.metres = this.inputedMiles * MILE_IN_METRES;
+
+        /// <summary>
         /// Print out the miles into feet.
         /// </summary>
         private void PrintFeet()
@@ -156,6 +173,14 @@ namespace ConsoleAppProject.App01
         private void PrintMiles()
         {
             Console.WriteLine($"{this.inputedFeet} feet is {this.miles} miles");
+        }
+
+        /// <summary>
+        /// Print out the miles into metres.
+        /// </summary>
+        private void PrintMetres()
+        {
+            Console.WriteLine($"{this.inputedMiles} miles is {this.metres} metres");
         }
 
         /// <summary>
