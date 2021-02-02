@@ -9,10 +9,34 @@ namespace ConsoleAppProject.App01
     /// into the same distance measured in feet.
     /// </summary>
     /// <author>
-    /// Yavor Yankov version 0.3.1
+    /// Yavor Yankov version 0.3.0
     /// </author>
     public class DistanceConverter
     {
+        /// <summary>
+        /// Print out this message when the user should select one of 3 options
+        /// </summary>
+        private const string SELECT_DIST_FROM_MSG = 
+            "\n\rSelect distance unit to convert from >\n\r\n\r" +
+            "1. Feet\n\r2. Metres\n\r3. Miles\n\r\n\r";
+        /// <summary>
+        /// Print out this message when the user should select one of 3 options
+        /// </summary>
+        private const string SELECT_DIST_TO_MSG =
+            "\n\rSelect distance unit to convert to >\n\r\n\r" +
+            "1. Feet\n\r2. Metres\n\r3. Miles\n\r\n\r";
+        /// <summary>
+        /// Print out this message when the user should choose 
+        /// </summary>
+        private const string INPUT_CHOICE_MSG = "Please enter your choice > ";
+        /// <summary>
+        /// Print out this message when the user choice is invalid
+        /// </summary>
+        private const string INVALID_CHOICE_MSG = "\n\rInvalid choice!";
+        /// <summary>
+        /// Print out this message when the user select a distance unit
+        /// </summary>
+        private const string SELECTION_MSG = "\n\rYou have selected ";
         /// <summary>
         /// User choice for feet
         /// </summary>
@@ -61,8 +85,9 @@ namespace ConsoleAppProject.App01
 
         /// <summary>
         /// The unit that will be convered to
+        /// Its default value is no unit
         /// </summary>
-        public DistanceUnits ToUnit { get; set; }
+        public DistanceUnits ToUnit { get; set; } = DistanceUnits.NoUnit;
 
         /// <summary>
         /// This method runs the app
@@ -70,21 +95,25 @@ namespace ConsoleAppProject.App01
         public void Run()
         {
             PrintHeading();
-            SelectUnit();
+            
+            Console.WriteLine(SELECT_DIST_FROM_MSG);
+            this.FromUnit = SelectUnit();
+            
+            Console.WriteLine(SELECT_DIST_TO_MSG);
+            this.ToUnit = SelectUnit();
         }
 
         /// <summary>
         /// This method allows the user to select a distance unit
         /// </summary>
-        private void SelectUnit()
+        private DistanceUnits SelectUnit()
         {
-            Console.Write("Select distance unit to convert from >\n\r\n\r" +
-                          "1. Feet\n\r2. Metres\n\r3. Miles\n\r\n\r");
+            
 
             var userChoice = 0;
-            while (this.FromUnit == DistanceUnits.NoUnit)
+            while (true)
             {
-                Console.Write("Please enter your choice > ");
+                Console.Write(INPUT_CHOICE_MSG);
                 var success = int.TryParse(
                     Console.ReadLine(),
                     out userChoice);
@@ -94,25 +123,24 @@ namespace ConsoleAppProject.App01
                     switch (userChoice)
                     {
                         case FEET:
-                            this.FromUnit = DistanceUnits.Feet;
-                            break;
+                            Console.WriteLine($"{SELECTION_MSG} Feet");
+                            return DistanceUnits.Feet;
                         case METRES:
-                            this.FromUnit = DistanceUnits.Metres;
-                            break;
+                            Console.WriteLine($"{SELECTION_MSG} Metres");
+                            return DistanceUnits.Metres;
                         case MILES:
-                            this.FromUnit = DistanceUnits.Miles;
-                            break;
+                            Console.WriteLine($"{SELECTION_MSG} Miles");
+                            return DistanceUnits.Miles;
                         default:
-                            Console.WriteLine("Invalid choice!");
+                            Console.WriteLine(INVALID_CHOICE_MSG);
                             break;
                     }
                 }
                 else
                 {
-                    Console.WriteLine("Invalid choice!");
+                    Console.WriteLine(INVALID_CHOICE_MSG);
                 }
             }
-
         }
 
         ///// <summary>
