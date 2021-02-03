@@ -16,7 +16,7 @@ namespace ConsoleAppProject.App01
         /// <summary>
         /// Print out this message when the user should select one of 3 options
         /// </summary>
-        private const string SELECT_DIST_FROM_MSG = 
+        private const string SELECT_DIST_FROM_MSG =
             "\n\rSelect distance unit to convert from >\n\r\n\r" +
             "1. Feet\n\r2. Metres\n\r3. Miles\n\r\n\r";
         /// <summary>
@@ -61,6 +61,22 @@ namespace ConsoleAppProject.App01
         /// 1 mile is 1609.34 metres
         /// </summary>
         private const double MILE_IN_METRES = 1609.34;
+        /// <summary>
+        /// 1 foot is 0.3048 metres
+        /// </summary>
+        private const double FEET_IN_METRES = 0.3048;
+        /// <summary>
+        /// 1 foot is 0.000189394 miles
+        /// </summary>
+        private const double FEET_IN_MILES = 0.000189394;
+        /// <summary>
+        /// 1 metre is 0.000621371 miles
+        /// </summary>
+        private const double METRES_IN_MILES = 0.000621371;
+        /// <summary>
+        /// 1 metre is 3.28084 feet
+        /// </summary>
+        private const double METRES_IN_FEET = 3.28084;
 
         /// <summary>
         /// The constructor of this distance converter 
@@ -78,18 +94,17 @@ namespace ConsoleAppProject.App01
         /// <summary>
         /// The amount of distance that will be converted
         /// </summary>
-        public double FromDistance 
+        public double FromDistance
         {
             get { return this._fromDistance; }
-            set 
+            set
             {
-                
                 if (value < 0)
                 {
                     throw new ArgumentException(NEGATIVE_DISTANCE_MSG);
                 }
                 _fromDistance = value;
-            } 
+            }
         }
 
         /// <summary>
@@ -115,10 +130,10 @@ namespace ConsoleAppProject.App01
         public void Run()
         {
             PrintHeading();
-            
+
             Console.WriteLine(SELECT_DIST_FROM_MSG);
             this.FromUnit = SelectUnit();
-            
+
             Console.WriteLine(SELECT_DIST_TO_MSG);
             this.ToUnit = SelectUnit();
 
@@ -126,7 +141,9 @@ namespace ConsoleAppProject.App01
 
             SetDistance();
 
-            //CalculateDistance();
+            ConvertDistance();
+
+            PrintResult();
         }
 
         /// <summary>
@@ -171,102 +188,66 @@ namespace ConsoleAppProject.App01
         /// <summary>
         /// This method allows the user to input the distance to convert from
         /// </summary>
-        private void SetDistance() 
+        private void SetDistance()
         {
-            Console.Write($"Please enter distance in {this.FromUnit} > ");
-           
+            Console.Write($"\n\rPlease enter distance in {this.FromUnit} > ");
+
             try
             {
                 this.FromDistance = double.Parse(Console.ReadLine());
             }
             catch (Exception e)
             {
-                if(e.Message != NEGATIVE_DISTANCE_MSG) 
+                if (e.Message != NEGATIVE_DISTANCE_MSG)
                     Console.WriteLine("\n\rInvalid input!");
-                else 
+                else
                     Console.WriteLine(e.Message);
                 SetDistance();
             }
         }
 
-        ///// <summary>
-        ///// Check is the user input less than zero if true print out error msg,
-        ///// if false set it to miles field.
-        ///// </summary>
-        ///// <param name="miles">Inputed miles by the user</param>
-        //private void SetMiles(double miles)
-        //{
-        //    if (miles < 0)
-        //    {
-        //        Console.WriteLine("Miles cannot be less than zero!");
-        //    }
-        //    else
-        //    {
-        //        this.inputedMiles = miles;
-        //    }
-        //}
+        /// <summary>
+        /// Convert the distance from unit to anouther chosen unit by the user
+        /// </summary>
+        private void ConvertDistance()
+        {
+            if (this.FromUnit is DistanceUnits.Miles &&
+                this.ToUnit is DistanceUnits.Feet)
+            {
+                this.ToDistance = this.FromDistance * MILE_IN_FEET;
+            }
+            else if (this.FromUnit is DistanceUnits.Miles &&
+                    this.ToUnit is DistanceUnits.Metres)
+            {
+                this.ToDistance = this.FromDistance * MILE_IN_METRES;
+            }
+            else if (this.FromUnit is DistanceUnits.Feet &&
+                    this.ToUnit is DistanceUnits.Miles)
+            {
+                this.ToDistance = this.FromDistance * FEET_IN_MILES;
+            }
+            else if (this.FromUnit is DistanceUnits.Feet &&
+                    this.ToUnit is DistanceUnits.Metres)
+            {
+                this.ToDistance = this.FromDistance * FEET_IN_METRES;
+            }
+            else if (this.FromUnit is DistanceUnits.Metres &&
+                    this.ToUnit is DistanceUnits.Miles)
+            {
+                this.ToDistance = this.FromDistance * METRES_IN_MILES;
+            }
+            else if (this.FromUnit is DistanceUnits.Metres &&
+                    this.ToUnit is DistanceUnits.Feet)
+            {
+                this.ToDistance = this.FromDistance * METRES_IN_FEET;
+            }
+        }
 
-        ///// <summary>
-        ///// Check is the user input less than zero if true print out error msg,
-        ///// if false set it to feet field.
-        ///// </summary>
-        ///// <param name="feet">Inputed feet by the user</param>
-        //private void SetFeet(double feet)
-        //{
-        //    if (feet < 0)
-        //    {
-        //        Console.WriteLine("Feet cannot be less than zero!");
-        //    }
-        //    else
-        //    {
-        //        this.inputedFeet = feet;
-        //    }
-        //}
-
-        ///// <summary>
-        ///// Calculate miles into feets
-        ///// Formula: 1 mile = 5280 feet.
-        ///// </summary>
-        //private void CalculateFeet()
-        //    => this.feet = this.inputedMiles * MILE_IN_FEET;
-
-        ///// <summary>
-        ///// Calculate feet into miles
-        ///// Formula: 5280 feet = 1 mile.
-        ///// </summary>
-        //private void CalculateMiles()
-        //    => this.miles = this.inputedFeet / MILE_IN_FEET;
-
-        ///// <summary>
-        ///// Calculate miles into metres
-        ///// Formula: 1 mile = 1609.34 metres
-        ///// </summary>
-        //private void CalculateMetres()
-        //    => this.metres = this.inputedMiles * MILE_IN_METRES;
-
-        ///// <summary>
-        ///// Print out the miles into feet.
-        ///// </summary>
-        //private void PrintFeet()
-        //{
-        //    Console.WriteLine($"{this.inputedMiles} miles is {this.feet} feet");
-        //}
-
-        ///// <summary>
-        ///// Print out the feet into miles.
-        ///// </summary>
-        //private void PrintMiles()
-        //{
-        //    Console.WriteLine($"{this.inputedFeet} feet is {this.miles} miles");
-        //}
-
-        ///// <summary>
-        ///// Print out the miles into metres.
-        ///// </summary>
-        //private void PrintMetres()
-        //{
-        //    Console.WriteLine($"{this.inputedMiles} miles is {this.metres} metres");
-        //}
+        private void PrintResult()
+        {
+            Console.WriteLine(
+                $"\n\r{this.FromDistance} {this.FromUnit} is {this.ToDistance:f2} {this.ToUnit}");
+        }
 
         /// <summary>
         /// Print out the heading of this App
