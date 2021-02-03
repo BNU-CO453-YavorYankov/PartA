@@ -4,12 +4,14 @@ namespace ConsoleAppProject.App01
 {
     /// <summary>
     /// This App version allows the user to convert distances measured in 
-    /// miles into feet and feet into miles, 
+    /// miles into feet and feet into miles,
+    /// miles into metres and metres into miles,
+    /// feet into metres and metres into feet,
     /// for example it will convert a distance measured in miles 
     /// into the same distance measured in feet.
     /// </summary>
     /// <author>
-    /// Yavor Yankov version 0.3.2
+    /// Yavor Yankov version 0.3.3
     /// </author>
     public class DistanceConverter
     {
@@ -68,24 +70,15 @@ namespace ConsoleAppProject.App01
         /// <summary>
         /// 1 foot is 0.000189394 miles
         /// </summary>
-        private const double FEET_IN_MILES = 0.000189394;
+        private const double FEET_IN_MILES = 0.00018939;
         /// <summary>
         /// 1 metre is 0.000621371 miles
         /// </summary>
-        private const double METRES_IN_MILES = 0.000621371;
+        private const double METRES_IN_MILES = 0.00062137;
         /// <summary>
         /// 1 metre is 3.28084 feet
         /// </summary>
         private const double METRES_IN_FEET = 3.28084;
-
-        /// <summary>
-        /// The constructor of this distance converter 
-        /// that invoke the run method.
-        /// </summary>
-        public DistanceConverter()
-        {
-            Run();
-        }
 
         /// <summary>
         /// Backing field for setting and retrieving the property value
@@ -114,9 +107,20 @@ namespace ConsoleAppProject.App01
         public DistanceUnits FromUnit { get; set; } = DistanceUnits.NoUnit;
 
         /// <summary>
+        /// Backing field for setting and retrieving the property value
+        /// </summary>
+        private double _toDistance;
+        /// <summary>
         /// The converted distance to chosen unit
         /// </summary>
-        public double ToDistance { get; set; }
+        public double ToDistance 
+        { 
+            get { return this._toDistance; }
+            set 
+            {
+                this._toDistance = Math.Round(value, 2);
+            }
+        }
 
         /// <summary>
         /// The unit that will be convered to
@@ -149,7 +153,7 @@ namespace ConsoleAppProject.App01
         /// <summary>
         /// This method allows the user to select a distance unit
         /// </summary>
-        private DistanceUnits SelectUnit()
+        public DistanceUnits SelectUnit()
         {
             var userChoice = 0;
 
@@ -188,7 +192,7 @@ namespace ConsoleAppProject.App01
         /// <summary>
         /// This method allows the user to input the distance to convert from
         /// </summary>
-        private void SetDistance()
+        public void SetDistance()
         {
             Console.Write($"\n\rPlease enter distance in {this.FromUnit} > ");
 
@@ -209,7 +213,7 @@ namespace ConsoleAppProject.App01
         /// <summary>
         /// Convert the distance from unit to anouther chosen unit by the user
         /// </summary>
-        private void ConvertDistance()
+        public void ConvertDistance()
         {
             if (this.FromUnit is DistanceUnits.Miles &&
                 this.ToUnit is DistanceUnits.Feet)
@@ -219,7 +223,7 @@ namespace ConsoleAppProject.App01
             else if (this.FromUnit is DistanceUnits.Miles &&
                     this.ToUnit is DistanceUnits.Metres)
             {
-                this.ToDistance = this.FromDistance * MILE_IN_METRES;
+                this.ToDistance = this.FromDistance / METRES_IN_MILES;
             }
             else if (this.FromUnit is DistanceUnits.Feet &&
                     this.ToUnit is DistanceUnits.Miles)
@@ -229,7 +233,7 @@ namespace ConsoleAppProject.App01
             else if (this.FromUnit is DistanceUnits.Feet &&
                     this.ToUnit is DistanceUnits.Metres)
             {
-                this.ToDistance = this.FromDistance * FEET_IN_METRES;
+                this.ToDistance = this.FromDistance / METRES_IN_FEET;
             }
             else if (this.FromUnit is DistanceUnits.Metres &&
                     this.ToUnit is DistanceUnits.Miles)
@@ -243,6 +247,9 @@ namespace ConsoleAppProject.App01
             }
         }
 
+        /// <summary>
+        /// Print out the converted distance
+        /// </summary>
         private void PrintResult()
         {
             Console.WriteLine(

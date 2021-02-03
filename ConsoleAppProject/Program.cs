@@ -13,6 +13,8 @@ namespace ConsoleAppProject
     /// </summary>
     public static class Program
     {
+        private static DistanceConverter converter;
+
         public static void Main(string[] args)
         {
             Console.ForegroundColor = ConsoleColor.Yellow;
@@ -27,7 +29,8 @@ namespace ConsoleAppProject
 
         private static void RunApp1()
         {
-            new DistanceConverter();
+            converter = new DistanceConverter();
+            converter.Run();
         }
     }
 }
