@@ -1,7 +1,8 @@
-﻿using System;
-
-namespace ConsoleAppProject.App01
+﻿namespace ConsoleAppProject.App01
 {
+    using System;
+    using static ConsoleAppProject.App01.Constants;
+
     /// <summary>
     /// This App version allows the user to convert distances measured in 
     /// miles into feet and feet into miles,
@@ -15,71 +16,6 @@ namespace ConsoleAppProject.App01
     /// </author>
     public class DistanceConverter
     {
-        /// <summary>
-        /// Print out this message when the user should select one of 3 options
-        /// </summary>
-        private const string SELECT_DIST_FROM_MSG =
-            "\n\rSelect distance unit to convert from >\n\r\n\r" +
-            "1. Feet\n\r2. Metres\n\r3. Miles\n\r\n\r";
-        /// <summary>
-        /// Print out this message when the user should select one of 3 options
-        /// </summary>
-        private const string SELECT_DIST_TO_MSG =
-            "\n\rSelect distance unit to convert to >\n\r\n\r" +
-            "1. Feet\n\r2. Metres\n\r3. Miles\n\r\n\r";
-        /// <summary>
-        /// Print out this message when the user should choose 
-        /// </summary>
-        private const string INPUT_CHOICE_MSG = "Please enter your choice > ";
-        /// <summary>
-        /// Print out this message when the user choice is invalid
-        /// </summary>
-        private const string INVALID_CHOICE_MSG = "\n\rInvalid choice!";
-        /// <summary>
-        /// Print out this message when the user select a distance unit
-        /// </summary>
-        private const string SELECTION_MSG = "\n\rYou have selected ";
-        /// <summary>
-        /// Print out this message when the distance is negative number
-        /// </summary>
-        private const string NEGATIVE_DISTANCE_MSG = "\n\rDistance cannot be less than zero!";
-        /// <summary>
-        /// User choice for feet
-        /// </summary>
-        private const int FEET = 1;
-        /// <summary>
-        /// User choice for metres
-        /// </summary>
-        private const int METRES = 2;
-        /// <summary>
-        /// User choice for miles
-        /// </summary>
-        private const int MILES = 3;
-        /// <summary>
-        /// 1 mile is 5280 feet
-        /// </summary>
-        private const double MILE_IN_FEET = 5280;
-        /// <summary>
-        /// 1 mile is 1609.34 metres
-        /// </summary>
-        private const double MILE_IN_METRES = 1609.34;
-        /// <summary>
-        /// 1 foot is 0.3048 metres
-        /// </summary>
-        private const double FEET_IN_METRES = 0.3048;
-        /// <summary>
-        /// 1 foot is 0.000189394 miles
-        /// </summary>
-        private const double FEET_IN_MILES = 0.00018939;
-        /// <summary>
-        /// 1 metre is 0.000621371 miles
-        /// </summary>
-        private const double METRES_IN_MILES = 0.00062137;
-        /// <summary>
-        /// 1 metre is 3.28084 feet
-        /// </summary>
-        private const double METRES_IN_FEET = 3.28084;
-
         /// <summary>
         /// Backing field for setting and retrieving the property value
         /// </summary>
@@ -113,10 +49,10 @@ namespace ConsoleAppProject.App01
         /// <summary>
         /// The converted distance to chosen unit
         /// </summary>
-        public double ToDistance 
-        { 
+        public double ToDistance
+        {
             get { return this._toDistance; }
-            set 
+            set
             {
                 this._toDistance = Math.Round(value, 2);
             }
@@ -135,13 +71,16 @@ namespace ConsoleAppProject.App01
         {
             PrintHeading();
 
-            Console.WriteLine(SELECT_DIST_FROM_MSG);
+            Console.WriteLine(SelectUnitMsg("from"));
             this.FromUnit = SelectUnit();
 
-            Console.WriteLine(SELECT_DIST_TO_MSG);
+            Console.WriteLine(SelectUnitMsg("to"));
             this.ToUnit = SelectUnit();
 
-            Console.WriteLine($"\n\rConverting from {this.FromUnit} to {this.ToUnit}");
+            Console.WriteLine(
+                ConvertMsg(
+                    this.FromUnit.ToString(),
+                    this.ToUnit.ToString()));
 
             SetDistance();
 
@@ -155,38 +94,33 @@ namespace ConsoleAppProject.App01
         /// </summary>
         public DistanceUnits SelectUnit()
         {
-            var userChoice = 0;
-
-            while (true)
+            try
             {
                 Console.Write(INPUT_CHOICE_MSG);
-                var success = int.TryParse(
-                    Console.ReadLine(),
-                    out userChoice);
+                var userChoice = Reader.ReadInteger;
 
-                if (success)
+                switch (userChoice)
                 {
-                    switch (userChoice)
-                    {
-                        case FEET:
-                            Console.WriteLine($"{SELECTION_MSG} Feet");
-                            return DistanceUnits.Feet;
-                        case METRES:
-                            Console.WriteLine($"{SELECTION_MSG} Metres");
-                            return DistanceUnits.Metres;
-                        case MILES:
-                            Console.WriteLine($"{SELECTION_MSG} Miles");
-                            return DistanceUnits.Miles;
-                        default:
-                            Console.WriteLine(INVALID_CHOICE_MSG);
-                            break;
-                    }
-                }
-                else
-                {
-                    Console.WriteLine(INVALID_CHOICE_MSG);
+                    case FEET:
+                        Console.WriteLine($"{SELECTION_MSG} Feet");
+                        return DistanceUnits.Feet;
+                    case METRES:
+                        Console.WriteLine($"{SELECTION_MSG} Metres");
+                        return DistanceUnits.Metres;
+                    case MILES:
+                        Console.WriteLine($"{SELECTION_MSG} Miles");
+                        return DistanceUnits.Miles;
+                    default:
+                        Console.WriteLine(INVALID_CHOICE_MSG);
+                        break;
                 }
             }
+            catch (Exception)
+            {
+                Console.WriteLine(INVALID_INPUT_MSG);
+                SelectUnit();
+            }
+            return DistanceUnits.NoUnit;
         }
 
         /// <summary>
@@ -194,18 +128,19 @@ namespace ConsoleAppProject.App01
         /// </summary>
         public void SetDistance()
         {
-            Console.Write($"\n\rPlease enter distance in {this.FromUnit} > ");
+            Console.Write(EnterDistMsg(this.FromUnit.ToString()));
 
             try
             {
-                this.FromDistance = double.Parse(Console.ReadLine());
+                this.FromDistance = Reader.ReadDouble;
             }
             catch (Exception e)
             {
                 if (e.Message != NEGATIVE_DISTANCE_MSG)
-                    Console.WriteLine("\n\rInvalid input!");
+                    Console.WriteLine(INVALID_INPUT_MSG);
                 else
                     Console.WriteLine(e.Message);
+
                 SetDistance();
             }
         }
