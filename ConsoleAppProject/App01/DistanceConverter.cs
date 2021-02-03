@@ -9,7 +9,7 @@ namespace ConsoleAppProject.App01
     /// into the same distance measured in feet.
     /// </summary>
     /// <author>
-    /// Yavor Yankov version 0.3.0
+    /// Yavor Yankov version 0.3.2
     /// </author>
     public class DistanceConverter
     {
@@ -37,6 +37,10 @@ namespace ConsoleAppProject.App01
         /// Print out this message when the user select a distance unit
         /// </summary>
         private const string SELECTION_MSG = "\n\rYou have selected ";
+        /// <summary>
+        /// Print out this message when the distance is negative number
+        /// </summary>
+        private const string NEGATIVE_DISTANCE_MSG = "\n\rDistance cannot be less than zero!";
         /// <summary>
         /// User choice for feet
         /// </summary>
@@ -68,9 +72,25 @@ namespace ConsoleAppProject.App01
         }
 
         /// <summary>
+        /// Backing field for setting and retrieving the property value
+        /// </summary>
+        private double _fromDistance;
+        /// <summary>
         /// The amount of distance that will be converted
         /// </summary>
-        public double FromDistance { get; set; }
+        public double FromDistance 
+        {
+            get { return this._fromDistance; }
+            set 
+            {
+                
+                if (value < 0)
+                {
+                    throw new ArgumentException(NEGATIVE_DISTANCE_MSG);
+                }
+                _fromDistance = value;
+            } 
+        }
 
         /// <summary>
         /// The unit that will be convered from 
@@ -101,6 +121,12 @@ namespace ConsoleAppProject.App01
             
             Console.WriteLine(SELECT_DIST_TO_MSG);
             this.ToUnit = SelectUnit();
+
+            Console.WriteLine($"\n\rConverting from {this.FromUnit} to {this.ToUnit}");
+
+            SetDistance();
+
+            //CalculateDistance();
         }
 
         /// <summary>
@@ -108,9 +134,8 @@ namespace ConsoleAppProject.App01
         /// </summary>
         private DistanceUnits SelectUnit()
         {
-            
-
             var userChoice = 0;
+
             while (true)
             {
                 Console.Write(INPUT_CHOICE_MSG);
@@ -143,37 +168,26 @@ namespace ConsoleAppProject.App01
             }
         }
 
-        ///// <summary>
-        ///// Read and convert the user input in miles unit.
-        ///// </summary>
-        //private void InputMiles()
-        //{
-        //    try
-        //    {
-        //        Console.Write("Input miles: ");
-        //        SetMiles(double.Parse(Console.ReadLine()));
-        //    }
-        //    catch (Exception)
-        //    {
-        //        Console.WriteLine("Invalid input!");
-        //    }
-        //}
-
-        ///// <summary>
-        ///// Read and convert the user input.
-        ///// </summary>
-        //private void InputFeet()
-        //{
-        //    try
-        //    {
-        //        Console.Write("Input feet: ");
-        //        SetFeet(double.Parse(Console.ReadLine()));
-        //    }
-        //    catch (Exception)
-        //    {
-        //        Console.WriteLine("Invalid input!");
-        //    }
-        //}
+        /// <summary>
+        /// This method allows the user to input the distance to convert from
+        /// </summary>
+        private void SetDistance() 
+        {
+            Console.Write($"Please enter distance in {this.FromUnit} > ");
+           
+            try
+            {
+                this.FromDistance = double.Parse(Console.ReadLine());
+            }
+            catch (Exception e)
+            {
+                if(e.Message != NEGATIVE_DISTANCE_MSG) 
+                    Console.WriteLine("\n\rInvalid input!");
+                else 
+                    Console.WriteLine(e.Message);
+                SetDistance();
+            }
+        }
 
         ///// <summary>
         ///// Check is the user input less than zero if true print out error msg,
