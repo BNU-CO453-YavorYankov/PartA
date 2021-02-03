@@ -128,10 +128,9 @@
         /// </summary>
         public void SetDistance()
         {
-            Console.Write(EnterDistMsg(this.FromUnit.ToString()));
-
             try
             {
+                Console.Write(EnterDistMsg(this.FromUnit.ToString()));
                 this.FromDistance = Reader.ReadDouble;
             }
             catch (Exception e)

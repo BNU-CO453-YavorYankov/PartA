@@ -1,8 +1,11 @@
-using ConsoleAppProject.App01;
-using NUnit.Framework;
-
 namespace ConsoleApp.Tests
 {
+    using ConsoleAppProject.App01;
+    using NUnit.Framework;
+    using System;
+    using System.IO;
+    using static ConsoleAppProject.App01.Constants;
+
     public class DistanceConverterTests
     {
         private DistanceConverter converter;
@@ -101,6 +104,17 @@ namespace ConsoleApp.Tests
 
             //Assert
             Assert.That(converter.ToDistance, Is.EqualTo(3280.84));
+        }
+
+        [Test]
+        public void InvalidDistanceValueShouldThrowException()
+        {
+            //Assert
+            Assert.Throws<ArgumentException>(() =>
+            {
+                //Act
+                converter.FromDistance = -24.54;
+            }, NEGATIVE_DISTANCE_MSG);
         }
     }
 }
