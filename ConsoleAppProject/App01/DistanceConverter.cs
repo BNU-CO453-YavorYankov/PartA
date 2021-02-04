@@ -69,24 +69,27 @@
         /// </summary>
         public void Run()
         {
-            PrintHeading();
+            while (true)
+            {
+                PrintHeading();
 
-            Console.WriteLine(SelectUnitMsg("from"));
-            this.FromUnit = SelectUnit();
+                Console.WriteLine(SelectUnitMsg("from"));
+                this.FromUnit = SelectUnit();
 
-            Console.WriteLine(SelectUnitMsg("to"));
-            this.ToUnit = SelectUnit();
+                Console.WriteLine(SelectUnitMsg("to"));
+                this.ToUnit = SelectUnit();
 
-            Console.WriteLine(
-                ConvertMsg(
-                    this.FromUnit.ToString(),
-                    this.ToUnit.ToString()));
+                Console.WriteLine(
+                    ConvertMsg(
+                        this.FromUnit.ToString(),
+                        this.ToUnit.ToString()));
 
-            SetDistance();
+                SetDistance();
 
-            ConvertDistance();
+                ConvertDistance();
 
-            PrintResult();
+                PrintResult();
+            }
         }
 
         /// <summary>
@@ -94,33 +97,34 @@
         /// </summary>
         public DistanceUnits SelectUnit()
         {
-            try
+            while (true)
             {
-                Console.Write(INPUT_CHOICE_MSG);
-                var userChoice = Reader.ReadInteger;
-
-                switch (userChoice)
+                try
                 {
-                    case FEET:
-                        Console.WriteLine($"{SELECTION_MSG} Feet");
-                        return DistanceUnits.Feet;
-                    case METRES:
-                        Console.WriteLine($"{SELECTION_MSG} Metres");
-                        return DistanceUnits.Metres;
-                    case MILES:
-                        Console.WriteLine($"{SELECTION_MSG} Miles");
-                        return DistanceUnits.Miles;
-                    default:
-                        Console.WriteLine(INVALID_CHOICE_MSG);
-                        break;
+                    Console.Write(INPUT_CHOICE_MSG);
+                    var userChoice = Reader.ReadInteger;
+
+                    switch (userChoice)
+                    {
+                        case FEET:
+                            Console.WriteLine($"{SELECTION_MSG} Feet");
+                            return DistanceUnits.Feet;
+                        case METRES:
+                            Console.WriteLine($"{SELECTION_MSG} Metres");
+                            return DistanceUnits.Metres;
+                        case MILES:
+                            Console.WriteLine($"{SELECTION_MSG} Miles");
+                            return DistanceUnits.Miles;
+                        default:
+                            Console.WriteLine(INVALID_CHOICE_MSG);
+                            break;
+                    }
+                }
+                catch (Exception)
+                {
+                    Console.WriteLine(INVALID_INPUT_MSG);
                 }
             }
-            catch (Exception)
-            {
-                Console.WriteLine(INVALID_INPUT_MSG);
-                SelectUnit();
-            }
-            return DistanceUnits.NoUnit;
         }
 
         /// <summary>
