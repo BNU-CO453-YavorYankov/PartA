@@ -1,6 +1,7 @@
 ﻿namespace ConsoleAppProject.App01
 {
     using System;
+    using System.ComponentModel;
     using static ConsoleAppProject.App01.Constants;
 
     /// <summary>
@@ -49,6 +50,7 @@
         /// <summary>
         /// The converted distance to chosen unit
         /// </summary>
+        [DefaultValue(0.00d)]
         public double ToDistance
         {
             get { return this._toDistance; }
