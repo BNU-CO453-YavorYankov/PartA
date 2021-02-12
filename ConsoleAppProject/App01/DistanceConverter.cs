@@ -21,6 +21,8 @@
         /// Backing field for setting and retrieving the property value
         /// </summary>
         private double _fromDistance;
+        
+        [DisplayName("From Distance")]
         /// <summary>
         /// The amount of distance that will be converted
         /// </summary>
@@ -37,6 +39,7 @@
             }
         }
 
+        [DisplayName("From Unit")]
         /// <summary>
         /// The unit that will be convered from 
         /// Its default value is no unit
@@ -47,10 +50,11 @@
         /// Backing field for setting and retrieving the property value
         /// </summary>
         private double _toDistance;
+        
+        [DefaultValue(0.00d), DisplayName("To Distance")]
         /// <summary>
         /// The converted distance to chosen unit
         /// </summary>
-        [DefaultValue(0.00d)]
         public double ToDistance
         {
             get { return this._toDistance; }
@@ -60,6 +64,7 @@
             }
         }
 
+        [DisplayName("To Unit")]
         /// <summary>
         /// The unit that will be convered to
         /// Its default value is no unit

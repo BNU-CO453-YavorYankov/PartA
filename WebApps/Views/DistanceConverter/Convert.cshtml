@@ -1,0 +1,55 @@
+﻿@using ConsoleAppProject.App01;
+
+@model ConsoleAppProject.App01.DistanceConverter
+@{
+    ViewData["Title"] = "Distance Converter";
+}
+
+<h1>Distance Converter</h1>
+
+<div class="container" style="margin-top: 5%">
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <form asp-action="Convert" method="post" id="form">
+                @if (TempData["error"] != null)
+                {
+                    <span class="btn btn-danger">@TempData["error"].ToString()</span>
+                }
+                <div class="form-group">
+                    <label asp-for="FromUnit"></label><br />
+                    <select asp-for="FromUnit" asp-items="Html.GetEnumSelectList<DistanceUnits>()">
+                        <option selected="selected" value="">Please select</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ToUnit"></label><br />
+                    <select asp-for="ToUnit" asp-items="Html.GetEnumSelectList<DistanceUnits>()">
+                        <option selected="selected" value="">Please select</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label asp-for="FromDistance"></label><br />
+                    <input asp-for="FromDistance" type="text" /><br />
+                </div>
+                <div class="form-group">
+                    <input type="submit" class="btn btn-primary" value="Convert" />
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            @if (TempData["result"] != null)
+            {
+                <label>Result</label><br />
+                <input type="text" placeholder="@TempData["result"].ToString()" readonly>
+            }
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
