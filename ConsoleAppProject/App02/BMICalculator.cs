@@ -1,6 +1,9 @@
 ﻿namespace ConsoleAppProject.App02
 {
-    using static ConsoleAppProject.Constants.BMICalculator;
+    using System;
+
+    using static Constants.Common;
+    using static Constants.BMICalculator;
 
     /// <summary>
     /// Body Mass Index, is a measure of the weight compared to the height of one person.
@@ -17,7 +20,11 @@
     /// <version>1.0</version>
     public class BMICalculator
     {
-
+        /// <summary>
+        /// The unit that would be imperial or metric.
+        /// </summary>
+        public UnitTypes UnitType { get; set; } = default;
+        
         /// <summary>
         /// This method runs the app
         /// </summary>
@@ -25,7 +32,44 @@
         {
             Helper.PrintHeading(PROGRAM_NAME, DESCRIPTION);
 
+            SelectUnit();
+        }
 
+        /// <summary>
+        /// User should input 1 or 2 in order to choose unit type
+        /// </summary>
+        public void SelectUnit()
+        {
+            Console.WriteLine(SELECT_UNIT_MSG);
+
+            int userChoice = default;
+
+            while (UnitType == default)
+            {
+                try
+                {
+                    Console.Write(INPUT_CHOICE_MSG);
+                    userChoice = Reader.ReadInteger;
+
+                    switch (userChoice)
+                    {
+                        case 1:
+                            this.UnitType = UnitTypes.Imperial;
+                            break;
+                        case 2:
+                            this.UnitType = UnitTypes.Metric;
+                            break;
+                        default:
+                            Console.WriteLine(INVALID_CHOICE_MSG);
+                            break;
+                    }
+                }
+                catch (Exception)
+                {
+                    Console.WriteLine(INVALID_INPUT_MSG);
+                }
+            }
+            Console.WriteLine(SelectedUnitMsg(this.UnitType.ToString()));
         }
     }
 }

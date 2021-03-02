@@ -1,4 +1,6 @@
-﻿namespace ConsoleAppProject
+﻿using System.Text;
+
+namespace ConsoleAppProject
 {
     /// <summary>
     /// This is a wrapping class of all nested class responsible for constants for each app
@@ -8,14 +10,14 @@
     public static class Constants
     {
         /// <summary>
-        /// This class keeps all constants of Distance Converter program
+        /// This class keeps all constants that are used in more than one program
         /// </summary>
-        public static class DistanceConverter
+        public static class Common 
         {
             /// <summary>
-            /// The name of this app
+            /// Print out this message when the user choice is invalid
             /// </summary>
-            public const string PROGRAM_NAME = "Distance Converter";
+            public const string INVALID_CHOICE_MSG = "\n\rInvalid choice!";
             /// <summary>
             ///  Print out this message when the user input is not valid in a given context
             /// </summary>
@@ -25,13 +27,21 @@
             /// </summary>
             public const string INPUT_CHOICE_MSG = "Please enter your choice > ";
             /// <summary>
-            /// Print out this message when the user choice is invalid
-            /// </summary>
-            public const string INVALID_CHOICE_MSG = "\n\rInvalid choice!";
-            /// <summary>
             /// Print out this message when the user select a distance unit
             /// </summary>
             public const string SELECTION_MSG = "\n\rYou have selected ";
+        }
+
+
+        /// <summary>
+        /// This class keeps all constants of Distance Converter program
+        /// </summary>
+        public static class DistanceConverter
+        {
+            /// <summary>
+            /// The name of this app
+            /// </summary>
+            public const string PROGRAM_NAME = "Distance Converter";
             /// <summary>
             /// Print out this message when the distance is negative number
             /// </summary>
@@ -122,6 +132,38 @@
                 "2. Pregnant women\n\r" +
                 "3. Muscle Builders\n\r" +
                 "4. BAME: Black, Asian and other minority ethnic groups.\n\r";
+            /// <summary>
+            /// Print out this message when the user choose unit type
+            /// </summary>
+            public const string SELECT_UNIT_MSG = "Please choose an unit type:\n\r" +
+                "1. Imperial (weight in stones and pounds, height in feet and inches)\n\r" +
+                "2. Metric (weight in Kg, and height in metres)\n\r";
+
+            /// <summary>
+            /// Print out this message when the user already selected an unit type
+            /// </summary>
+            /// <param name="unitType">Unit type can be Imperial and Metric</param>
+            /// <returns>Message</returns>
+            public static string SelectedUnitMsg(string unitType) 
+            {
+                var stringBuilder = new StringBuilder();
+                
+                stringBuilder.Append($"Selected {unitType.ToLower()} unit.\n\r");
+                
+                switch (unitType)
+                {
+                    case "Imperial":
+                        stringBuilder.Append(" - weight in stone and pounds\n\r");
+                        stringBuilder.Append(" - height in feet and inches\n\r");
+                        break;
+                    case "Metric":
+                        stringBuilder.Append(" - weight in kg\n\r");
+                        stringBuilder.Append(" - height in metres\n\r");
+                        break;
+                }
+
+                return stringBuilder.ToString();
+            }
         }
     }
 }

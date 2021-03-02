@@ -6,7 +6,7 @@
     /// <author>Yavor Yankov</author>
     public enum UnitTypes
     {
-        Imperial = 0,
-        Metric = 1
+        Imperial = 1,
+        Metric = 2
     }
 }
