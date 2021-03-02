@@ -2,7 +2,8 @@
 {
     using System;
     using System.ComponentModel;
-    using static ConsoleAppProject.App01.Constants;
+
+    using static Constants.DistanceConverter;
 
     /// <summary>
     /// This App version allows the user to convert distances measured in 
@@ -78,7 +79,7 @@
         {
             while (true)
             {
-                PrintHeading();
+                Helper.PrintHeading(PROGRAM_NAME, null);
 
                 Console.WriteLine(SelectUnitMsg("from"));
                 this.FromUnit = SelectUnit();
@@ -199,17 +200,6 @@
         {
             Console.WriteLine(
                 $"\n\r{this.FromDistance} {this.FromUnit} is {this.ToDistance:f2} {this.ToUnit}");
-        }
-
-        /// <summary>
-        /// Print out the heading of this App
-        /// </summary>
-        private void PrintHeading()
-        {
-            Console.WriteLine("--------------------------------------\n\r" +
-                              "           Distance Converter         \n\r" +
-                              "            by Yavor Yankov           \n\r" +
-                              "--------------------------------------\n\r");
         }
     }
 }
