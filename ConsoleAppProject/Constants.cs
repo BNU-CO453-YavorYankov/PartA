@@ -1,5 +1,10 @@
 ﻿namespace ConsoleAppProject
 {
+    /// <summary>
+    /// This is a wrapping class of all nested class responsible for constants for each app
+    /// </summary>
+    /// <author>Yavor Yankov</author>
+    /// <version>2.0</version>
     public static class Constants
     {
         /// <summary>
@@ -91,6 +96,32 @@
             /// <returns></returns>
             public static string EnterDistMsg(string fromUnit)
                 => $"\n\rPlease enter distance in {fromUnit} > ";
+        }
+
+        /// <summary>
+        /// This class keeps all constants of BMI Calculator program
+        /// </summary>
+        public static class BMICalculator 
+        {
+            /// <summary>
+            /// The name of this app
+            /// </summary>
+            public const string PROGRAM_NAME = "Body Mass Index Calculator";
+            /// <summary>
+            /// The description of this app
+            /// </summary>
+            public const string DESCRIPTION = "Your BMI, or Body Mass Index, is a measure of your weight compared to your height.\n\r" +
+                "Accurate assessments of obesity are important, as being overweight or obese significantly increases \n\r" +
+                "your risk of a variety of medical conditions including type 2 diabetes, heart disease and cancer.\n\r" +
+                "\n\r" +
+                "For most adults, BMI gives a good estimate of your weight-related health risks. If your BMI is\n\r" +
+                "over 35, your weight is definitely putting your health at risk, regardless of the factors below.\n\r" +
+                "However, there are some situations where BMI may underestimate or overestimate these risks in\n\r" +
+                "the 25-35 BMI range. The main ones are:\n\r" +
+                "1. Children \n\r" +
+                "2. Pregnant women\n\r" +
+                "3. Muscle Builders\n\r" +
+                "4. BAME: Black, Asian and other minority ethnic groups.\n\r";
         }
     }
 }
