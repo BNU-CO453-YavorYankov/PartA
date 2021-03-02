@@ -164,6 +164,54 @@ namespace ConsoleAppProject
 
                 return stringBuilder.ToString();
             }
+
+            /// <summary>
+            /// Print out this message when the user should input its weight
+            /// </summary>
+            /// <param name="unitType">Unit type can be Imperial and Metric</param>
+            /// <returns>Message</returns>
+            public static string InputWeightMsg(string unitType)
+            {
+                var stringBuilder = new StringBuilder();
+
+                stringBuilder.Append($"Please enter your weight in ");
+
+                switch (unitType)
+                {
+                    case "Imperial":
+                        stringBuilder.Append(" stones and pounds >");
+                        break;
+                    case "Metric":
+                        stringBuilder.Append(" kg >");
+                        break;
+                }
+
+                return stringBuilder.ToString();
+            }
+
+            /// <summary>
+            /// Print out this message when the user should input its height
+            /// </summary>
+            /// <param name="unitType">Unit type can be Imperial and Metric</param>
+            /// <returns>Message</returns>
+            public static string InputHeightMsg(string unitType)
+            {
+                var stringBuilder = new StringBuilder();
+
+                stringBuilder.Append($"Please enter your height in ");
+
+                switch (unitType)
+                {
+                    case "Imperial":
+                        stringBuilder.Append(" feet and inches >");
+                        break;
+                    case "Metric":
+                        stringBuilder.Append(" metres >");
+                        break;
+                }
+
+                return stringBuilder.ToString();
+            }
         }
     }
 }

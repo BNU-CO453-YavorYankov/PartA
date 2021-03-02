@@ -26,6 +26,16 @@
         public UnitTypes UnitType { get; set; } = default;
         
         /// <summary>
+        /// weight of the user
+        /// </summary>
+        public double Weight { get; set; }
+        
+        /// <summary>
+        /// height of the user
+        /// </summary>
+        public double Height { get; set; }
+
+        /// <summary>
         /// This method runs the app
         /// </summary>
         public void Run()
