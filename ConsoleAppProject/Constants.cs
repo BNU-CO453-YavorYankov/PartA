@@ -187,10 +187,10 @@ namespace ConsoleAppProject
                 switch (unitType)
                 {
                     case "Imperial":
-                        stringBuilder.Append(" stones and pounds > ");
+                        stringBuilder.Append("stones and pounds > ");
                         break;
                     case "Metric":
-                        stringBuilder.Append(" kg > ");
+                        stringBuilder.Append("kg > ");
                         break;
                 }
 
@@ -211,10 +211,10 @@ namespace ConsoleAppProject
                 switch (unitType)
                 {
                     case "Imperial":
-                        stringBuilder.Append(" feet and inches > ");
+                        stringBuilder.Append("feet and inches > ");
                         break;
                     case "Metric":
-                        stringBuilder.Append(" metres > ");
+                        stringBuilder.Append("metres > ");
                         break;
                 }
 

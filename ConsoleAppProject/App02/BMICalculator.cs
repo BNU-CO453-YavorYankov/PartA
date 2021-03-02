@@ -111,9 +111,32 @@
             }
         }
 
+        /// <summary>
+        /// This method reads the user input and store it in the height prop.
+        /// </summary>
         private void InputHeight()
         {
-            throw new NotImplementedException();
+            while (this.Height == default)
+            {
+                try
+                {
+                    Console.Write(InputHeightMsg(this.UnitType.ToString()));
+                    var userHeight = Reader.ReadDouble;
+
+                    if (userHeight <= 0)
+                    {
+                        Console.WriteLine(NEGATIVE_HEIGHT_MSG);
+                    }
+                    else
+                    {
+                        this.Height = userHeight;
+                    }
+                }
+                catch (Exception)
+                {
+                    Console.WriteLine(INVALID_INPUT_MSG);
+                }
+            }
         }
     }
 }
