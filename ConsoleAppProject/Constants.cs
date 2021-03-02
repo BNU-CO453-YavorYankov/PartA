@@ -12,7 +12,7 @@ namespace ConsoleAppProject
         /// <summary>
         /// This class keeps all constants that are used in more than one program
         /// </summary>
-        public static class Common 
+        public static class Common
         {
             /// <summary>
             /// Print out this message when the user choice is invalid
@@ -89,7 +89,7 @@ namespace ConsoleAppProject
                     "\n\r1. Feet" +
                     "\n\r2. Metres" +
                     "\n\r3. Miles";
-            
+
             /// <summary>
             /// Print out this message after two units are selected
             /// </summary>
@@ -98,7 +98,7 @@ namespace ConsoleAppProject
             /// <returns></returns>
             public static string ConvertMsg(string fromUnit, string toUnit)
                 => $"\n\rConverting from {fromUnit} to {toUnit}";
-            
+
             /// <summary>
             ///  Print out this message when the user should enter distance
             /// </summary>
@@ -111,7 +111,7 @@ namespace ConsoleAppProject
         /// <summary>
         /// This class keeps all constants of BMI Calculator program
         /// </summary>
-        public static class BMICalculator 
+        public static class BMICalculator
         {
             /// <summary>
             /// The name of this app
@@ -138,18 +138,26 @@ namespace ConsoleAppProject
             public const string SELECT_UNIT_MSG = "Please choose an unit type:\n\r" +
                 "1. Imperial (weight in stones and pounds, height in feet and inches)\n\r" +
                 "2. Metric (weight in Kg, and height in metres)\n\r";
+            /// <summary>
+            /// Print out this message when the weight is negative number
+            /// </summary>
+            public const string NEGATIVE_WEIGHT_MSG = "Weight cannot be less than or equal to zero!\n\r";
+            /// <summary>
+            /// Print out this message when the height is negative number
+            /// </summary>
+            public const string NEGATIVE_HEIGHT_MSG = "Height cannot be less than or equal to zero!\n\r";
 
             /// <summary>
             /// Print out this message when the user already selected an unit type
             /// </summary>
             /// <param name="unitType">Unit type can be Imperial and Metric</param>
             /// <returns>Message</returns>
-            public static string SelectedUnitMsg(string unitType) 
+            public static string SelectedUnitMsg(string unitType)
             {
                 var stringBuilder = new StringBuilder();
-                
+
                 stringBuilder.Append($"Selected {unitType.ToLower()} unit.\n\r");
-                
+
                 switch (unitType)
                 {
                     case "Imperial":
@@ -179,10 +187,10 @@ namespace ConsoleAppProject
                 switch (unitType)
                 {
                     case "Imperial":
-                        stringBuilder.Append(" stones and pounds >");
+                        stringBuilder.Append(" stones and pounds > ");
                         break;
                     case "Metric":
-                        stringBuilder.Append(" kg >");
+                        stringBuilder.Append(" kg > ");
                         break;
                 }
 
@@ -203,10 +211,10 @@ namespace ConsoleAppProject
                 switch (unitType)
                 {
                     case "Imperial":
-                        stringBuilder.Append(" feet and inches >");
+                        stringBuilder.Append(" feet and inches > ");
                         break;
                     case "Metric":
-                        stringBuilder.Append(" metres >");
+                        stringBuilder.Append(" metres > ");
                         break;
                 }
 

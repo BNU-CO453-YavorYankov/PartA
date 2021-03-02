@@ -24,16 +24,16 @@
         /// The unit that would be imperial or metric.
         /// </summary>
         public UnitTypes UnitType { get; set; } = default;
-        
+
         /// <summary>
         /// weight of the user
         /// </summary>
-        public double Weight { get; set; }
-        
+        public double Weight { get; set; } = default;
+
         /// <summary>
         /// height of the user
         /// </summary>
-        public double Height { get; set; }
+        public double Height { get; set; } = default;
 
         /// <summary>
         /// This method runs the app
@@ -43,6 +43,9 @@
             Helper.PrintHeading(PROGRAM_NAME, DESCRIPTION);
 
             SelectUnit();
+
+            InputWeight();
+            InputHeight();
         }
 
         /// <summary>
@@ -51,15 +54,13 @@
         public void SelectUnit()
         {
             Console.WriteLine(SELECT_UNIT_MSG);
-
-            int userChoice = default;
-
-            while (UnitType == default)
+            
+            while (this.UnitType == default)
             {
                 try
                 {
                     Console.Write(INPUT_CHOICE_MSG);
-                    userChoice = Reader.ReadInteger;
+                    var userChoice = Reader.ReadInteger;
 
                     switch (userChoice)
                     {
@@ -80,6 +81,39 @@
                 }
             }
             Console.WriteLine(SelectedUnitMsg(this.UnitType.ToString()));
+        }
+
+        /// <summary>
+        /// This method reads the user input and store it in the weight prop.
+        /// </summary>
+        private void InputWeight() 
+        {
+            while (this.Weight == default)
+            {
+                try
+                {
+                    Console.Write(InputWeightMsg(this.UnitType.ToString()));
+                    var userWeight = Reader.ReadDouble;
+
+                    if (userWeight<=0)
+                    {
+                        Console.WriteLine(NEGATIVE_WEIGHT_MSG);
+                    }
+                    else
+                    {
+                        this.Weight = userWeight;
+                    }
+                }
+                catch (Exception)
+                {
+                    Console.WriteLine(INVALID_INPUT_MSG);
+                }
+            }
+        }
+
+        private void InputHeight()
+        {
+            throw new NotImplementedException();
         }
     }
 }
