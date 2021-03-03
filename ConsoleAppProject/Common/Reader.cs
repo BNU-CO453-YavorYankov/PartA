@@ -1,4 +1,4 @@
-﻿namespace ConsoleAppProject
+﻿namespace ConsoleAppProject.Common
 {
     using System;
 

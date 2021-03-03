@@ -2,9 +2,10 @@
 {
     using System;
     using System.ComponentModel;
+    using ConsoleAppProject.Common;
 
-    using static Constants.Common;
-    using static Constants.DistanceConverter;
+    using static Common.Constants.Common;
+    using static Common.Constants.DistanceConverter;
 
     /// <summary>
     /// This App version allows the user to convert distances measured in 
@@ -17,7 +18,7 @@
     /// <author>
     /// Yavor Yankov version 0.3.3
     /// </author>
-    public class DistanceConverter
+    public class DistanceConverter : IApplication
     {
         /// <summary>
         /// Backing field for setting and retrieving the property value

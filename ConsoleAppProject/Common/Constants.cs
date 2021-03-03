@@ -1,7 +1,7 @@
-﻿using System.Text;
-
-namespace ConsoleAppProject
+﻿namespace ConsoleAppProject.Common
 {
+    using System.Text;
+    
     /// <summary>
     /// This is a wrapping class of all nested class responsible for constants for each app
     /// </summary>

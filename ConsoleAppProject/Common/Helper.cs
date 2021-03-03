@@ -1,7 +1,7 @@
-﻿using System;
-
-namespace ConsoleAppProject
+﻿namespace ConsoleAppProject.Common
 {
+    using System;
+    
     /// <summary>
     /// Helper class is responsible for keeping methods 
     /// that are used in more than one App

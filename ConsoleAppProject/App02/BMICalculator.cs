@@ -1,9 +1,10 @@
 ﻿namespace ConsoleAppProject.App02
 {
     using System;
+    using ConsoleAppProject.Common;
 
-    using static Constants.Common;
-    using static Constants.BMICalculator;
+    using static Common.Constants.Common;
+    using static Common.Constants.BMICalculator;
 
     /// <summary>
     /// Body Mass Index, is a measure of the weight compared to the height of one person.
@@ -18,7 +19,7 @@
     /// Yavor Yankov 
     /// </author>
     /// <version>1.0</version>
-    public class BMICalculator
+    public class BMICalculator : IApplication
     {
         /// <summary>
         /// The unit that would be imperial or metric.
@@ -78,6 +79,8 @@
         /// </summary>
         public string WeightStatus{ get; set; }
 
+        public string Result => throw new NotImplementedException();
+
         /// <summary>
         /// This method runs the app
         /// </summary>
@@ -102,7 +105,7 @@
 
             SetWeightStatus();
 
-            //PrintResult();
+            Helper.PrintResult(this.Result);
         }
 
         /// <summary>
