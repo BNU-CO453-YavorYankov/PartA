@@ -146,6 +146,22 @@ namespace ConsoleAppProject
             /// Print out this message when the height is negative number
             /// </summary>
             public const string NEGATIVE_HEIGHT_MSG = "Height cannot be less than or equal to zero!\n\r";
+            /// <summary>
+            /// Print out this message when the user should input its weight
+            /// </summary>
+            public const string INPUT_WEIGHT_MSG = "Please enter your weight in ";
+            /// <summary>
+            /// Print out this message when the user should input its height
+            /// </summary>
+            public const string INPUT_HEIGHT_MSG = "Please enter your height in ";
+            /// <summary>
+            /// 1 stone is 14 pounds
+            /// </summary>
+            public const int STONE_TO_POUNDS = 14;
+            /// <summary>
+            /// 1 foot is 12 inches
+            /// </summary>
+            public const int FOOT_TO_INCHES = 12;
 
             /// <summary>
             /// Print out this message when the user already selected an unit type
@@ -167,54 +183,6 @@ namespace ConsoleAppProject
                     case "Metric":
                         stringBuilder.Append(" - weight in kg\n\r");
                         stringBuilder.Append(" - height in metres\n\r");
-                        break;
-                }
-
-                return stringBuilder.ToString();
-            }
-
-            /// <summary>
-            /// Print out this message when the user should input its weight
-            /// </summary>
-            /// <param name="unitType">Unit type can be Imperial and Metric</param>
-            /// <returns>Message</returns>
-            public static string InputWeightMsg(string unitType)
-            {
-                var stringBuilder = new StringBuilder();
-
-                stringBuilder.Append($"Please enter your weight in ");
-
-                switch (unitType)
-                {
-                    case "Imperial":
-                        stringBuilder.Append("stones and pounds > ");
-                        break;
-                    case "Metric":
-                        stringBuilder.Append("kg > ");
-                        break;
-                }
-
-                return stringBuilder.ToString();
-            }
-
-            /// <summary>
-            /// Print out this message when the user should input its height
-            /// </summary>
-            /// <param name="unitType">Unit type can be Imperial and Metric</param>
-            /// <returns>Message</returns>
-            public static string InputHeightMsg(string unitType)
-            {
-                var stringBuilder = new StringBuilder();
-
-                stringBuilder.Append($"Please enter your height in ");
-
-                switch (unitType)
-                {
-                    case "Imperial":
-                        stringBuilder.Append("feet and inches > ");
-                        break;
-                    case "Metric":
-                        stringBuilder.Append("metres > ");
                         break;
                 }
 

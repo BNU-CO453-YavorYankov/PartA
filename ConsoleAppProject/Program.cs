@@ -40,7 +40,6 @@
 
         /// <summary>
         /// Initialise the distance converter and invoke the run method.
-        /// Also, prints out the heading for particular app.
         /// </summary>
         private static void RunApp1()
         {
@@ -50,7 +49,6 @@
 
         /// <summary>
         /// Initialise the BMI calculator and invoke the run method.
-        /// Also, prints out the heading for particular app.
         /// </summary>
         private static void RunApp2()
         {
