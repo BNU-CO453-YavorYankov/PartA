@@ -73,6 +73,12 @@
         public double BodyMassIndex { get; set; } = default;
 
         /// <summary>
+        /// the weight status of the user according to
+        /// World Health Organisation
+        /// </summary>
+        public string WeightStatus{ get; set; }
+
+        /// <summary>
         /// This method runs the app
         /// </summary>
         public void Run()
@@ -93,6 +99,42 @@
             }
 
             CalculateBMI();
+
+            SetWeightStatus();
+
+            //PrintResult();
+        }
+
+        /// <summary>
+        /// Sets the weight status based on BMI value. 
+        /// The weight status is according to the World Health Organisation
+        /// </summary>
+        private void SetWeightStatus()
+        {
+            if (this.BodyMassIndex < 18.5)
+            {
+                this.WeightStatus = UNDERWEIGHT;
+            }
+            else if (this.BodyMassIndex >= 18.5 && this.BodyMassIndex <= 24.9)
+            {
+                this.WeightStatus = NORMAL;
+            }
+            else if (this.BodyMassIndex >= 25 && this.BodyMassIndex <= 29.9)
+            {
+                this.WeightStatus = OVERWEIGHT;
+            }
+            else if (this.BodyMassIndex >= 30 && this.BodyMassIndex <= 34.9)
+            {
+                this.WeightStatus = OBESE_CLASS_I;
+            }
+            else if (this.BodyMassIndex >= 35 && this.BodyMassIndex <= 39.9)
+            {
+                this.WeightStatus = OBESE_CLASS_II;
+            }
+            else if (this.BodyMassIndex >= 40)
+            {
+                this.WeightStatus = OBESE_CLASS_III;
+            }
         }
 
         /// <summary>
@@ -216,7 +258,7 @@
         private void InputHeightInImperialUnits()
         {
             double userWeight = default;
-            
+
             while (this.HeightInFeet == default)
             {
                 try
@@ -241,7 +283,7 @@
             }
 
             userWeight = default;
-            
+
             while (this.HeightInInches == default)
             {
                 try
