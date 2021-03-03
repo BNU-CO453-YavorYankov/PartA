@@ -162,6 +162,30 @@ namespace ConsoleAppProject
             /// 1 foot is 12 inches
             /// </summary>
             public const int FOOT_TO_INCHES = 12;
+            /// <summary>
+            /// Underweight weight status
+            /// </summary>
+            public const string UNDERWEIGHT = "Underweight";
+            /// <summary>
+            /// Normal weight status
+            /// </summary>
+            public const string NORMAL = "Normal";
+            /// <summary>
+            /// Overweight weight status
+            /// </summary>
+            public const string OVERWEIGHT = "Overweight";
+            /// <summary>
+            /// Obese class I weight status
+            /// </summary>
+            public const string OBESE_CLASS_I = "Obese class I";
+            /// <summary>
+            /// Obese class II weight status
+            /// </summary>
+            public const string OBESE_CLASS_II = "Obese class II";
+            /// <summary>
+            /// Obese class III weight status
+            /// </summary>
+            public const string OBESE_CLASS_III = "Obese class III";
 
             /// <summary>
             /// Print out this message when the user already selected an unit type
