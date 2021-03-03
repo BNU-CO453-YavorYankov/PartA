@@ -5,6 +5,7 @@
 
     using static Common.Constants.Common;
     using static Common.Constants.BMICalculator;
+    using System.Text;
 
     /// <summary>
     /// Body Mass Index, is a measure of the weight compared to the height of one person.
@@ -35,17 +36,17 @@
         /// <summary>
         /// weight of the user in stones
         /// </summary>
-        public double WeightInStones { get; set; } = default;
+        public double WeightInStones { get; set; } = -1;
 
         /// <summary>
         /// weight of the user in pounds
         /// </summary>
-        public double WeightInPounds { get; set; } = default;
+        public double WeightInPounds { get; set; } = -1;
 
         /// <summary>
         /// weight of the user in Kg
         /// </summary>
-        public double WeightInKg { get; set; } = default;
+        public double WeightInKg { get; set; } = -1;
 
         /// <summary>
         /// Converted feet into inches plus if there are additional ones
@@ -56,30 +57,38 @@
         /// <summary>
         /// height of the user in feet
         /// </summary> 
-        public double HeightInFeet { get; set; } = default;
+        public double HeightInFeet { get; set; } = -1;
 
         /// <summary>
         /// height of the user in inches
         /// </summary>
-        public double HeightInInches { get; set; } = default;
+        public double HeightInInches { get; set; } = -1;
 
         /// <summary>
         /// height of the user in metres
         /// </summary>
-        public double HeightInMetres { get; set; } = default;
+        public double HeightInMetres { get; set; } = -1;
 
         /// <summary>
         /// body mass index of the user
         /// </summary>
-        public double BodyMassIndex { get; set; } = default;
+        public double BodyMassIndex { get; set; } = -1;
 
         /// <summary>
         /// the weight status of the user according to
         /// World Health Organisation
         /// </summary>
-        public string WeightStatus{ get; set; }
+        public string WeightStatus { get; set; }
 
-        public string Result => throw new NotImplementedException();
+        //The definition of result prop comes from IApplication!
+        public string Result
+         => $"\n\rBMI: {this.BodyMassIndex:f2}\n\r" +
+            $"Weight status: {this.WeightStatus}\n\r\n\r" +
+            "If you are Black, Asian or other ethnic groups,\n\r" +
+            "you have a higher risk.\n\r\n\r" +
+            "Adults 23 or more are at increased risk\n\r" +
+            "Adults 27.5 or more are at high risk\n\r\n\r" +
+            $"{WEIGHT_STATUS_TABLE}";
 
         /// <summary>
         /// This method runs the app
@@ -107,7 +116,7 @@
 
             Helper.PrintResult(this.Result);
         }
-
+        
         /// <summary>
         /// Sets the weight status based on BMI value. 
         /// The weight status is according to the World Health Organisation
@@ -205,7 +214,7 @@
         {
             double userWeight = default;
 
-            while (this.WeightInStones == default)
+            while (this.WeightInStones == -1)
             {
                 try
                 {
@@ -213,7 +222,7 @@
 
                     userWeight = Reader.ReadDouble;
 
-                    if (userWeight <= 0)
+                    if (userWeight < 0)
                     {
                         Console.WriteLine(NEGATIVE_WEIGHT_MSG);
                     }
@@ -230,7 +239,7 @@
 
             userWeight = default;
 
-            while (this.WeightInPounds == default)
+            while (this.WeightInPounds == -1)
             {
                 try
                 {
@@ -238,7 +247,7 @@
 
                     userWeight = Reader.ReadDouble;
 
-                    if (userWeight <= 0)
+                    if (userWeight < 0)
                     {
                         Console.WriteLine(NEGATIVE_WEIGHT_MSG);
                     }
@@ -262,7 +271,7 @@
         {
             double userWeight = default;
 
-            while (this.HeightInFeet == default)
+            while (this.HeightInFeet == -1)
             {
                 try
                 {
@@ -270,7 +279,7 @@
 
                     userWeight = Reader.ReadDouble;
 
-                    if (userWeight <= 0)
+                    if (userWeight < 0)
                     {
                         Console.WriteLine(NEGATIVE_HEIGHT_MSG);
                     }
@@ -287,7 +296,7 @@
 
             userWeight = default;
 
-            while (this.HeightInInches == default)
+            while (this.HeightInInches == -1)
             {
                 try
                 {
@@ -295,7 +304,7 @@
 
                     userWeight = Reader.ReadDouble;
 
-                    if (userWeight <= 0)
+                    if (userWeight < 0)
                     {
                         Console.WriteLine(NEGATIVE_HEIGHT_MSG);
                     }
@@ -316,7 +325,7 @@
         /// </summary>
         private void InputWeightInMetricUnits()
         {
-            while (this.WeightInKg == default)
+            while (this.WeightInKg == -1)
             {
                 try
                 {
@@ -324,7 +333,7 @@
 
                     var userWeight = Reader.ReadDouble;
 
-                    if (userWeight <= 0)
+                    if (userWeight < 0)
                     {
                         Console.WriteLine(NEGATIVE_WEIGHT_MSG);
                     }
@@ -345,14 +354,14 @@
         /// </summary>
         private void InputHeightInMetricUnits()
         {
-            while (this.HeightInMetres == default)
+            while (this.HeightInMetres == -1)
             {
                 try
                 {
                     Console.Write(INPUT_HEIGHT_MSG);
                     var userHeight = Reader.ReadDouble;
 
-                    if (userHeight <= 0)
+                    if (userHeight < 0)
                     {
                         Console.WriteLine(NEGATIVE_HEIGHT_MSG);
                     }

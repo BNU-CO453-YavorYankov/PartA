@@ -137,16 +137,16 @@
             /// Print out this message when the user choose unit type
             /// </summary>
             public const string SELECT_UNIT_MSG = "Please choose an unit type:\n\r" +
-                "1. Imperial (weight in stones and pounds, height in feet and inches)\n\r" +
-                "2. Metric (weight in Kg, and height in metres)\n\r";
+                "   1. Imperial Units\n\r" +
+                "   2. Metric Units\n\r";
             /// <summary>
             /// Print out this message when the weight is negative number
             /// </summary>
-            public const string NEGATIVE_WEIGHT_MSG = "Weight cannot be less than or equal to zero!\n\r";
+            public const string NEGATIVE_WEIGHT_MSG = "Weight cannot be less than zero!\n\r";
             /// <summary>
             /// Print out this message when the height is negative number
             /// </summary>
-            public const string NEGATIVE_HEIGHT_MSG = "Height cannot be less than or equal to zero!\n\r";
+            public const string NEGATIVE_HEIGHT_MSG = "Height cannot be less than zero!\n\r";
             /// <summary>
             /// Print out this message when the user should input its weight
             /// </summary>
@@ -192,12 +192,13 @@
             /// </summary>
             public const string WEIGHT_STATUS_TABLE =
                 "| WHO Weight Status |  BMI kg/m2  |\n\r" +
+                "|---------------------------------|\n\r" +
                 "| Underweight       |  < 18.50    |\n\r" +
-                "| Normal	         | 18.5 - 24.9 |\n\r" +
+                "| Normal            | 18.5 - 24.9 |\n\r" +
                 "| Overweight        | 25.0 - 29.9 |\n\r" +
                 "| Obese Class I     | 30.0 - 34.9 |\n\r" +
                 "| Obese Class II    | 35.0 - 39.9 |\n\r" +
-                "| Obese Class III   |	>= 40.0    |\n\r";
+                "| Obese Class III   |	>= 40.0   |\n\r";
 
 
             /// <summary>
@@ -209,7 +210,7 @@
             {
                 var stringBuilder = new StringBuilder();
 
-                stringBuilder.Append($"Selected {unitType.ToLower()} unit.\n\r");
+                stringBuilder.Append($"Selected {unitType.ToLower()} units.\n\r");
 
                 switch (unitType)
                 {
