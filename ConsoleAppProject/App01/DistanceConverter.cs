@@ -74,6 +74,13 @@
         public DistanceUnits ToUnit { get; set; } = DistanceUnits.NoUnit;
 
         /// <summary>
+        /// The result as a string.
+        /// It is passed to PrintResult helper method
+        /// </summary>
+        public string Result
+            => $"\n\r{this.FromDistance} {this.FromUnit} is {this.ToDistance:f2} {this.ToUnit}";
+
+        /// <summary>
         /// This method runs the app
         /// </summary>
         public void Run()
@@ -97,7 +104,7 @@
 
                 ConvertDistance();
 
-                PrintResult();
+                Helper.PrintResult(this.Result);
             }
         }
 
@@ -200,7 +207,7 @@
         private void PrintResult()
         {
             Console.WriteLine(
-                $"\n\r{this.FromDistance} {this.FromUnit} is {this.ToDistance:f2} {this.ToUnit}");
+                );
         }
     }
 }

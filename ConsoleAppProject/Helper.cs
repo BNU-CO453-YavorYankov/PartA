@@ -24,5 +24,12 @@ namespace ConsoleAppProject
                               "\n\r" +
                               $"{appDescription}");
         }
+
+        /// <summary>
+        /// Print out the result on the console
+        /// </summary>
+        /// <param name="result">The result of an application</param>
+        public static void PrintResult(string result)
+            => Console.WriteLine(result);
     }
 }
