@@ -120,7 +120,8 @@
             /// <summary>
             /// The description of this app
             /// </summary>
-            public const string DESCRIPTION = "Your BMI, or Body Mass Index, is a measure of your weight compared to your height.\n\r" +
+            public const string DESCRIPTION = 
+                "Your BMI, or Body Mass Index, is a measure of your weight compared to your height.\n\r" +
                 "Accurate assessments of obesity are important, as being overweight or obese significantly increases \n\r" +
                 "your risk of a variety of medical conditions including type 2 diabetes, heart disease and cancer.\n\r" +
                 "\n\r" +
@@ -186,6 +187,18 @@
             /// Obese class III weight status
             /// </summary>
             public const string OBESE_CLASS_III = "Obese class III";
+            /// <summary>
+            /// Weight status table according to WHO
+            /// </summary>
+            public const string WEIGHT_STATUS_TABLE =
+                "| WHO Weight Status |  BMI kg/m2  |\n\r" +
+                "| Underweight       |  < 18.50    |\n\r" +
+                "| Normal	         | 18.5 - 24.9 |\n\r" +
+                "| Overweight        | 25.0 - 29.9 |\n\r" +
+                "| Obese Class I     | 30.0 - 34.9 |\n\r" +
+                "| Obese Class II    | 35.0 - 39.9 |\n\r" +
+                "| Obese Class III   |	>= 40.0    |\n\r";
+
 
             /// <summary>
             /// Print out this message when the user already selected an unit type
@@ -212,6 +225,8 @@
 
                 return stringBuilder.ToString();
             }
+
+
         }
     }
 }
