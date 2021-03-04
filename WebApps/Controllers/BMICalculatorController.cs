@@ -24,7 +24,7 @@
                 model.SetWeightStatus();
 
                 TempData["result"] = true;
-                TempData["BMI"] = Math.Round(model.BodyMassIndex);
+                TempData["BMI"] = Math.Round(model.BodyMassIndex, 2);
                 TempData["WeightStatus"] = model.WeightStatus;
             }
             return View();
