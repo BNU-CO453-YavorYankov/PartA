@@ -129,7 +129,7 @@
         /// Sets the weight status based on BMI value. 
         /// The weight status is according to the World Health Organisation
         /// </summary>
-        private void SetWeightStatus()
+        public void SetWeightStatus()
         {
             if (this.BodyMassIndex < 18.5)
             {

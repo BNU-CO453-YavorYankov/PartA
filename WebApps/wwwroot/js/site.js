@@ -9,8 +9,7 @@ function displayUnitsDiv() {
         imperialDiv.style.display = 'none';
         metricDiv.style.display = 'none';
     }
-    else if (select === '1')
-    {
+    else if (select === '1') {
         imperialDiv.style.display = 'block';
         metricDiv.style.display = 'none';
     }

@@ -13,10 +13,11 @@
     {
         <div class="row">
             <div class="col-md-6" id="vertical-line">
-                <select asp-for="UnitType" asp-items="Html.GetEnumSelectList<UnitTypes>()" onchange="displayUnitsDiv()" id="select-units-type">
-                    <option selected="selected" value="">Please select unit type</option>
-                </select>
                 <form asp-action="Calculate" method="post" id="form">
+                    <select asp-for="UnitType" asp-items="Html.GetEnumSelectList<UnitTypes>()" onchange="displayUnitsDiv()" id="select-units-type">
+                        <option selected="selected" value="">Please select unit type</option>
+                    </select>
+
                     @if (TempData["error"] != null)
                     {
                         <span class="btn btn-danger">@TempData["error"].ToString()</span>
@@ -27,21 +28,21 @@
                         <hr />
                         <div class="form-group">
                             <label asp-for="WeightInStones"></label><br />
-                            <input asp-for="WeightInStones" type="number" /><br />
+                            <input asp-for="WeightInStones" type="text" /><br />
                         </div>
                         <div class="form-group">
                             <label asp-for="WeightInPounds"></label><br />
-                            <input asp-for="WeightInPounds" type="number" /><br />
+                            <input asp-for="WeightInPounds" type="text" /><br />
                         </div>
                         <h4>Height</h4>
                         <hr />
                         <div class="form-group">
                             <label asp-for="HeightInFeet"></label><br />
-                            <input asp-for="HeightInFeet" type="number" /><br />
+                            <input asp-for="HeightInFeet" type="text" /><br />
                         </div>
                         <div class="form-group">
                             <label asp-for="HeightInInches"></label><br />
-                            <input asp-for="HeightInInches" type="number" /><br />
+                            <input asp-for="HeightInInches" type="text" /><br />
                         </div>
                         <div class="form-group">
                             <input type="submit" class="btn btn-primary" value="Convert" />
@@ -53,13 +54,13 @@
                         <hr />
                         <div class="form-group">
                             <label asp-for="WeightInKg"></label><br />
-                            <input asp-for="WeightInKg" type="number" /><br />
+                            <input asp-for="WeightInKg" type="text" /><br />
                         </div>
                         <h4>Height</h4>
                         <hr />
                         <div class="form-group">
                             <label asp-for="HeightInMetres"></label><br />
-                            <input asp-for="HeightInMetres" type="number" /><br />
+                            <input asp-for="HeightInMetres" type="text" /><br />
                         </div>
                         <div class="form-group">
                             <input type="submit" class="btn btn-primary" value="Convert" />
@@ -83,7 +84,10 @@
     {
         <div class="row">
             <div class="col-md-6">
-                Result here
+                <h3>Results</h3><hr />
+                <p>BMI: @TempData["BMI"].ToString()</p>
+                <p>Weight status: @TempData["WeightStatus"].ToString()</p>
+                <br />
             </div>
             <div class="col-md-6">
                 <h3>BAME Message</h3>
@@ -91,6 +95,12 @@
                 <p>If you are Black, Asian or other ethnic groups, you have a higher risk.</p>
                 <p>Adults 23 or more are at increased risk</p>
                 <p>Adults 27.5 or more are at high risk</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <h3>BMI Chart</h3><br />
+                <img src="~/img/BMI_Chart.jpg" alt="BMI Chart" style="width: 100%; height: 100%" />
             </div>
         </div>
     }
