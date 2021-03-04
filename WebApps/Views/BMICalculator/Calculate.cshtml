@@ -1,0 +1,62 @@
+﻿@using ConsoleAppProject.App02
+
+@model ConsoleAppProject.App02.BMICalculator
+
+@{
+    ViewData["Title"] = "BMI Calculator";
+}
+
+<h1>BMI Calculator</h1>
+<hr />
+<div class="container" style="margin-top: 5%">
+    @if (TempData["result"] == null)
+    {
+        <div class="row">
+            <div class="col-md-6" id="vertical-line">
+                <select asp-for="UnitType" asp-items="Html.GetEnumSelectList<UnitTypes>()" onchange="displayUnitsDiv()" id="select-units-type">
+                    <option selected="selected" value="">Please select unit type</option>
+                </select>
+                <form asp-action="Calculate" method="post" id="form">
+                    @if (TempData["error"] != null)
+                    {
+                        <span class="btn btn-danger">@TempData["error"].ToString()</span>
+                    }
+                    <div id="imperial-units">
+                        
+                    </div>
+                    <div id="metric-units">
+                        
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" class="btn btn-primary" value="Convert" />
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-6">
+                <p>Your BMI, or Body Mass Index, is a measure of your weight compared to your height. Accurate assessments of obesity are important, as being overweight or obese significantly increases your risk of a variety of medical conditions including type 2 diabetes, heart disease and cancer.</p>
+                <p>For most adults, BMI gives a good estimate of your weight-related health risks. If your BMI is over 35, your weight is definitely putting your health at risk, regardless of the factors below. However, there are some situations where BMI may underestimate or overestimate these risks in the 25-35 BMI range. The main ones are:</p>
+                <ol>
+                    <li>Children</li>
+                    <li>Pregnant women</li>
+                    <li>Muscle Builders</li>
+                    <li>BAME: Black, Asian and other minority ethnic groups</li>
+                </ol>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="row">
+            <div class="col-md-6">
+                Result here
+            </div>
+            <div class="col-md-6">
+                <h3>BAME Message</h3>
+                <hr />
+                <p>If you are Black, Asian or other ethnic groups, you have a higher risk.</p>
+                <p>Adults 23 or more are at increased risk</p>
+                <p>Adults 27.5 or more are at high risk</p>
+            </div>
+        </div>
+    }
+</div>

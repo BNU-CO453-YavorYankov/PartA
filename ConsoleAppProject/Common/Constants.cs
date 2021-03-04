@@ -1,7 +1,7 @@
 ﻿namespace ConsoleAppProject.Common
 {
     using System.Text;
-    
+
     /// <summary>
     /// This is a wrapping class of all nested class responsible for constants for each app
     /// </summary>
@@ -120,7 +120,7 @@
             /// <summary>
             /// The description of this app
             /// </summary>
-            public const string DESCRIPTION = 
+            public const string DESCRIPTION =
                 "Your BMI, or Body Mass Index, is a measure of your weight compared to your height.\n\r" +
                 "Accurate assessments of obesity are important, as being overweight or obese significantly increases \n\r" +
                 "your risk of a variety of medical conditions including type 2 diabetes, heart disease and cancer.\n\r" +
@@ -199,7 +199,14 @@
                 "| Obese Class I     | 30.0 - 34.9 |\n\r" +
                 "| Obese Class II    | 35.0 - 39.9 |\n\r" +
                 "| Obese Class III   |	>= 40.0   |\n\r";
-
+            /// <summary>
+            /// Print out this message in the result
+            /// </summary>
+            public const string BAME_MSG =
+                "If you are Black, Asian or other ethnic groups,\n\r" +
+                "you have a higher risk.\n\r\n\r" +
+                "Adults 23 or more are at increased risk\n\r" +
+                "Adults 27.5 or more are at high risk\n\r\n\r";
 
             /// <summary>
             /// Print out this message when the user already selected an unit type
