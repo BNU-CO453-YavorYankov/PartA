@@ -21,14 +21,49 @@
                     {
                         <span class="btn btn-danger">@TempData["error"].ToString()</span>
                     }
+
                     <div id="imperial-units">
-                        
+                        <h4>Weight</h4>
+                        <hr />
+                        <div class="form-group">
+                            <label asp-for="WeightInStones"></label><br />
+                            <input asp-for="WeightInStones" type="number" /><br />
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="WeightInPounds"></label><br />
+                            <input asp-for="WeightInPounds" type="number" /><br />
+                        </div>
+                        <h4>Height</h4>
+                        <hr />
+                        <div class="form-group">
+                            <label asp-for="HeightInFeet"></label><br />
+                            <input asp-for="HeightInFeet" type="number" /><br />
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="HeightInInches"></label><br />
+                            <input asp-for="HeightInInches" type="number" /><br />
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" class="btn btn-primary" value="Convert" />
+                        </div>
                     </div>
+
                     <div id="metric-units">
-                        
-                    </div>
-                    <div class="form-group">
-                        <input type="submit" class="btn btn-primary" value="Convert" />
+                        <h4>Weight</h4>
+                        <hr />
+                        <div class="form-group">
+                            <label asp-for="WeightInKg"></label><br />
+                            <input asp-for="WeightInKg" type="number" /><br />
+                        </div>
+                        <h4>Height</h4>
+                        <hr />
+                        <div class="form-group">
+                            <label asp-for="HeightInMetres"></label><br />
+                            <input asp-for="HeightInMetres" type="number" /><br />
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" class="btn btn-primary" value="Convert" />
+                        </div>
                     </div>
                 </form>
             </div>

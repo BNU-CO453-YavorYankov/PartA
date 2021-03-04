@@ -1,11 +1,11 @@
 ﻿namespace ConsoleAppProject.App02
 {
     using System;
+    using System.ComponentModel;
     using ConsoleAppProject.Common;
 
     using static Common.Constants.Common;
     using static Common.Constants.BMICalculator;
-    using System.Text;
 
     /// <summary>
     /// Body Mass Index, is a measure of the weight compared to the height of one person.
@@ -33,16 +33,19 @@
         public double TotalWeightInPounds
             => (this.WeightInStones * STONE_TO_POUNDS) + this.WeightInPounds;
 
+        [DisplayName("Stones")]
         /// <summary>
         /// weight of the user in stones
         /// </summary>
         public double WeightInStones { get; set; } = -1;
 
+        [DisplayName("Pounds")]
         /// <summary>
         /// weight of the user in pounds
         /// </summary>
         public double WeightInPounds { get; set; } = -1;
 
+        [DisplayName("Kg")]
         /// <summary>
         /// weight of the user in Kg
         /// </summary>
@@ -54,26 +57,31 @@
         public double TotalHeightInInches
             => (this.HeightInFeet * FOOT_TO_INCHES) + this.HeightInInches;
 
+        [DisplayName("Feet")]
         /// <summary>
         /// height of the user in feet
         /// </summary> 
         public double HeightInFeet { get; set; } = -1;
 
+        [DisplayName("Inches")]
         /// <summary>
         /// height of the user in inches
         /// </summary>
         public double HeightInInches { get; set; } = -1;
 
+        [DisplayName("Metres")]
         /// <summary>
         /// height of the user in metres
         /// </summary>
         public double HeightInMetres { get; set; } = -1;
 
+        [DisplayName("body mass index (BMI)")]
         /// <summary>
         /// body mass index of the user
         /// </summary>
         public double BodyMassIndex { get; set; } = -1;
 
+        [DisplayName("weight status")]
         /// <summary>
         /// the weight status of the user according to
         /// World Health Organisation

@@ -78,5 +78,6 @@ body {
 
 #imperial-units, #metric-units {
     display: none;
+    margin-top: 5%;
 }
 
