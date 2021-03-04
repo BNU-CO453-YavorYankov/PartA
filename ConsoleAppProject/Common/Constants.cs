@@ -207,7 +207,26 @@
                 "you have a higher risk.\n\r\n\r" +
                 "Adults 23 or more are at increased risk\n\r" +
                 "Adults 27.5 or more are at high risk\n\r\n\r";
-
+            /// <summary>
+            /// Print out this error message in the web part when the stones field is zero
+            /// </summary>
+            public const string ZERO_STONES_ERROR_MSG = "Stones cannot be zero!";
+            /// <summary>
+            /// Print out this error message in the web part when the stones field is zero
+            /// </summary>
+            public const string ZERO_KG_ERROR_MSG = "Kg cannot be zero!";
+            /// <summary>
+            /// Print out this error message in the web part when the stones field is zero
+            /// </summary>
+            public const string ZERO_FEET_ERROR_MSG = "Feet cannot be zero!";
+            /// <summary>
+            /// Print out this error message in the web part when the stones field is zero
+            /// </summary>
+            public const string ZERO_METRES_ERROR_MSG = "Metres cannot be zero!";
+            /// <summary>
+            /// Print out this message when the user submit the form with text in some of the fields
+            /// </summary>
+            public const string TEXT_NOT_ALLOWED_ERROR_MSG = "Allowed only digits with floating point!";
             /// <summary>
             /// Print out this message when the user already selected an unit type
             /// </summary>

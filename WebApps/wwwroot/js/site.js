@@ -5,7 +5,7 @@ function displayUnitsDiv() {
     var imperialDiv = document.getElementById('imperial-units');
     var metricDiv = document.getElementById('metric-units');
 
-    if (select === 'please select unit type') {
+    if (select === '') {
         imperialDiv.style.display = 'none';
         metricDiv.style.display = 'none';
     }
