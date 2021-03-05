@@ -1,10 +1,10 @@
 namespace ConsoleApp.Tests
 {
-    using ConsoleAppProject.App01;
-    using NUnit.Framework;
     using System;
-    using System.IO;
-    using static ConsoleAppProject.App01.Constants;
+    using NUnit.Framework;
+    using ConsoleAppProject.App01;
+
+    using static ConsoleAppProject.Common.Constants.DistanceConverter;
 
     public class DistanceConverterTests
     {
