@@ -22,6 +22,7 @@
         /// Instance of BMI calculator class
         /// </summary>
         private static BMICalculator calculator;
+        private static 
 
         /// <summary>
         /// Starting point of all sub-projects.

@@ -16,5 +16,10 @@
         /// Validate all of the properties of an application
         /// </summary>
         void Validation();
+
+        /// <summary>
+        /// Runs an application
+        /// </summary>
+        void Run();
     }
 }
