@@ -345,7 +345,7 @@
             {
                 try
                 {
-                    Console.Write(INPUT_WEIGHT_MSG);
+                    Console.Write($"{INPUT_WEIGHT_MSG}kg > " );
 
                     var userWeight = Reader.ReadDouble;
 
@@ -374,7 +374,7 @@
             {
                 try
                 {
-                    Console.Write(INPUT_HEIGHT_MSG);
+                    Console.Write($"{INPUT_HEIGHT_MSG}metres > ");
                     var userHeight = Reader.ReadDouble;
 
                     if (userHeight < 0)
