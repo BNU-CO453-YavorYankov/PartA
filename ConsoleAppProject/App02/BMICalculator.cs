@@ -22,6 +22,9 @@
     /// <version>1.0</version>
     public class BMICalculator : IApplication
     {
+        //Backing field of BodyMaxIndex prop.
+        private double _bodyMaxIndex = -1;
+
         /// <summary>
         /// The unit that would be imperial or metric.
         /// </summary>
@@ -79,7 +82,14 @@
         /// <summary>
         /// body mass index of the user
         /// </summary>
-        public double BodyMassIndex { get; set; } = -1;
+        public double BodyMassIndex
+        {
+            get => this._bodyMaxIndex;
+            set
+            {
+                this._bodyMaxIndex = Math.Round(value, 2);
+            }
+        }
 
         [DisplayName("weight status")]
         /// <summary>
@@ -124,7 +134,7 @@
 
             Helper.PrintResult(this.Result);
         }
-        
+
         /// <summary>
         /// Sets the weight status based on BMI value. 
         /// The weight status is according to the World Health Organisation
@@ -197,11 +207,7 @@
         /// </summary>
         public void CalculateBMI()
         {
-            // This exception will never be thrown to the user.
-            if (this.UnitType == default)
-            {
-                throw new ArgumentException("The UnitType property is not set!");
-            }
+            Validation();
 
             switch (this.UnitType)
             {
@@ -213,6 +219,8 @@
                     break;
             }
         }
+
+
 
         /// <summary>
         /// This method reads the user input 
@@ -381,6 +389,48 @@
                 catch (Exception)
                 {
                     Console.WriteLine(INVALID_INPUT_MSG);
+                }
+            }
+        }
+
+        /// <summary>
+        /// This method validate are all properties` values valid
+        /// </summary>
+        private void Validation()
+        {
+            if (this.UnitType == default)
+            {
+                throw new ArgumentException(UNIT_TYPE_DEFAULT_VALUE_ERROR);
+            }
+
+            if (this.UnitType == UnitTypes.Imperial)
+            {
+                if (this.WeightInStones < 0)
+                {
+                    throw new ArgumentException(NEGATIVE_WEIGHT_MSG);
+                }
+                else if (this.WeightInPounds < 0)
+                {
+                    throw new ArgumentException(NEGATIVE_WEIGHT_MSG);
+                }
+                else if (this.HeightInFeet < 0)
+                {
+                    throw new ArgumentException(NEGATIVE_HEIGHT_MSG);
+                }
+                else if (this.HeightInInches < 0)
+                {
+                    throw new ArgumentException(NEGATIVE_HEIGHT_MSG);
+                }
+            }
+            else
+            {
+                if (this.WeightInKg < 0)
+                {
+                    throw new ArgumentException(NEGATIVE_WEIGHT_MSG);
+                }
+                else if (this.HeightInMetres < 0)
+                {
+                    throw new ArgumentException(NEGATIVE_HEIGHT_MSG);
                 }
             }
         }

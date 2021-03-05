@@ -228,6 +228,11 @@
             /// </summary>
             public const string TEXT_NOT_ALLOWED_ERROR_MSG = "Allowed only digits with floating point!";
             /// <summary>
+            /// Print out this message when the UnitType prop is not set
+            /// </summary>
+            public const string UNIT_TYPE_DEFAULT_VALUE_ERROR = "The UnitType property is not set!";
+
+            /// <summary>
             /// Print out this message when the user already selected an unit type
             /// </summary>
             /// <param name="unitType">Unit type can be Imperial and Metric</param>
