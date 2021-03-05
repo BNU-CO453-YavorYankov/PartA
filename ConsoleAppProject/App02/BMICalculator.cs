@@ -393,9 +393,7 @@
             }
         }
 
-        /// <summary>
-        /// This method validate are all properties` values valid
-        /// </summary>
+        // The definition comes from IApplication interface
         private void Validation()
         {
             if (this.UnitType == default)

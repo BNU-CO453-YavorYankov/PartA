@@ -202,13 +202,10 @@
             }
         }
 
-        /// <summary>
-        /// Print out the converted distance
-        /// </summary>
-        private void PrintResult()
+        //This method is not used for this application
+        private void Validation()
         {
-            Console.WriteLine(
-                );
+            throw new NotImplementedException();
         }
     }
 }

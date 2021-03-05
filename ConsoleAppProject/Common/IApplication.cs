@@ -11,5 +11,10 @@
         /// The result as a string of an application
         /// </summary>
         string Result { get; }
+
+        /// <summary>
+        /// Validate all of the properties of an application
+        /// </summary>
+        void Validation();
     }
 }
