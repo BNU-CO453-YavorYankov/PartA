@@ -394,7 +394,7 @@
         }
 
         // The definition comes from IApplication interface
-        private void Validation()
+        public void Validation()
         {
             if (this.UnitType == default)
             {

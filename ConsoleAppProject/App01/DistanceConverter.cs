@@ -203,7 +203,7 @@
         }
 
         //This method is not used for this application
-        private void Validation()
+        public void Validation()
         {
             throw new NotImplementedException();
         }

@@ -32,7 +32,6 @@
             public const string SELECTION_MSG = "\n\rYou have selected ";
         }
 
-
         /// <summary>
         /// This class keeps all constants of Distance Converter program
         /// </summary>
@@ -259,6 +258,23 @@
             }
 
 
+        }
+
+        public static class StudentMarks 
+        {
+            /// <summary>
+            /// The name of this app
+            /// </summary>
+            public const string PROGRAM_NAME = "Student Grades";
+            /// <summary>
+            /// The description of this app
+            /// </summary>
+            public const string DESCRIPTION =
+                "The first version of this application will allow a tutor\n\r" +
+                "to enter a single mark of each of a list of students\n\r" +
+                "and it will convert that mark into a grade.\n\r" +
+                "The application will then be able to calculate simple statistics\n\r" +
+                "and also calculate and display a student grade profile.\n\r";
         }
     }
 }

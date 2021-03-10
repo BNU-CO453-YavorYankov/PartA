@@ -8,18 +8,19 @@
     public interface IApplication
     {
         /// <summary>
-        /// The result as a string of an application
+        /// The result as a string of the application
         /// </summary>
         string Result { get; }
+        
+        /// <summary>
+        /// Runs the application
+        /// </summary>
+        void Run();
 
         /// <summary>
-        /// Validate all of the properties of an application
+        /// Validate all of the properties of the application
         /// </summary>
         void Validation();
 
-        /// <summary>
-        /// Runs an application
-        /// </summary>
-        void Run();
     }
 }
