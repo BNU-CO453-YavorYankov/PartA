@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace ConsoleApp.Menu
+﻿namespace ConsoleApp.Menu
 {
-    class MenuItems
+    public class MenuItems
     {
+        
     }
 }

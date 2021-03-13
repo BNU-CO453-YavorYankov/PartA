@@ -2,6 +2,8 @@
 {
     using ConsoleAppProject.Common;
 
+    using static ConsoleAppProject.Common.Constants.StudentMarks;
+
     /// <summary>
     /// allow a tutor to enter a single mark of each of a list 
     /// of students and it will convert that mark into a grade. 
@@ -9,14 +11,20 @@
     /// and also calculate and display a student grade profile.
     /// </summary>
     /// <author>Yavor Yankov version 1.0</author>
-    public class StudentMark : IApplication
+    public class StudentMarks /*: IApplication*/
     {
-        public string Result 
-            => throw new System.NotImplementedException();
+        //public IReadOnlyCollection<Student>
+        //public string Result 
+        //    => throw new System.NotImplementedException();
+
+        public StudentMarks() 
+        {
+
+        }
 
         public void Run()
         {
-            throw new System.NotImplementedException();
+            Helper.PrintHeading(PROGRAM_NAME, DESCRIPTION);
         }
 
         public void Validation()
