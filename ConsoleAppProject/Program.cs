@@ -1,6 +1,7 @@
 ﻿namespace ConsoleAppProject
 {
     using ConsoleApp.Menu;
+    using ConsoleAppProject.App03;
     using ConsoleAppProject.Common;
     using System;
     using System.Collections.Generic;
@@ -24,9 +25,9 @@
         /// </summary>
         private static App02.BMICalculator calculator;
         /// <summary>
-        /// Instance of Student marks class
+        /// Instance of Student grades invoker class
         /// </summary>
-        private static App03.StudentMarks studentMarks;
+        private static StudentGradesInvoker studentGradesInvoker;
 
         /// <summary>
         /// Starting point of all sub-projects.
@@ -73,8 +74,7 @@
             }
             else if (appName == Constants.StudentMarks.PROGRAM_NAME)
             {
-                studentMarks = new App03.StudentMarks();
-                studentMarks.Run();
+                studentGradesInvoker = new StudentGradesInvoker();
             }
         }
     }
