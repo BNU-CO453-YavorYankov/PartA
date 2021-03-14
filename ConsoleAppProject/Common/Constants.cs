@@ -30,6 +30,11 @@
             /// Print out this message when the user select a distance unit
             /// </summary>
             public const string SELECTION_MSG = "\n\rYou have selected ";
+            /// <summary>
+            /// Print out this message when the menu is loaded
+            /// </summary>
+            public const string MENU_HEADING = "BNU CO453 Applications Programming 2020-2021!\n\r" +
+                                               "---------------------------------------------";
         }
 
         /// <summary>

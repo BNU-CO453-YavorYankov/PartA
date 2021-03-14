@@ -14,6 +14,7 @@
         // Declare the event using EventHandler<T>
         public event EventHandler<string> LaunchApplicationEvent;
 
+        private const string MENU_HEADING = "BNU CO453 Applications Programming 2020-2021!";
         private const string DISTANCE_CONVERTER = "Distance Converter";
         private const string BMI_CALCULATOR = "Body Mass Index Calculator";
         private const string STUDENT_GRADES = "Student Grades";
@@ -49,6 +50,8 @@
         /// </summary>
         public void Run()
         {
+            PrintMenuHeading();
+
             SetItem();
 
             ExecuteChoice();
@@ -150,6 +153,9 @@
         private void PrintMenuItems()
         {
             ConsoleModification.AlignText();
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            
+            PrintMenuHeading();
 
             for (int i = 0; i < this._menuItems.Count; i++)
             {
@@ -163,6 +169,16 @@
                  
                 Console.WriteLine(this._menuItems[i]);
             }
+        }
+
+        /// <summary>
+        /// Print out the menu heading
+        /// </summary>
+        private void PrintMenuHeading() 
+        {
+            ConsoleModification.SetCursorPosition(MENU_HEADING.Length);
+
+            Console.WriteLine($"{MENU_HEADING} \n\r\n\r");
         }
 
         /// <summary>

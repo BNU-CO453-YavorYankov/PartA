@@ -1,7 +1,9 @@
 ﻿namespace ConsoleAppProject.Common
 {
     using System;
-    
+
+    using static Constants.Common;
+
     /// <summary>
     /// Helper class is responsible for keeping methods 
     /// that are used in more than one App
@@ -10,6 +12,14 @@
     /// <version>1.0</version>
     public static class Helper
     {
+        /// <summary>
+        /// Print out the menu heading
+        /// </summary>
+        public static void PrintMenuHeading()
+        {
+            Console.WriteLine($"\n\r\n\r\n\r{MENU_HEADING}");
+        }
+
         /// <summary>
         /// Print out the heading of an App and its brief description
         /// </summary>
@@ -30,6 +40,14 @@
         /// </summary>
         /// <param name="result">The result of an application</param>
         public static void PrintResult(string result)
-            => Console.WriteLine(result);
+        {
+            Console.WriteLine(result);
+
+            Console.ForegroundColor = ConsoleColor.DarkGreen;
+            Console.CursorVisible = false;
+
+            Console.Write("Press any key to return in the menu.");
+            Console.ReadKey();
+        }
     }
 }

@@ -1,13 +1,9 @@
 ﻿namespace ConsoleAppProject
 {
     using ConsoleApp.Menu;
-    using ConsoleAppProject.App01;
-    using ConsoleAppProject.App02;
-    using ConsoleAppProject.App03;
     using ConsoleAppProject.Common;
     using System;
     using System.Collections.Generic;
-    using static Common.Constants;
 
     /// <summary>
     /// The main method in this class is called first
@@ -40,25 +36,20 @@
         /// </summary>
         public static void Main(string[] args)
         {
-            //Console.ForegroundColor = ConsoleColor.Yellow;
-
-            //Console.WriteLine("BNU CO453 Applications Programming 2020-2021!");
-            //Console.WriteLine();
-            //Console.Beep();
-
-            ////RunApp1();
-            ////RunApp2();
-            //RunApp3();
-
-            var menu = new Menu(new List<string>
+            while (true)
             {
-                Constants.DistanceConverter.PROGRAM_NAME,
-                Constants.BMICalculator.PROGRAM_NAME,
-                Constants.StudentMarks.PROGRAM_NAME
-            });
-            menu.LaunchApplicationEvent += LaunchApplication;
+                Console.Beep();
 
-            menu.Run();
+                var menu = new Menu(new List<string>
+                {
+                    Constants.DistanceConverter.PROGRAM_NAME,
+                    Constants.BMICalculator.PROGRAM_NAME,
+                    Constants.StudentMarks.PROGRAM_NAME
+                });
+                menu.LaunchApplicationEvent += LaunchApplication;
+
+                menu.Run();
+            }
         }
 
         /// <summary>
@@ -75,7 +66,7 @@
                 converter = new App01.DistanceConverter();
                 converter.Run();
             }
-            else if(appName == Constants.BMICalculator.PROGRAM_NAME)
+            else if (appName == Constants.BMICalculator.PROGRAM_NAME)
             {
                 calculator = new App02.BMICalculator();
                 calculator.Run();
