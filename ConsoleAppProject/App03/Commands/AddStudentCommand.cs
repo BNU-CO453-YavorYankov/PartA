@@ -53,7 +53,7 @@ namespace ConsoleAppProject.App03.Commands
                     this._student.FirstName = Console.ReadLine();
 
                     Console.Write("last name : ");
-                    this._student.FirstName = Console.ReadLine();
+                    this._student.LastName = Console.ReadLine();
                 }
                 catch (Exception e)
                 {

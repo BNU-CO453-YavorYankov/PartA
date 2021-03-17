@@ -22,7 +22,7 @@
         /// <summary>
         /// backing field of mark prop
         /// </summary>
-        private int _mark;
+        private int _mark = default!;
 
         /// <summary>
         /// Create new empty student model
@@ -88,7 +88,7 @@
         /// <summary>
         /// The grade of this student
         /// </summary>
-        public Grades Grade { get; set; }
+        public Grades Grade { get; set; } = default;
 
         /// <summary>
         /// The mark in percentages of this student
@@ -99,7 +99,7 @@
             set
             {
                 if (value is < 0 or > 100)
-                    throw new ArgumentOutOfRangeException(OUT_OF_RANGE_MARK_MSG);
+                    throw new ArgumentOutOfRangeException(nameof(this.Mark) ,OUT_OF_RANGE_MARK_MSG);
 
                 this._mark = value;
             }

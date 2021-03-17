@@ -35,6 +35,14 @@
         }
 
         /// <summary>
+        /// Update a student mark
+        /// </summary>
+        /// <param name="student">The student model with mark</param>
+        public void UpdateStudentMark(Student student)
+            => this.Students
+            .FirstOrDefault(s => s.StudentId == student.StudentId).Mark = student.Mark;
+
+        /// <summary>
         /// Add a student if it is not exists in the students collection
         /// </summary>
         /// <param name="student">The new student to be added</param>
@@ -52,6 +60,11 @@
                 Console.WriteLine(e.Message);
             }
         }
+
+        /// <param name="id">student id</param>
+        /// <returns>Returns the student with the given id</returns>
+        public Student GetStudentById(int id)
+            => this.Students.FirstOrDefault(i =>i.StudentId == id);
 
         /// <summary>
         /// Get the last student`s id and add 1 
