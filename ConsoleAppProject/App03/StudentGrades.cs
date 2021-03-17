@@ -5,6 +5,7 @@
     using System.Collections.Generic;
 
     using static Common.Constants.StudentGrades;
+    using System.Linq;
 
     /// <summary>
     /// allow a tutor to enter a single mark of each of a list 
@@ -34,6 +35,41 @@
         }
 
         /// <summary>
+        /// Add a student if it is not exists in the students collection
+        /// </summary>
+        /// <param name="student">The new student to be added</param>
+        public void AddStudent(Student student) 
+        {
+            try
+            {
+                ValidateStudent(student);
+
+                student.StudentId = SetStudentId();
+                this.Students.Add(student);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
+
+        /// <summary>
+        /// Get the last student`s id and add 1 
+        /// </summary>
+        /// <returns>Return the student`s id</returns>
+        private int SetStudentId() => this.Students.Last().StudentId + 1;
+
+        /// <summary>
+        /// Validate is the new student already added to the student collection
+        /// </summary>
+        /// <param name="student">The student to be checked</param>
+        private void ValidateStudent(Student student)
+        {
+            if (this.Students.Any(f =>f.FullName == student.FullName))
+                throw new ArgumentException($"Student {student.FullName} already exists.");
+        }
+
+        /// <summary>
         /// Create and add 10 students in the students collection
         /// </summary>
         private void SeedStudentsCollection()
@@ -51,8 +87,12 @@
                 new() { StudentId = 10, FirstName = "Winston", LastName = "Rudd" },
             };
 
+        #region Not implemented methods from IApplication interface
+        
         public void Run() => throw new System.NotImplementedException("This method is not used in this application");
-
         public void Validation() => throw new System.NotImplementedException("This method is not used in this application");
+
+        
+        #endregion
     }
 }

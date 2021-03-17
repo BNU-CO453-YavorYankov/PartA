@@ -41,11 +41,11 @@
             {
                 Console.Beep();
 
-                var menu = new Menu(new List<string>
+                var menu = new Menu(new List<string>()
                 {
                     Constants.DistanceConverter.PROGRAM_NAME,
                     Constants.BMICalculator.PROGRAM_NAME,
-                    Constants.StudentMarks.PROGRAM_NAME
+                    Constants.StudentGrades.PROGRAM_NAME
                 });
                 menu.LaunchApplicationEvent += LaunchApplication;
 
@@ -72,9 +72,10 @@
                 calculator = new App02.BMICalculator();
                 calculator.Run();
             }
-            else if (appName == Constants.StudentMarks.PROGRAM_NAME)
+            else if (appName == Constants.StudentGrades.PROGRAM_NAME)
             {
                 studentGradesInvoker = new StudentGradesInvoker();
+                studentGradesInvoker.Run();
             }
         }
     }
