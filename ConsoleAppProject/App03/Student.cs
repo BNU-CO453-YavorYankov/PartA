@@ -25,6 +25,29 @@
         private int _mark;
 
         /// <summary>
+        /// Create new empty student model
+        /// </summary>
+        public Student() { }
+
+        /// <summary>
+        /// Create new student with id, first and last name
+        /// </summary>
+        /// <param name="id">The id of the student</param>
+        /// <param name="firstName">The first name of the student</param>
+        /// <param name="lastName">The last name of the student</param>
+        public Student(int id, string firstName, string lastName)
+        {
+            this.StudentId = id;
+            this.FirstName = firstName;
+            this.LastName = lastName;
+        }
+
+        /// <summary>
+        /// The id of this student
+        /// </summary>
+        public int StudentId { get; set; }
+
+        /// <summary>
         /// The name of this student
         /// </summary>
         public string FirstName 
