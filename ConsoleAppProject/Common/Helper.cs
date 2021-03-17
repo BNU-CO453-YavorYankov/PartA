@@ -26,7 +26,6 @@
         /// <param name="appDescription">The description of an application</param>
         public static void PrintHeading(string appName, string appDescription)
         {
-
             Console.WriteLine("--------------------------------------\n\r" +
                               $"           {appName}                 \n\r" +
                               "            by Yavor Yankov           \n\r" +
@@ -48,6 +47,25 @@
 
             Console.Write("Press any key to return in the menu.");
             Console.ReadKey();
+        }
+
+        /// <summary>
+        /// This method recieve the type of a class. 
+        /// Get the attribute and return the value of the custom attribute class name.
+        /// </summary>
+        /// <param name="className">The type of a class</param>
+        /// <returns>The value(the name) of the given class</returns>
+        public static string GetClassNameByAttribute(Type classType)
+        {
+            var attribute = (ClassNameAttribute)Attribute
+                .GetCustomAttribute(classType, typeof(ClassNameAttribute));
+
+            if (attribute != null)
+            {
+                return attribute.Name;
+            }
+         
+            throw new NullReferenceException($"The attribute is null or not used on this {classType.Name} class.");
         }
     }
 }

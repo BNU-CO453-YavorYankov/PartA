@@ -1,13 +1,13 @@
 ﻿namespace ConsoleAppProject.App03.Commands
 {
     using ConsoleAppProject.Common;
-
-    using static Common.Constants.StudentMarks;
+    using static Common.Constants.StudentGrades;
 
     /// <summary>
     /// This command print the heading and description of the student grades app.
     /// </summary>
     /// <author>Yavor Yankov</author>
+    [ClassName("Print heading and description")]
     public class PrintHeadingAndDescriptionCommand : Command
     {
         /// <summary>
@@ -18,7 +18,7 @@
         /// <param name="studentGrades">The reciever that will 
         /// perform the action from this command</param>
         public PrintHeadingAndDescriptionCommand(StudentGrades studentGrades)
-            :base(studentGrades)
+            : base(studentGrades)
         {
         }
 

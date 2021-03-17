@@ -1,5 +1,6 @@
 ﻿namespace ConsoleAppProject.Common
 {
+    using System.Collections.Generic;
     using System.Text;
 
     /// <summary>
@@ -265,7 +266,7 @@
 
         }
 
-        public static class StudentMarks 
+        public static class StudentGrades
         {
             /// <summary>
             /// The name of this app
@@ -280,6 +281,23 @@
                 "and it will convert that mark into a grade.\n\r" +
                 "The application will then be able to calculate simple statistics\n\r" +
                 "and also calculate and display a student grade profile.\n\r";
+            /// <summary>
+            /// Print out this message when the user should choose a command
+            /// </summary>
+            /// <param name="commandsNames">Names of all available commands</param>
+            /// <returns></returns>
+            public static string ChooseOptionMsg(List<string> commandsNames)
+            {
+                var stringBuilder = new StringBuilder();
+
+                stringBuilder.Append("Please choose an option:\n\r");
+
+                for (int i = 0; i < commandsNames.Count; i++)
+                {
+                    stringBuilder.Append($"{i + 1}. {commandsNames[i]}\n\r");
+                }
+                return stringBuilder.ToString();
+            }
         }
     }
 }
