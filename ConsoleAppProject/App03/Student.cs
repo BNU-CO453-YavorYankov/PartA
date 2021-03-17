@@ -50,16 +50,16 @@
         /// <summary>
         /// The name of this student
         /// </summary>
-        public string FirstName 
+        public string FirstName
         {
             get => this._firstName;
-            set 
+            set
             {
                 if (value.Length < MIN_NAME_LENGTH)
                     throw new ArgumentException(INVALID_STUDENT_NAME_MSG);
                 else if (value is null || value is "")
                     throw new NullReferenceException(NULL_OR_EMPTY_MSG);
-                
+
                 this._firstName = value;
             }
         }
@@ -79,12 +79,12 @@
                 this._lastName = value;
             }
         }
-        
+
         /// <summary>
         /// The full name of this student
         /// </summary>
         public string FullName => $"{this.FirstName} {this.LastName}";
-        
+
         /// <summary>
         /// The grade of this student
         /// </summary>
@@ -93,16 +93,19 @@
         /// <summary>
         /// The mark in percentages of this student
         /// </summary>
-        public int Mark 
+        public int Mark
         {
             get => this._mark;
-            set 
+            set
             {
                 if (value is < 0 or > 100)
                     throw new ArgumentOutOfRangeException(OUT_OF_RANGE_MARK_MSG);
 
                 this._mark = value;
-            } 
+            }
         }
+
+        public override string ToString()
+            => $"{this.StudentId}. {this.FullName} - {this.Mark}%, {this.Grade}";
     }
 }
