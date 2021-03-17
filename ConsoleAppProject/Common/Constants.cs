@@ -36,6 +36,7 @@
             /// </summary>
             public const string MENU_HEADING = "BNU CO453 Applications Programming 2020-2021!\n\r" +
                                                "---------------------------------------------";
+            public const string NULL_OR_EMPTY_MSG = "The value cannot be null or empty.";
         }
 
         /// <summary>
@@ -281,6 +282,18 @@
                 "and it will convert that mark into a grade.\n\r" +
                 "The application will then be able to calculate simple statistics\n\r" +
                 "and also calculate and display a student grade profile.\n\r";
+            /// <summary>
+            /// Print out this message when the first or last name of a student is less than 2 symbols long
+            /// </summary>
+            public const string INVALID_STUDENT_NAME_MSG = "The student name cannot be less than two symbols long.";
+            /// <summary>
+            /// Print out this message when the first or last name of a student is less than 2 symbols long
+            /// </summary>
+            public const string OUT_OF_RANGE_MARK_MSG = "The mark cannot be less than zero or more than 100.";
+            /// <summary>
+            /// The mininmum length of a student name
+            /// </summary>
+            public const int MIN_NAME_LENGTH = 2;
             /// <summary>
             /// Print out this message when the user should choose a command
             /// </summary>
