@@ -6,6 +6,7 @@
     using ConsoleAppProject.Common;
 
     using static Common.Constants.StudentGrades;
+    using System.Text;
 
     /// <summary>
     /// allow a tutor to enter a single mark of each of a list 
@@ -41,9 +42,10 @@
         public double[] GradeProfiles { get; set; }
 
         /// <summary>
-        /// The result of this application
+        /// The result of this application print out
+        /// all students, mean and grade profiles
         /// </summary>
-        public string Result => throw new System.NotImplementedException();
+        public string Result { get; set; }
 
         /// <summary>
         /// Update a student mark

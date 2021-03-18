@@ -69,8 +69,13 @@
                 new() { StudentId = 10, FirstName = "Winston", LastName = "Rudd", Mark = 100 },
             };
 
-            var marks = new CalculateAndPrintGradeProfileCommand(st);
-            marks.Execute();
+            var mean = new CalculateAndPrintMeanCommand(st);
+            var gradeProfile = new CalculateAndPrintGradeProfileCommand(st);
+            var result = new PrintResultCommand(st);
+
+            mean.Execute();
+            gradeProfile.Execute();
+            result.Execute();
         }
 
         /// <summary>

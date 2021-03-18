@@ -9,7 +9,7 @@
     /// Calculate the percentage of students btaining each grade
     /// </summary>
     /// <author>Yavor Yankov</author>
-    [ClassName("Calculate and print grade profile")]
+    [ClassName("6. Calculate and print grade profile")]
     public class CalculateAndPrintGradeProfileCommand : Command
     {
         /// <summary>

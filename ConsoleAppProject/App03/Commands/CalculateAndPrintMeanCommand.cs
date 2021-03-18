@@ -8,7 +8,7 @@
     /// Calculate the mean of all students` marks
     /// </summary>
     /// <author>Yavor Yankov</author>
-    [ClassName("Calculate and print MEAN")]
+    [ClassName("5. Calculate and print MEAN")]
     public class CalculateAndPrintMeanCommand : Command
     {
         /// <summary>

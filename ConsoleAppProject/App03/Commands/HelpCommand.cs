@@ -7,7 +7,7 @@
     /// This command print all other commands when it is executed
     /// </summary>
     /// <author>Yavor Yankov</author>
-    [ClassName(" Help")]
+    [ClassName("8. Help")]
     public class HelpCommand : Command
     {
         /// <summary>

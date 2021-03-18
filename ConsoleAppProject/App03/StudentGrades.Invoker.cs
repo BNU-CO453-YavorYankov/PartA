@@ -130,6 +130,18 @@
                     Helper.GetClassNameByAttribute(typeof(CalculateAndPrintMeanCommand)), true),
                 new CalculateAndPrintMeanCommand(this._studentGrades));
 
+            // Add 'Calculate and display grade profiles' command
+            this._commands.Add(
+                new KeyValuePair<string, bool>(
+                    Helper.GetClassNameByAttribute(typeof(CalculateAndPrintGradeProfileCommand)), true),
+                new CalculateAndPrintGradeProfileCommand(this._studentGrades));
+
+            // Add 'Print result' command
+            this._commands.Add(
+                new KeyValuePair<string, bool>(
+                    Helper.GetClassNameByAttribute(typeof(PrintResultCommand)), true),
+                new PrintResultCommand(this._studentGrades));
+
             // Add 'Help' command
             this._commands.Add(
                 new KeyValuePair<string, bool>(
