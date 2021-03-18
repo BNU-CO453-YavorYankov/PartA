@@ -11,7 +11,7 @@
     {
         private StudentGrades _studentGrades;
         private StudentGradesInvoker _invoker;
-
+        
         [SetUp]
         public void Setup()
         {
@@ -72,7 +72,7 @@
         }
 
         [Test]
-        public void GetStudentByIdShouldReturnNull() 
+        public void GetStudentByIdShouldReturnNull()
         {
             var student = this._studentGrades.GetStudentById(40);
 
@@ -93,26 +93,15 @@
         }
 
         [Test]
-        public void AssignMarkOfInvalidStudentShouldNotUpdateStudent() 
+        public void AssignMarkOfInvalidStudentShouldNotUpdateStudent()
         {
             var student = new Student { StudentId = 1, FirstName = "Wrong", LastName = "Student", Mark = 90 };
-            
-            Assert.Throws<NullReferenceException>(()=> 
+
+            Assert.Throws<NullReferenceException>(() =>
             {
                 this._studentGrades.UpdateStudentMark(student);
 
             }, $"{student.FullName} cannot be found.");
-        }
-
-        [Test]
-        public void GetDefaultGradeShouldThrowException() 
-        {
-            var student = new Student { StudentId = 1, FirstName = "Wrong", LastName = "Student" };
-
-            Assert.Throws<ArgumentException>(() => 
-            {
-                var grade = student.Grade; 
-            }, $"The mark is not assignet to this student {student.FullName} in order to be placed a grade.");
         }
 
         [Test]
@@ -136,7 +125,7 @@
         }
 
         [Test]
-        public void CalculateMeanCommandShouldSetMean() 
+        public void CalculateMeanCommandShouldSetMean()
         {
             this._studentGrades.Students = new()
             {
@@ -156,6 +145,34 @@
             command.Execute();
 
             Assert.That(this._studentGrades.Mean, Is.EqualTo(55));
+        }
+
+        [Test]
+        public void CalculateGradeProfilesCommandShouldSetAllProfiles()
+        {
+            this._studentGrades.Students = new()
+            {
+                new() { StudentId = 1, FirstName = "Finn", LastName = "Warner", Mark = 10 },
+                new() { StudentId = 2, FirstName = "Bryn", LastName = "Colon", Mark = 20 },
+                new() { StudentId = 3, FirstName = "Jorgie", LastName = "Bowers", Mark = 30 },
+                new() { StudentId = 4, FirstName = "Tia", LastName = "Cole", Mark = 40 },
+                new() { StudentId = 5, FirstName = "Alissia", LastName = "Joyce", Mark = 50 },
+                new() { StudentId = 6, FirstName = "Ami", LastName = "Richmond", Mark = 60 },
+                new() { StudentId = 7, FirstName = "Stanislaw", LastName = "Burch", Mark = 70 },
+                new() { StudentId = 8, FirstName = "Gabrielle", LastName = "Malone", Mark = 80 },
+                new() { StudentId = 9, FirstName = "Ruby", LastName = "Leigh", Mark = 90 },
+                new() { StudentId = 10, FirstName = "Winston", LastName = "Rudd", Mark = 100 },
+            };
+
+            var command = new CalculateAndPrintGradeProfileCommand(this._studentGrades);
+            command.Execute();
+
+            var expectedResult = new double[]
+            {
+                40, 10, 10, 10, 30, 0
+            };
+
+            Assert.AreEqual(expectedResult, this._studentGrades.GradeProfiles);
         }
     }
 }

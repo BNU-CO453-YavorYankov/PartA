@@ -26,7 +26,7 @@
         /// <summary>
         /// backing field of grade prop
         /// </summary>
-        private Grades _grade = default!;
+        private Grades _grade;
 
         /// <summary>
         /// Create new empty student model
@@ -94,14 +94,7 @@
         /// </summary>
         public Grades Grade
         {
-            get
-            {
-                if (this._grade == default!)
-                {
-                    throw new ArgumentException($"The mark is not assignet to this student {this.FullName} in order to be placed a grade.");
-                }
-                return this._grade;
-            }
+            get => this._grade;
             set => this._grade = value; 
         }
 

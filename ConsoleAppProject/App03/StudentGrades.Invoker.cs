@@ -124,6 +124,12 @@
                     Helper.GetClassNameByAttribute(typeof(PrintStudentsCommand)), true),
                 new PrintStudentsCommand(this._studentGrades));
 
+            // Add 'Calculate and display mean' command
+            this._commands.Add(
+                new KeyValuePair<string, bool>(
+                    Helper.GetClassNameByAttribute(typeof(CalculateAndPrintMeanCommand)), true),
+                new CalculateAndPrintMeanCommand(this._studentGrades));
+
             // Add 'Help' command
             this._commands.Add(
                 new KeyValuePair<string, bool>(

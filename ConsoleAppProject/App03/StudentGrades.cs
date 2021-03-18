@@ -31,14 +31,19 @@
         public List<Student> Students { get; set; }
 
         /// <summary>
+        /// The mean of total marks
+        /// </summary>
+        public double Mean { get; set; }
+
+        /// <summary>
+        /// The grade profiles in percentages
+        /// </summary>
+        public double[] GradeProfiles { get; set; }
+
+        /// <summary>
         /// The result of this application
         /// </summary>
         public string Result => throw new System.NotImplementedException();
-        
-        /// <summary>
-        /// The mean of total marks
-        /// </summary>
-        public int Mean { get; set; }
 
         /// <summary>
         /// Update a student mark

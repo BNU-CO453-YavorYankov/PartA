@@ -20,6 +20,11 @@
             : base(studentGrades)
         {}
 
+        /// <summary>
+        /// Execute this command as get the sum of total marks
+        /// and divide it by the number of students. At the end print
+        /// out the Mean, Max and Min marks
+        /// </summary>
         public override void Execute()
         {
             var totalMarks = base._studentGrades.Students

@@ -319,6 +319,31 @@
             /// <returns></returns>
             public static string UpdateStudentMarkMsg(string fullName, int mark)
                 => $"{fullName} was updated with mark {mark}%\n\r";
+            /// <summary>
+            /// Print out this message when the user invoke grades profile command
+            /// </summary>
+            /// <param name="gradeProfiles">Grade profiles in percents</param>
+            /// <returns>String representation of all grade profiles</returns>
+            public static string GradeProfilesMsg(double[] gradeProfiles) 
+            {
+                var stringBuilder = new StringBuilder();
+
+                stringBuilder.Append(
+                    "Statistic: \n\r" +
+                    "--------------------------------\n\r" +
+                    $"{gradeProfiles[4]:f2}%  | A | First class       \n\r" +
+                    $"{gradeProfiles[3]:f2}%  | B | Upper Second Class\n\r" +
+                    $"{gradeProfiles[2]:f2}%  | C | Lower Second Class\n\r" +
+                    $"{gradeProfiles[1]:f2}%  | D | Third Class       \n\r" +
+                    $"{gradeProfiles[0]:f2}%  | F | Fail              \n\r");
+
+                if (gradeProfiles[5] != 0)
+                {
+                    stringBuilder.Append($"{gradeProfiles[5]:f2}%  | - | No marked         \n\r");
+                }
+
+                return stringBuilder.ToString();
+            }
         }
     }
 }
