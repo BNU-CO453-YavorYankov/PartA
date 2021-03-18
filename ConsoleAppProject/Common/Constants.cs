@@ -294,6 +294,7 @@
             /// The mininmum length of a student name
             /// </summary>
             public const int MIN_NAME_LENGTH = 2;
+            public const string CLI_HINT_USAGE_MSG = "Please choose one of the commands as type its number";
             /// <summary>
             /// Print out this message when the user should choose a command
             /// </summary>
@@ -303,11 +304,11 @@
             {
                 var stringBuilder = new StringBuilder();
 
-                stringBuilder.Append("Please choose an option:\n\r");
+                stringBuilder.Append("Please choose an option as type the number:\n\r");
 
                 for (int i = 0; i < commandsNames.Count; i++)
                 {
-                    stringBuilder.Append($"{i + 1}. {commandsNames[i]}\n\r");
+                    stringBuilder.Append($"{commandsNames[i]}\n\r");
                 }
                 return stringBuilder.ToString();
             }

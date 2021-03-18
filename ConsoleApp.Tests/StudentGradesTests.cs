@@ -1,11 +1,11 @@
 ﻿namespace ConsoleApp.Tests
 {
+    using System;
     using NUnit.Framework;
     using ConsoleAppProject.App03;
     using ConsoleAppProject.App03.Commands;
 
     using static ConsoleAppProject.Common.Constants.StudentGrades;
-    using System;
 
     public class StudentGradesTests
     {
@@ -173,6 +173,15 @@
             };
 
             Assert.AreEqual(expectedResult, this._studentGrades.GradeProfiles);
+        }
+
+        [Test]
+        public void ExitCommandShouldSetIsCompletedTrue() 
+        {
+            var command = new ExitCommand(this._invoker);
+            command.Execute();
+
+            Assert.AreEqual(true, this._invoker.IsCompleted);
         }
     }
 }

@@ -1,29 +1,27 @@
 ﻿namespace ConsoleAppProject.App03.Commands
 {
-    using System;
     using ConsoleAppProject.Common;
-
+    
     /// <summary>
-    /// This command print all other commands when it is executed
+    /// Exit to the main menu
     /// </summary>
     /// <author>Yavor Yankov</author>
-    [ClassName("8. Help")]
-    public class HelpCommand : Command
+    [ClassName("9. Exit")]
+    public class ExitCommand : Command
     {
         /// <summary>
         /// Create new command and assign invoker as a reciever 
         /// of the newly created command
         /// </summary>
         /// <param name="invoker">The reciever of this command</param>
-        public HelpCommand(StudentGradesInvoker invoker)
+        public ExitCommand(StudentGradesInvoker invoker)
             : base(invoker)
         { }
 
         /// <summary>
-        /// Execute this command as get and print out all 
-        /// executable commands of this application
+        /// Execute the command as set is completed prop to true
         /// </summary>
         public override void Execute()
-            => Console.WriteLine($"Please choose an option as input the number:\n\r{String.Join('\n', base._invoker.GetExecutableCommands())}");
+            => base._invoker.IsCompleted = true;
     }
 }

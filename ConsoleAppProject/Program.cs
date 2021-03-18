@@ -53,29 +53,8 @@
             //    menu.Run();
             //}
 
-            var st = new StudentGrades();
-
-            st.Students = new() 
-            {
-                new() { StudentId = 1, FirstName = "Finn", LastName = "Warner", Mark = 10 },
-                new() { StudentId = 2, FirstName = "Bryn", LastName = "Colon", Mark = 20 },
-                new() { StudentId = 3, FirstName = "Jorgie", LastName = "Bowers", Mark = 30 },
-                new() { StudentId = 4, FirstName = "Tia", LastName = "Cole", Mark = 40 },
-                new() { StudentId = 5, FirstName = "Alissia", LastName = "Joyce", Mark = 50 },
-                new() { StudentId = 6, FirstName = "Ami", LastName = "Richmond", Mark = 60 },
-                new() { StudentId = 7, FirstName = "Stanislaw", LastName = "Burch", Mark = 70 },
-                new() { StudentId = 8, FirstName = "Gabrielle", LastName = "Malone", Mark = 80 },
-                new() { StudentId = 9, FirstName = "Ruby", LastName = "Leigh", Mark = 90 },
-                new() { StudentId = 10, FirstName = "Winston", LastName = "Rudd", Mark = 100 },
-            };
-
-            var mean = new CalculateAndPrintMeanCommand(st);
-            var gradeProfile = new CalculateAndPrintGradeProfileCommand(st);
-            var result = new PrintResultCommand(st);
-
-            mean.Execute();
-            gradeProfile.Execute();
-            result.Execute();
+            studentGradesInvoker = new StudentGradesInvoker();
+            studentGradesInvoker.Run();
         }
 
         /// <summary>

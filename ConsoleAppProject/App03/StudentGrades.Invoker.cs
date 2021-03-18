@@ -6,6 +6,7 @@
     using System.Collections.Generic;
     using System.Linq;
 
+    using static Common.Constants.Common;
     using static Common.Constants.StudentGrades;
 
     /// <summary>
@@ -59,10 +60,53 @@
 
             Console.WriteLine(ChooseOptionMsg(GetExecutableCommands()));
 
-            while (!IsCompleted)
+            while (IsCompleted is false)
             {
-                
+                Console.WriteLine();
+                try
+                {
+                    Console.Write("choice > ");
+                    var input = Reader.ReadInteger;
+
+                    ExecuteCommand(
+                        GetCommandByName(
+                            GetCommandNameByNum(input)));
+                }
+                catch (Exception)
+                {
+                    Console.WriteLine(INVALID_INPUT_MSG);
+                }
             }
+        }
+
+        private string GetCommandNameByNum(int input)
+        {
+            switch (input)
+            {
+                case 1:
+                    return Helper.GetClassNameByAttribute(typeof(AddStudentCommand));
+                case 2:
+                    return Helper.GetClassNameByAttribute(typeof(AddStudentMarkCommand));
+                case 3:
+                    return Helper.GetClassNameByAttribute(typeof(AddMarkToAllStudentsCommand));
+                case 4:
+                    return Helper.GetClassNameByAttribute(typeof(PrintStudentsCommand));
+                case 5:
+                    return Helper.GetClassNameByAttribute(typeof(CalculateAndPrintMeanCommand));
+                case 6:
+                    return Helper.GetClassNameByAttribute(typeof(CalculateAndPrintGradeProfileCommand));
+                case 7:
+                    return Helper.GetClassNameByAttribute(typeof(PrintResultCommand));
+                case 8:
+                    return Helper.GetClassNameByAttribute(typeof(HelpCommand));
+                case 9:
+                    return Helper.GetClassNameByAttribute(typeof(ExitCommand));
+                default:
+                    Console.WriteLine(INVALID_CHOICE_MSG);
+                    break;
+            }
+            
+            return null;
         }
 
         /// <summary>
@@ -147,13 +191,13 @@
                 new KeyValuePair<string, bool>(
                     Helper.GetClassNameByAttribute(typeof(HelpCommand)), true),
                 new HelpCommand(this));
-        }
 
-        /// <summary>
-        /// Set the is completed to true and the while loop will be terminated
-        /// </summary>
-        private void ExitApp()
-            => this.IsCompleted = true;
+            // Add 'Exit' command
+            this._commands.Add(
+                new KeyValuePair<string, bool>(
+                    Helper.GetClassNameByAttribute(typeof(ExitCommand)), true),
+                new ExitCommand(this));
+        }
 
         /// <summary>
         /// Get a command by its name from the collection
