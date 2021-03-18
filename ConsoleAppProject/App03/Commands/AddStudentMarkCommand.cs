@@ -9,6 +9,7 @@
     /// Get a student and add mark
     /// </summary>
     /// <author>Yavor Yankov</author>
+    [ClassName("Add student mark")]
     public class AddStudentMarkCommand : Command
     {
         /// <summary>

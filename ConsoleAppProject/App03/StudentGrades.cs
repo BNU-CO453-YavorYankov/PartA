@@ -47,10 +47,12 @@
                 this.Students.FirstOrDefault(
                     s => s.StudentId == student.StudentId &&
                     s.FullName == student.FullName).Mark = student.Mark;
+
+                Console.WriteLine(UpdateStudentMarkMsg(student.FullName, student.Mark));
             }
             else
             {
-                throw new NullReferenceException($"{student.FullName} cannot be found.");
+                throw new NullReferenceException($"{student.FullName} cannot be found.\n\r");
             }
         }
 
@@ -91,7 +93,7 @@
         private void ValidateStudent(Student student)
         {
             if (this.Students.Any(f => f.FullName == student.FullName))
-                throw new ArgumentException($"Student {student.FullName} already exists.");
+                throw new ArgumentException($"Student {student.FullName} already exists.\n\r");
         }
 
         /// <summary>

@@ -1,10 +1,13 @@
-﻿using System;
-
-namespace ConsoleAppProject.App03.Commands
+﻿namespace ConsoleAppProject.App03.Commands
 {
+    using System;
+    using ConsoleAppProject.Common;
+    
     /// <summary>
     /// The add student command that create and adds a new student in the system database
     /// </summary>
+    /// <author>Yavor Yankov</author>
+    [ClassName("Add student")]
     public class AddStudentCommand : Command
     {
         /// <summary>

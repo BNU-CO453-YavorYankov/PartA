@@ -311,6 +311,14 @@
                 }
                 return stringBuilder.ToString();
             }
+            /// <summary>
+            /// Print out this message when the student`s mark is updated successfully
+            /// </summary>
+            /// <param name="fullName">The full name of a student</param>
+            /// <param name="mark">The mark of a student</param>
+            /// <returns></returns>
+            public static string UpdateStudentMarkMsg(string fullName, int mark)
+                => $"{fullName} was updated with mark {mark}%\n\r";
         }
     }
 }

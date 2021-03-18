@@ -61,7 +61,7 @@
 
             while (!IsCompleted)
             {
-
+                
             }
         }
 
@@ -99,8 +99,24 @@
                 new KeyValuePair<string, bool>(
                     Helper.GetClassNameByAttribute(typeof(PrintHeadingAndDescriptionCommand)), false),
                 new PrintHeadingAndDescriptionCommand(this._studentGrades));
-            
+
             // Add 'Add student' command
+            this._commands.Add(
+                new KeyValuePair<string, bool>(
+                    Helper.GetClassNameByAttribute(typeof(AddStudentCommand)), true),
+                new AddStudentCommand(this._studentGrades));
+
+            // Add 'Mark student' command
+            this._commands.Add(
+                new KeyValuePair<string, bool>(
+                    Helper.GetClassNameByAttribute(typeof(AddStudentMarkCommand)), true),
+                new AddStudentMarkCommand(this._studentGrades));
+
+            // Add 'Marks to all students' command
+            this._commands.Add(
+                new KeyValuePair<string, bool>(
+                    Helper.GetClassNameByAttribute(typeof(AddMarkToAllStudentsCommand)), true),
+                new AddMarkToAllStudentsCommand(this._studentGrades));
         }
 
         /// <summary>
