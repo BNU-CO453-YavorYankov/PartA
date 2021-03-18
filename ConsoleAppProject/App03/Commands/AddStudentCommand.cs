@@ -7,13 +7,13 @@
     /// The add student command that create and adds a new student in the system database
     /// </summary>
     /// <author>Yavor Yankov</author>
-    [ClassName("Add student")]
+    [ClassName("1. Add student")]
     public class AddStudentCommand : Command
     {
         /// <summary>
         /// The reciever of this command
         /// </summary>
-        private StudentGrades _studentGrades;
+        private new StudentGrades _studentGrades;
         /// <summary>
         /// Student that will be added to the students collection
         /// </summary>

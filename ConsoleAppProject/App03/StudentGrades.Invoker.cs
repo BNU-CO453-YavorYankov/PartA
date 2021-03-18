@@ -74,7 +74,7 @@
         /// From the above example the Command name will be inside of the filltered keys.
         /// </summary>
         /// <returns></returns>
-        private List<string> GetExecutableCommands()
+        public List<string> GetExecutableCommands()
             => this._commands
                 .Where(e => e.Key.Value == true)
                 .Select(e => e.Key.Key)
@@ -123,6 +123,12 @@
                 new KeyValuePair<string, bool>(
                     Helper.GetClassNameByAttribute(typeof(PrintStudentsCommand)), true),
                 new PrintStudentsCommand(this._studentGrades));
+
+            // Add 'Help' command
+            this._commands.Add(
+                new KeyValuePair<string, bool>(
+                    Helper.GetClassNameByAttribute(typeof(HelpCommand)), true),
+                new HelpCommand(this));
         }
 
         /// <summary>

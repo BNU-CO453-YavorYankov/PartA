@@ -9,13 +9,13 @@
     /// Get a student and add mark
     /// </summary>
     /// <author>Yavor Yankov</author>
-    [ClassName("Add student mark")]
+    [ClassName("2. Add student mark")]
     public class AddStudentMarkCommand : Command
     {
         /// <summary>
         /// The receiver of this command
         /// </summary>
-        private StudentGrades _studentGrades;
+        private new StudentGrades _studentGrades;
         /// <summary>
         /// Student that will be marked
         /// </summary>

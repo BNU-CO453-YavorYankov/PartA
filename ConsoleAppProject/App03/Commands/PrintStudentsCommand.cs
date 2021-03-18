@@ -7,7 +7,7 @@
     /// Print all students
     /// </summary>
     /// <author>Yavor Yankov</author>
-    [ClassName("Print students")]
+    [ClassName("5. Print students")]
     public class PrintStudentsCommand : Command
     {
         /// <summary>

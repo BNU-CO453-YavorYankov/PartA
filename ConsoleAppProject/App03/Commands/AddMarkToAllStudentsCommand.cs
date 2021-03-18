@@ -11,13 +11,13 @@
     /// Read the user`s input and add assign it to the mark prop of the given student.
     /// </summary>
     /// <author>Yavor Yankov</author>
-    [ClassName("Add mark to all students")]
+    [ClassName("3. Add mark to all students")]
     public class AddMarkToAllStudentsCommand : Command
     {
         /// <summary>
         /// The reciever of this command
         /// </summary>
-        private StudentGrades _studentGrades;
+        private new StudentGrades _studentGrades;
 
         /// <summary>
         /// Create new command and assign studentGrades as a reciever 
@@ -26,9 +26,7 @@
         /// <param name="studentGrades">The reciever of this command</param>
         public AddMarkToAllStudentsCommand(StudentGrades studentGrades)
             : base(studentGrades)
-        {
-            this._studentGrades = studentGrades;
-        }
+            => this._studentGrades = studentGrades;
 
         /// <summary>
         /// Execute this command.
