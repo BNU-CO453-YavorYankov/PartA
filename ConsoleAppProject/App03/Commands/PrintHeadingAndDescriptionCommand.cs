@@ -19,8 +19,7 @@
         /// perform the action from this command</param>
         public PrintHeadingAndDescriptionCommand(StudentGrades studentGrades)
             : base(studentGrades)
-        {
-        }
+        {}
 
         /// <summary>
         /// Execute this command as print out the heading 

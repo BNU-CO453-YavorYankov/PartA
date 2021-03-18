@@ -11,10 +11,6 @@
     public class AddStudentCommand : Command
     {
         /// <summary>
-        /// The reciever of this command
-        /// </summary>
-        private new StudentGrades _studentGrades;
-        /// <summary>
         /// Student that will be added to the students collection
         /// </summary>
         private Student _student;
@@ -24,7 +20,7 @@
         /// </summary>
         public AddStudentCommand(StudentGrades studentGrades)
             : base(studentGrades)
-            => this._studentGrades = studentGrades;
+        { }
 
         /// <summary>
         /// Execute this command as create a new student model and 
@@ -34,7 +30,7 @@
         {
             CreateStudent();
 
-            this._studentGrades.AddStudent(this._student);
+            base._studentGrades.AddStudent(this._student);
 
             Console.WriteLine($"{this._student.FullName} was added\n\r");
         }

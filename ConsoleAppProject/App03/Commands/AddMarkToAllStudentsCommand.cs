@@ -15,18 +15,13 @@
     public class AddMarkToAllStudentsCommand : Command
     {
         /// <summary>
-        /// The reciever of this command
-        /// </summary>
-        private new StudentGrades _studentGrades;
-
-        /// <summary>
         /// Create new command and assign studentGrades as a reciever 
         /// of the newly created command
         /// </summary>
         /// <param name="studentGrades">The reciever of this command</param>
         public AddMarkToAllStudentsCommand(StudentGrades studentGrades)
             : base(studentGrades)
-            => this._studentGrades = studentGrades;
+        { }
 
         /// <summary>
         /// Execute this command.
@@ -38,7 +33,7 @@
         public override void Execute()
         {
             Console.WriteLine("You are going to assign mark to all available students:");
-            foreach (var student in this._studentGrades.Students)
+            foreach (var student in base._studentGrades.Students)
             {
                 while (student.Mark == default)
                 {
@@ -62,7 +57,7 @@
                 Console.WriteLine(UpdateStudentMarkMsg(student.FullName, student.Mark));
             }
 
-            Console.WriteLine($"{this._studentGrades.Students.Count} students recieved a mark\n\r");
+            Console.WriteLine($"{base._studentGrades.Students.Count} students recieved a mark\n\r");
         }
     }
 }

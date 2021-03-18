@@ -115,5 +115,47 @@
             }, $"The mark is not assignet to this student {student.FullName} in order to be placed a grade.");
         }
 
+        [Test]
+        public void GetMinMarkShouldReturnMark()
+        {
+            var minMark = this._studentGrades.GetMinMark();
+
+            Assert.That(minMark, Is.EqualTo(0));
+        }
+
+        [Test]
+        public void GetMaxMarkShouldReturnMark()
+        {
+            var student = new Student { StudentId = 11, FirstName = "The best", LastName = "student", Mark = 100 };
+
+            this._studentGrades.AddStudent(student);
+
+            var maxMark = this._studentGrades.GetMaxMark();
+
+            Assert.That(maxMark, Is.EqualTo(100));
+        }
+
+        [Test]
+        public void CalculateMeanCommandShouldSetMean() 
+        {
+            this._studentGrades.Students = new()
+            {
+                new() { StudentId = 1, FirstName = "Finn", LastName = "Warner", Mark = 10 },
+                new() { StudentId = 2, FirstName = "Bryn", LastName = "Colon", Mark = 20 },
+                new() { StudentId = 3, FirstName = "Jorgie", LastName = "Bowers", Mark = 30 },
+                new() { StudentId = 4, FirstName = "Tia", LastName = "Cole", Mark = 40 },
+                new() { StudentId = 5, FirstName = "Alissia", LastName = "Joyce", Mark = 50 },
+                new() { StudentId = 6, FirstName = "Ami", LastName = "Richmond", Mark = 60 },
+                new() { StudentId = 7, FirstName = "Stanislaw", LastName = "Burch", Mark = 70 },
+                new() { StudentId = 8, FirstName = "Gabrielle", LastName = "Malone", Mark = 80 },
+                new() { StudentId = 9, FirstName = "Ruby", LastName = "Leigh", Mark = 90 },
+                new() { StudentId = 10, FirstName = "Winston", LastName = "Rudd", Mark = 100 },
+            };
+
+            var command = new CalculateAndPrintMeanCommand(this._studentGrades);
+            command.Execute();
+
+            Assert.That(this._studentGrades.Mean, Is.EqualTo(55));
+        }
     }
 }

@@ -13,10 +13,6 @@
     public class AddStudentMarkCommand : Command
     {
         /// <summary>
-        /// The receiver of this command
-        /// </summary>
-        private new StudentGrades _studentGrades;
-        /// <summary>
         /// Student that will be marked
         /// </summary>
         private Student _student;
@@ -27,7 +23,7 @@
         /// <param name="studentGrades"></param>
         public AddStudentMarkCommand(StudentGrades studentGrades)
             : base(studentGrades)
-            => this._studentGrades = studentGrades;
+        { }
 
         /// <summary>
         /// List all students then get one by user`s input and assign a mark.
@@ -42,7 +38,7 @@
 
             EvaluateStudent();
 
-            this._studentGrades.UpdateStudentMark(this._student);
+            base._studentGrades.UpdateStudentMark(this._student);
         }
 
         /// <summary>
@@ -82,7 +78,7 @@
                 try
                 {
                     Console.Write("student id > ");
-                    this._student = this._studentGrades
+                    this._student = base._studentGrades
                         .GetStudentById(Reader.ReadInteger);
 
                     if (this._student is null)
@@ -102,7 +98,7 @@
         /// </summary>
         private void PrintStudents()
         {
-            foreach (var student in this._studentGrades.Students)
+            foreach (var student in base._studentGrades.Students)
             {
                 Console.WriteLine($"    {student}");
             }

@@ -1,11 +1,11 @@
 ﻿namespace ConsoleAppProject.App03
 {
     using System;
-    using ConsoleAppProject.Common;
+    using System.Linq;
     using System.Collections.Generic;
+    using ConsoleAppProject.Common;
 
     using static Common.Constants.StudentGrades;
-    using System.Linq;
 
     /// <summary>
     /// allow a tutor to enter a single mark of each of a list 
@@ -16,15 +16,6 @@
     /// <author>Yavor Yankov</author>
     public class StudentGrades : IApplication
     {
-        /// <summary>
-        /// List with all students in this app instance 
-        /// </summary>
-        public List<Student> Students { get; private set; }
-
-        /// <summary>
-        /// The result of this application
-        /// </summary>
-        public string Result => throw new System.NotImplementedException();
 
         /// <summary>
         /// Create new instance of this class
@@ -33,6 +24,21 @@
         {
             SeedStudentsCollection();
         }
+        
+        /// <summary>
+        /// List with all students in this app instance 
+        /// </summary>
+        public List<Student> Students { get; set; }
+
+        /// <summary>
+        /// The result of this application
+        /// </summary>
+        public string Result => throw new System.NotImplementedException();
+        
+        /// <summary>
+        /// The mean of total marks
+        /// </summary>
+        public int Mean { get; set; }
 
         /// <summary>
         /// Update a student mark
@@ -79,6 +85,20 @@
         /// <returns>Returns the student with the given id</returns>
         public Student GetStudentById(int id)
             => this.Students.FirstOrDefault(i => i.StudentId == id);
+
+        /// <summary>
+        /// Select mark props of each student add to list and find minimum mark
+        /// </summary>
+        /// <returns>the min mark from all students</returns>
+        public int GetMinMark()
+            => this.Students.Select(m => m.Mark).ToList().Min();
+
+        /// <summary>
+        /// Select mark props of each student add to list and find maximum mark
+        /// </summary>
+        /// <returns>the max mark from all students</returns>
+        public int GetMaxMark()
+            => this.Students.Select(m => m.Mark).ToList().Max();
 
         /// <summary>
         /// Get the last student`s id and add 1 

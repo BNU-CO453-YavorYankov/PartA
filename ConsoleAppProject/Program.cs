@@ -2,6 +2,7 @@
 {
     using ConsoleApp.Menu;
     using ConsoleAppProject.App03;
+    using ConsoleAppProject.App03.Commands;
     using ConsoleAppProject.Common;
     using System;
     using System.Collections.Generic;
@@ -37,20 +38,23 @@
         /// </summary>
         public static void Main(string[] args)
         {
-            while (true)
-            {
-                Console.Beep();
+            //while (true)
+            //{
+            //    Console.Beep();
 
-                var menu = new Menu(new List<string>()
-                {
-                    Constants.DistanceConverter.PROGRAM_NAME,
-                    Constants.BMICalculator.PROGRAM_NAME,
-                    Constants.StudentGrades.PROGRAM_NAME
-                });
-                menu.LaunchApplicationEvent += LaunchApplication;
+            //    var menu = new Menu(new List<string>()
+            //    {
+            //        Constants.DistanceConverter.PROGRAM_NAME,
+            //        Constants.BMICalculator.PROGRAM_NAME,
+            //        Constants.StudentGrades.PROGRAM_NAME
+            //    });
+            //    menu.LaunchApplicationEvent += LaunchApplication;
 
-                menu.Run();
-            }
+            //    menu.Run();
+            //}
+
+            var marks = new HelpCommand(new StudentGradesInvoker());
+            marks.Execute();
         }
 
         /// <summary>
