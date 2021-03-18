@@ -39,14 +39,26 @@
         /// </summary>
         /// <param name="student">The student model with mark</param>
         public void UpdateStudentMark(Student student)
-            => this.Students
-            .FirstOrDefault(s => s.StudentId == student.StudentId).Mark = student.Mark;
+        {
+            if (this.Students.Any(
+                s => s.StudentId == student.StudentId &&
+                s.FullName == student.FullName))
+            {
+                this.Students.FirstOrDefault(
+                    s => s.StudentId == student.StudentId &&
+                    s.FullName == student.FullName).Mark = student.Mark;
+            }
+            else
+            {
+                throw new NullReferenceException($"{student.FullName} cannot be found.");
+            }
+        }
 
         /// <summary>
         /// Add a student if it is not exists in the students collection
         /// </summary>
         /// <param name="student">The new student to be added</param>
-        public void AddStudent(Student student) 
+        public void AddStudent(Student student)
         {
             try
             {
@@ -64,7 +76,7 @@
         /// <param name="id">student id</param>
         /// <returns>Returns the student with the given id</returns>
         public Student GetStudentById(int id)
-            => this.Students.FirstOrDefault(i =>i.StudentId == id);
+            => this.Students.FirstOrDefault(i => i.StudentId == id);
 
         /// <summary>
         /// Get the last student`s id and add 1 
@@ -78,7 +90,7 @@
         /// <param name="student">The student to be checked</param>
         private void ValidateStudent(Student student)
         {
-            if (this.Students.Any(f =>f.FullName == student.FullName))
+            if (this.Students.Any(f => f.FullName == student.FullName))
                 throw new ArgumentException($"Student {student.FullName} already exists.");
         }
 
@@ -101,11 +113,11 @@
             };
 
         #region Not implemented methods from IApplication interface
-        
+
         public void Run() => throw new System.NotImplementedException("This method is not used in this application");
         public void Validation() => throw new System.NotImplementedException("This method is not used in this application");
 
-        
+
         #endregion
     }
 }

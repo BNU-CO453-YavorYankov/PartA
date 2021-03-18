@@ -15,12 +15,12 @@
         [SetUp]
         public void Setup()
         {
-            this._studentGrades = new StudentGrades(); 
+            this._studentGrades = new StudentGrades();
             this._invoker = new StudentGradesInvoker();
         }
 
         [Test]
-        public void AddStudentCommandShouldAddStudent() 
+        public void AddStudentCommandShouldAddStudent()
         {
             var addStudentCommand = new AddStudentCommand(this._studentGrades);
 
@@ -30,7 +30,7 @@
         }
 
         [Test]
-        public void CreateStudentWithInvalidNameShouldThrowException() 
+        public void CreateStudentWithInvalidNameShouldThrowException()
         {
             Assert.Throws<ArgumentException>(() =>
             {
@@ -59,6 +59,49 @@
                 student.Mark = 150;
 
             }, OUT_OF_RANGE_MARK_MSG);
+        }
+
+        [Test]
+        public void GetStudentByIdShouldReturnValidStudent()
+        {
+            var student = this._studentGrades.GetStudentById(1);
+
+            var actualStudent = new Student(1, "Finn", "Warner");
+
+            Assert.That(student.FullName, Is.EqualTo(actualStudent.FullName));
+        }
+
+        [Test]
+        public void GetStudentByIdShouldReturnNull() 
+        {
+            var student = this._studentGrades.GetStudentById(40);
+
+            Assert.That(student, Is.Null);
+        }
+
+        [Test]
+        public void AssignMarkOfStudentShouldUpdateStudent()
+        {
+            var student = new Student { StudentId = 1, FirstName = "Finn", LastName = "Warner", Mark = 60 };
+
+            this._studentGrades.UpdateStudentMark(student);
+
+            var updatedStudent = this._studentGrades
+                .GetStudentById(1);
+
+            Assert.That(updatedStudent.Mark, Is.EqualTo(student.Mark));
+        }
+
+        [Test]
+        public void AssignMarkOfInvalidStudentShouldNotUpdateStudent() 
+        {
+            var student = new Student { StudentId = 1, FirstName = "Wrong", LastName = "Student", Mark = 90 };
+            
+            Assert.Throws<NullReferenceException>(()=> 
+            {
+                this._studentGrades.UpdateStudentMark(student);
+
+            }, $"{student.FullName} cannot be found.");
         }
     }
 }
