@@ -23,6 +23,10 @@
         /// backing field of mark prop
         /// </summary>
         private int _mark = default!;
+        /// <summary>
+        /// backing field of grade prop
+        /// </summary>
+        private Grades _grade = default!;
 
         /// <summary>
         /// Create new empty student model
@@ -88,7 +92,18 @@
         /// <summary>
         /// The grade of this student
         /// </summary>
-        public Grades Grade { get; set; } = default;
+        public Grades Grade
+        {
+            get
+            {
+                if (this._grade == default!)
+                {
+                    throw new ArgumentException($"The mark is not assignet to this student {this.FullName} in order to be placed a grade.");
+                }
+                return this._grade;
+            }
+            set => this._grade = value; 
+        }
 
         /// <summary>
         /// The mark in percentages of this student
@@ -99,13 +114,40 @@
             set
             {
                 if (value is < 0 or > 100)
-                    throw new ArgumentOutOfRangeException(nameof(this.Mark) ,OUT_OF_RANGE_MARK_MSG);
+                    throw new ArgumentOutOfRangeException(nameof(this.Mark), OUT_OF_RANGE_MARK_MSG);
 
                 this._mark = value;
+                
+                SetGrade();
             }
         }
 
+        /// <summary>
+        /// Override to string method 
+        /// </summary>
+        /// <returns>Return this student details in string</returns>
         public override string ToString()
-            => $"{this.StudentId}. {this.FullName} - {this.Mark}%, {this.Grade}";
+            => $"{this.StudentId}. {this.FullName} - {this.Mark}%, {this._grade}";
+
+        /// <summary>
+        /// Set the grade of this student depend on the mark
+        /// </summary>
+        private void SetGrade()
+        {
+            if (this._mark is >= 0 and < 40)
+                this._grade = Grades.F;
+
+            else if (this._mark is >= 40 and < 50)
+                this._grade = Grades.D;
+            
+            else if (this._mark is >= 50 and < 60)
+                this._grade = Grades.C;
+            
+            else if (this._mark is >= 60 and < 70)
+                this._grade = Grades.B;
+            
+            else if (this._mark is >= 70 and < 100)
+                this._grade = Grades.A;
+        }
     }
 }

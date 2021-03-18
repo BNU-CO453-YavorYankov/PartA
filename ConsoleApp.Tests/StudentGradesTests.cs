@@ -103,5 +103,17 @@
 
             }, $"{student.FullName} cannot be found.");
         }
+
+        [Test]
+        public void GetDefaultGradeShouldThrowException() 
+        {
+            var student = new Student { StudentId = 1, FirstName = "Wrong", LastName = "Student" };
+
+            Assert.Throws<ArgumentException>(() => 
+            {
+                var grade = student.Grade; 
+            }, $"The mark is not assignet to this student {student.FullName} in order to be placed a grade.");
+        }
+
     }
 }
