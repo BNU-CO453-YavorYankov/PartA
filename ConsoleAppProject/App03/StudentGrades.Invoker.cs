@@ -117,6 +117,12 @@
                 new KeyValuePair<string, bool>(
                     Helper.GetClassNameByAttribute(typeof(AddMarkToAllStudentsCommand)), true),
                 new AddMarkToAllStudentsCommand(this._studentGrades));
+
+            // Add 'Print students' command
+            this._commands.Add(
+                new KeyValuePair<string, bool>(
+                    Helper.GetClassNameByAttribute(typeof(PrintStudentsCommand)), true),
+                new PrintStudentsCommand(this._studentGrades));
         }
 
         /// <summary>
