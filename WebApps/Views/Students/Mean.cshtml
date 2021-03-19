@@ -1,0 +1,42 @@
+﻿@model WebApps.Models.App03.Mean
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<div>
+    <h4>Mean</h4>
+    <hr />
+    <dl class="row">
+        @if (Model.Message is not null)
+        {
+            <dd class="col">
+                @Html.DisplayFor(model => model.Message)
+            </dd>
+        }
+        else
+        {
+            <dt class="col-sm-2">
+                Mean mark:
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.MeanResult)
+            </dd>
+            <dt class="col-sm-2">
+                Maximum mark is:
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.MaxMark)
+            </dd>
+            <dt class="col-sm-2">
+                Minimum mark is:
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.MinMark)
+            </dd>
+        }
+    </dl>
+</div>
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>

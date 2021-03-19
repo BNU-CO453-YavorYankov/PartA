@@ -6,6 +6,7 @@
     using System.Linq;
     using System.Threading.Tasks;
     using WebApps.Data;
+    using WebApps.Models.App03;
 
     public class StudentsController : Controller
     {
@@ -140,6 +141,33 @@
             _context.Students.Remove(student);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
+        }
+
+        // GET: Students/Edit/5
+        public IActionResult Mean()
+        {
+            var totalMarks = this._context.Students
+                .Select(m => m.Mark)
+                .ToList()
+                .Sum();
+            
+            var mean = new Mean();
+
+            if (this._context.Students.Count() is not 0)
+            {
+                mean = new()
+                {
+                    MeanResult = totalMarks / this._context.Students.Count(),
+                    MinMark = this._context.Students.Select(m => m.Mark).ToList().Min(),
+                    MaxMark = this._context.Students.Select(m => m.Mark).ToList().Max()
+                };
+            }
+            else
+            {
+                mean.Message = "There is no any students";
+            }
+
+            return View(mean);
         }
 
         private bool StudentExists(int id)
