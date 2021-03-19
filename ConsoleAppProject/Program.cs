@@ -38,23 +38,20 @@
         /// </summary>
         public static void Main(string[] args)
         {
-            //while (true)
-            //{
-            //    Console.Beep();
+            while (true)
+            {
+                Console.Beep();
 
-            //    var menu = new Menu(new List<string>()
-            //    {
-            //        Constants.DistanceConverter.PROGRAM_NAME,
-            //        Constants.BMICalculator.PROGRAM_NAME,
-            //        Constants.StudentGrades.PROGRAM_NAME
-            //    });
-            //    menu.LaunchApplicationEvent += LaunchApplication;
+                var menu = new Menu(new List<string>()
+                {
+                    Constants.DistanceConverter.PROGRAM_NAME,
+                    Constants.BMICalculator.PROGRAM_NAME,
+                    Constants.StudentGrades.PROGRAM_NAME
+                });
+                menu.LaunchApplicationEvent += LaunchApplication;
 
-            //    menu.Run();
-            //}
-
-            studentGradesInvoker = new StudentGradesInvoker();
-            studentGradesInvoker.Run();
+                menu.Run();
+            }
         }
 
         /// <summary>

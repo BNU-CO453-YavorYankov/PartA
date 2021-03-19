@@ -139,7 +139,7 @@
             else if (this._mark is >= 60 and < 70)
                 this._grade = Grades.B;
             
-            else if (this._mark is >= 70 and < 100)
+            else if (this._mark is >= 70 and <= 100)
                 this._grade = Grades.A;
         }
     }

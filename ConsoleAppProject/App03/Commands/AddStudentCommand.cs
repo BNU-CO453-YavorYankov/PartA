@@ -2,7 +2,8 @@
 {
     using System;
     using ConsoleAppProject.Common;
-    
+    using static Common.Constants.StudentGrades;
+
     /// <summary>
     /// The add student command that create and adds a new student in the system database
     /// </summary>
@@ -41,12 +42,12 @@
         private void CreateStudent()
         {
             this._student = new Student();
-            while (this._student.FirstName != default &&
-                this._student.LastName != default)
+
+            while (this._student.LastName == null && this._student.FirstName == null)
             {
                 try
                 {
-                    Console.WriteLine("Add a new student");
+                    Console.WriteLine("\n\rAdd a new student");
 
                     Console.Write("first name: ");
                     this._student.FirstName = Console.ReadLine();

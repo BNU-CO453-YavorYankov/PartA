@@ -20,11 +20,11 @@
         }
 
         [Test]
-        public void AddStudentCommandShouldAddStudent()
+        public void AddStudent()
         {
-            var addStudentCommand = new AddStudentCommand(this._studentGrades);
-
-            addStudentCommand.Execute();
+            var student = new Student { FirstName = "Yavor", LastName = "Yankov"};
+            
+            this._studentGrades.AddStudent(student);
 
             Assert.That(this._studentGrades.Students.Count, Is.EqualTo(11));
         }
@@ -169,7 +169,7 @@
 
             var expectedResult = new double[]
             {
-                40, 10, 10, 10, 30, 0
+                30, 10, 10, 10, 40, 0
             };
 
             Assert.AreEqual(expectedResult, this._studentGrades.GradeProfiles);
@@ -182,6 +182,86 @@
             command.Execute();
 
             Assert.AreEqual(true, this._invoker.IsCompleted);
+        }
+
+        [Test]
+        public void GetGradeFShouldSetMinMark()
+        {
+            var student = new Student { StudentId = 1, FirstName = "Finn", LastName = "Warner", Mark = 0 };
+
+            Assert.That(student.Grade, Is.EqualTo(Grades.F));
+        }
+
+        [Test]
+        public void GetGradeFShouldSetMaxMark()
+        {
+            var student = new Student { StudentId = 1, FirstName = "Finn", LastName = "Warner", Mark = 39 };
+
+            Assert.That(student.Grade, Is.EqualTo(Grades.F));
+        }
+
+        [Test]
+        public void GetGradeDShouldSetMinMark()
+        {
+            var student = new Student { StudentId = 1, FirstName = "Finn", LastName = "Warner", Mark = 40 };
+
+            Assert.That(student.Grade, Is.EqualTo(Grades.D));
+        }
+
+        [Test]
+        public void GetGradeDShouldSetMaxMark()
+        {
+            var student = new Student { StudentId = 1, FirstName = "Finn", LastName = "Warner", Mark = 49 };
+
+            Assert.That(student.Grade, Is.EqualTo(Grades.D));
+        }
+
+        [Test]
+        public void GetGradeCShouldSetMinMark()
+        {
+            var student = new Student { StudentId = 1, FirstName = "Finn", LastName = "Warner", Mark = 50 };
+
+            Assert.That(student.Grade, Is.EqualTo(Grades.C));
+        }
+
+        [Test]
+        public void GetGradeCShouldSetMaxMark()
+        {
+            var student = new Student { StudentId = 1, FirstName = "Finn", LastName = "Warner", Mark = 59 };
+
+            Assert.That(student.Grade, Is.EqualTo(Grades.C));
+        }
+
+        [Test]
+        public void GetGradeBShouldSetMinMark()
+        {
+            var student = new Student { StudentId = 1, FirstName = "Finn", LastName = "Warner", Mark = 60 };
+
+            Assert.That(student.Grade, Is.EqualTo(Grades.B));
+        }
+
+        [Test]
+        public void GetGradeBShouldSetMaxMark()
+        {
+            var student = new Student { StudentId = 1, FirstName = "Finn", LastName = "Warner", Mark = 69 };
+
+            Assert.That(student.Grade, Is.EqualTo(Grades.B));
+        }
+
+        [Test]
+        public void GetGradeAShouldSetMinMark()
+        {
+            var student = new Student { StudentId = 1, FirstName = "Finn", LastName = "Warner", Mark = 70 };
+
+            Assert.That(student.Grade, Is.EqualTo(Grades.A));
+        }
+
+        [Test]
+        public void GetGradeAShouldSetMaxMark()
+        {
+            var student = new Student { StudentId = 1, FirstName = "Finn", LastName = "Warner", Mark = 100 };
+
+            Assert.That(student.Grade, Is.EqualTo(Grades.A));
         }
     }
 }

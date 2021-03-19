@@ -129,7 +129,12 @@
         /// </summary>
         /// <param name="command">The given command to be executed</param>
         private void ExecuteCommand(Command command)
-            => command.Execute();
+        {
+            if (command is not null)
+            {
+                command.Execute();
+            }
+        }
 
         /// <summary>
         /// Add all command to the dictionary
