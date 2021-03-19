@@ -1,7 +1,7 @@
 ﻿namespace ConsoleAppProject.App03
 {
     using System;
-
+    using System.ComponentModel.DataAnnotations;
     using static Common.Constants.Common;
     using static Common.Constants.StudentGrades;
 
@@ -49,6 +49,7 @@
         /// <summary>
         /// The id of this student
         /// </summary>
+        [Key]
         public int StudentId { get; set; }
 
         /// <summary>
