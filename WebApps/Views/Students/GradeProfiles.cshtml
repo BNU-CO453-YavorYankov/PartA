@@ -1,0 +1,63 @@
+﻿@model WebApps.Models.App03.GradeProfile
+
+@{
+    ViewData["Title"] = "Grade profiles";
+}
+
+<div>
+    <h4>Grade profiles</h4>
+    <hr />
+    @if (Model.Message is not null)
+    {
+        <p>
+            @Html.DisplayFor(model => model.Message)
+        </p>
+    }
+    else
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Fail) - F
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ThirdClass) - D
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.LowerSecondClass) - C
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.UpperSecondClass) - B
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.FirstClass) - A
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(model => model.Fail)%
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.ThirdClass)%
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.LowerSecondClass)%
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.UpperSecondClass)%
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.FirstClass)%
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    }
+</div>
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>

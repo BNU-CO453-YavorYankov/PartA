@@ -146,15 +146,15 @@
         // GET: Students/Edit/5
         public IActionResult Mean()
         {
-            var totalMarks = this._context.Students
-                .Select(m => m.Mark)
-                .ToList()
-                .Sum();
-            
             var mean = new Mean();
 
             if (this._context.Students.Count() is not 0)
             {
+                var totalMarks = this._context.Students
+               .Select(m => m.Mark)
+               .ToList()
+               .Sum();
+
                 mean = new()
                 {
                     MeanResult = totalMarks / this._context.Students.Count(),
@@ -168,6 +168,22 @@
             }
 
             return View(mean);
+        }
+
+        public IActionResult GradeProfiles() 
+        {
+            var gradeProfiles = new GradeProfile();
+
+            if (this._context.Students.Count() is not 0)
+            {
+                gradeProfiles = new(this._context.Students.Select(g => g.Grade).ToList());
+            }
+            else
+            {
+                gradeProfiles.Message = "There is no any students";
+            }
+
+            return View(gradeProfiles);
         }
 
         private bool StudentExists(int id)
