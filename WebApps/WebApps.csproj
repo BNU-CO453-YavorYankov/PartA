@@ -20,4 +20,8 @@
 		<ProjectReference Include="..\ConsoleAppProject\ConsoleAppProject.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="Controllers\App04\" />
+	</ItemGroup>
+
 </Project>
