@@ -4,7 +4,7 @@
     using Microsoft.AspNetCore.Identity;
 
     /// <summary>
-    /// The user model keeps the details of this user
+    /// The user model keeps the user`s details as well as its posts
     /// </summary>
     public class User : IdentityUser
     {

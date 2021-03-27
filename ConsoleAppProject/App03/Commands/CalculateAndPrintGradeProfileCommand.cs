@@ -1,6 +1,6 @@
 ﻿namespace ConsoleAppProject.App03.Commands
 {
-    using System; 
+    using System;
     using ConsoleAppProject.Common;
 
     using static Common.Constants.StudentGrades;
@@ -19,7 +19,7 @@
         /// <param name="studentGrades">the receiver of this command</param>
         public CalculateAndPrintGradeProfileCommand(StudentGrades studentGrades)
             : base(studentGrades)
-        {}
+        { }
 
         /// <summary>
         /// Execute this command
