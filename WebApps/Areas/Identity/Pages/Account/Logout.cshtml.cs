@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.Extensions.Logging;
-using WebApps.Models.App04;
-
-namespace WebApps.Areas.Identity.Pages.Account
+﻿namespace WebApps.Areas.Identity.Pages.Account
 {
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Identity;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Mvc.RazorPages;
+    using System.Threading.Tasks;
+    using WebApps.Models.App04;
+
     [AllowAnonymous]
     public class LogoutModel : PageModel
     {

@@ -1,13 +1,28 @@
-﻿@{
+﻿@using Microsoft.AspNetCore.Identity
+@using WebApps.Models.App04
+
+@inject SignInManager<User> SignInManager
+
+@{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_SocialNetworkLayout.cshtml";
 }
 
-<div class="jumbotron">
-    <h1 class="display-4">Social Network</h1>
-    <p class="lead">This application is the first version of a system that will allow users to post messages and photos that other users can view and like. (Any similarities to Facebook is purely coincidental!).</p>
-    <hr class="my-4">
-    <p class="lead">
+@if (!SignInManager.IsSignedIn(User))
+{
+    <div class="jumbotron">
+        <h1 class="display-4">Social Network</h1>
+        <p class="lead">This application is the first version of a system that will allow users to post messages and photos that other users can view and like. (Any similarities to Facebook is purely coincidental!).</p>
+        <hr class="my-4">
 
-    </p>
-</div>
+        <p class="lead">
+            Any user of this social network should has account for use all features.
+            <a asp-area="Identity" asp-page="/Account/Register" class="btn btn-primary">Register</a>
+            <a asp-area="Identity" asp-page="/Account/Login" class="btn btn-primary">Login</a>
+        </p>
+    </div>
+}
+else
+{
+    <p>List all posts here</p>
+}
