@@ -1,8 +1,8 @@
-﻿using System.Threading.Tasks;
-using WebApps.Models.App04;
-
-namespace WebApps.Services.Posts
+﻿namespace WebApps.Services.Posts
 {
+    using System.Threading.Tasks;
+    using WebApps.Models.App04;
+
     public interface IPostService
     {
         /// <summary>
@@ -22,5 +22,12 @@ namespace WebApps.Services.Posts
         /// </summary>
         /// <param name="id">Id of the post to be deleted</param>
         Task DeletePost(int id);
+
+        /// <summary>
+        /// Find and return the post with same id as the parameter
+        /// </summary>
+        /// <param name="id">Post id</param>
+        /// <returns>Post</returns>
+        Task<Post> GetPostById(int id);
     }
 }
