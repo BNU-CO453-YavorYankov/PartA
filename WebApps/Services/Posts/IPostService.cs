@@ -1,5 +1,6 @@
 ﻿namespace WebApps.Services.Posts
 {
+    using System.Collections.Generic;
     using System.Threading.Tasks;
     using WebApps.Models.App04;
 
@@ -29,5 +30,18 @@
         /// <param name="id">Post id</param>
         /// <returns>Post</returns>
         Task<Post> GetPostById(int id);
+
+        /// <summary>
+        /// Get all posts from the database
+        /// </summary>
+        /// <returns></returns>
+        IEnumerable<Post> GetPosts();
+
+        /// <summary>
+        /// Get all posts of a given author
+        /// </summary>
+        /// <param name="authorId">Author id</param>
+        /// <returns>Posts of an author</returns>
+        IEnumerable<Post> GetPostsByAuthorId(string authorId);
     }
 }

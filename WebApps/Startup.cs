@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using WebApps.Data;
 using WebApps.Models.App04;
+using WebApps.Services.Posts;
 
 namespace WebApps
 {
@@ -43,6 +44,9 @@ namespace WebApps
                 })
                 .AddEntityFrameworkStores<SocialNetworkDbContext>()
                 .AddDefaultTokenProviders();
+
+            //Registration of post service
+            services.AddScoped<IPostService, PostService>();
 
             services.AddRazorPages();
             services.AddControllersWithViews();

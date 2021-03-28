@@ -2,6 +2,7 @@
 {
     using Microsoft.EntityFrameworkCore;
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
     using WebApps.Data;
@@ -50,7 +51,17 @@
 
         public async Task<Post> GetPostById(int id)
             => await this._data.Posts
+                .Include(a =>a.Author)
                 .FirstOrDefaultAsync(i => i.PostId == id);
+
+        public IEnumerable<Post> GetPosts()
+            => this._data.Posts
+                .Include(a =>a.Author);
+        
+        public IEnumerable<Post> GetPostsByAuthorId(string authorId)
+            => GetPosts()
+                .Where(aId => aId.AuthorId == authorId)
+                .ToList();
 
         private bool IsPostExist(int postId)
         {
@@ -66,5 +77,6 @@
 
         private async Task SaveChangesAsync()
             => await this._data.SaveChangesAsync();
+
     }
 }

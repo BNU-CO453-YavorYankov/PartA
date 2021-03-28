@@ -3,6 +3,8 @@
 
 @inject SignInManager<User> SignInManager
 
+@model ICollection<Post>
+
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_SocialNetworkLayout.cshtml";
@@ -24,5 +26,15 @@
 }
 else
 {
-    <p>List all posts here</p>
+    if (Model.Count > 0)
+    {
+        foreach (var post in Model.OrderBy(c => c.CreatedOn))
+        {
+
+        }
+    }
+    else
+    {
+        <p>There is no any posts yet... Why not <a asp-controller="Posts" asp-action="Create">add one</a></p>
+    }
 }
