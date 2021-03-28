@@ -9,6 +9,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using WebApps.Models.App04;
 
+using static WebApps.Models.ModelConstants.User;
+
 namespace WebApps.Areas.Identity.Pages.Account
 {
     [AllowAnonymous]
@@ -34,6 +36,21 @@ namespace WebApps.Areas.Identity.Pages.Account
 
         public class InputModel
         {
+            [Required]
+            [MinLength(MIN_NAME_LENGTH), MaxLength(MAX_NAME_LENGTH)]
+            [Display(Name = "First name")]
+            public string FirstName { get; set; }
+
+            [Required]
+            [MinLength(MIN_NAME_LENGTH), MaxLength(MAX_NAME_LENGTH)]
+            [Display(Name = "Last name")]
+            public string LastName { get; set; }
+
+            [Required]
+            [EnumDataType(typeof(Gender))]
+            [Display(Name = nameof(Gender))]
+            public Gender Gender { get; set; }
+
             [Required]
             [EmailAddress]
             [Display(Name = "Email")]
@@ -63,7 +80,14 @@ namespace WebApps.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var user = new User { UserName = Input.Email, Email = Input.Email };
+                var user = new User 
+                {
+                    UserName = Input.Email, 
+                    Email = Input.Email,
+                    FirstName = Input.FirstName,
+                    LastName = Input.LastName,
+                    Gender = Input.Gender
+                };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
