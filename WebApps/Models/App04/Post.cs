@@ -13,8 +13,6 @@
     /// </summary>
     public class Post
     {
-        public Post() => this.CreatedOn = DateTime.Now;
-
         public int PostId { get; set; }
 
         [MinLength(MIN_CONTENT_LENGTH), MaxLength(MAX_CONTENT_LENGTH)]
@@ -25,7 +23,7 @@
         [NotMapped]
         public IFormFile Photo { get; set; }
 
-        public DateTime CreatedOn { get; private set; }
+        public DateTime CreatedOn { get; set; }
 
         public string AuthorId { get; set; }
 

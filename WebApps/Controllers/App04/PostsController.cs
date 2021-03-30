@@ -55,12 +55,10 @@ namespace WebApps.Controllers.App04
             {
                 var currentUserId = this._userManager.GetUserId(User);
 
-                //Set current user id to be author id
                 post.AuthorId = currentUserId;
-                
-                //Upload photo if there is so
                 post.PhotoName = UploadPhoto(post.Photo, currentUserId);
-
+                post.CreatedOn = DateTime.Now;
+                
                 await this._postService.AddPost(post);
                 
                 return RedirectToAction("Index", "HomeSocialNetwork");
