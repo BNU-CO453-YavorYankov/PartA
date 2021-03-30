@@ -1,19 +1,18 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using WebApps.Models.App04;
-using WebApps.Services.Posts;
-
-namespace WebApps.Controllers.App04
+﻿namespace WebApps.Controllers.App04
 {
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Hosting;
+    using Microsoft.AspNetCore.Http;
+    using Microsoft.AspNetCore.Identity;
+    using Microsoft.AspNetCore.Mvc;
+    using System;
+    using System.IO;
+    using System.Threading.Tasks;
+    using WebApps.Models.App04;
+    using WebApps.Services.Posts;
+
+    using static Models.ModelConstants.Post;
+
     [Authorize]
     public class PostsController : Controller
     {
@@ -51,6 +50,8 @@ namespace WebApps.Controllers.App04
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Post post)
         {
+            Validate(post);
+
             if (ModelState.IsValid)
             {
                 var currentUserId = this._userManager.GetUserId(User);
@@ -58,9 +59,9 @@ namespace WebApps.Controllers.App04
                 post.AuthorId = currentUserId;
                 post.PhotoName = UploadPhoto(post.Photo, currentUserId);
                 post.CreatedOn = DateTime.Now;
-                
+
                 await this._postService.AddPost(post);
-                
+
                 return RedirectToAction("Index", "HomeSocialNetwork");
             }
             return View(post);
@@ -76,7 +77,7 @@ namespace WebApps.Controllers.App04
 
             var post = await this._postService
                 .GetPostById((int)id);
-            
+
             if (post == null)
             {
                 return NotFound();
@@ -90,6 +91,8 @@ namespace WebApps.Controllers.App04
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(Post post)
         {
+            Validate(post);
+
             if (ModelState.IsValid)
             {
                 try
@@ -115,7 +118,7 @@ namespace WebApps.Controllers.App04
 
             var post = await this._postService
                 .GetPostById((int)id);
- 
+
             if (post == null)
             {
                 return NotFound();
@@ -130,7 +133,7 @@ namespace WebApps.Controllers.App04
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             await this._postService.DeletePost(id);
-            
+
             return RedirectToAction(nameof(Index));
         }
 
@@ -145,16 +148,24 @@ namespace WebApps.Controllers.App04
             if (uploadedPhoto != null)
             {
                 string uploadsFolder = Path.Combine(this._env.WebRootPath, "img");
-                
+
                 uniqueFileName = $"{authorId}_{uploadedPhoto.FileName}";
-                
+
                 string filePath = Path.Combine(uploadsFolder, uniqueFileName);
 
                 using var fileStream = new FileStream(filePath, FileMode.Create);
-                
+
                 uploadedPhoto.CopyTo(fileStream);
             }
             return uniqueFileName;
+        }
+
+        private void Validate(Post post)
+        {
+            if (post.Content is null || post.Content.Length < MIN_CONTENT_LENGTH || post.Content.Length < MAX_CONTENT_LENGTH)
+            {
+                this.ModelState.AddModelError(nameof(Post.Content), $"Content required and cannot be less than {MIN_CONTENT_LENGTH} or more than {MAX_CONTENT_LENGTH} symbols long.");
+            }
         }
     }
 }
