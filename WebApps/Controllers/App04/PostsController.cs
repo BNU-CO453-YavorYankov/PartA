@@ -160,9 +160,13 @@
             return uniqueFileName;
         }
 
+        /// <summary>
+        /// validate whether 
+        /// </summary>
+        /// <param name="post"></param>
         private void Validate(Post post)
         {
-            if (post.Content is null || post.Content.Length < MIN_CONTENT_LENGTH || post.Content.Length < MAX_CONTENT_LENGTH)
+            if (post.Content is null || post.Content.Length < MIN_CONTENT_LENGTH || post.Content.Length > MAX_CONTENT_LENGTH)
             {
                 this.ModelState.AddModelError(nameof(Post.Content), $"Content required and cannot be less than {MIN_CONTENT_LENGTH} or more than {MAX_CONTENT_LENGTH} symbols long.");
             }
