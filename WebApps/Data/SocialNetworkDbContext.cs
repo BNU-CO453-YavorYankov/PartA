@@ -11,6 +11,7 @@
         { }
 
         public DbSet<Post> Posts { get; set; }
+        public DbSet<UserLikePost> UsersLikePosts { get; set; }
 
         /// <summary>
         /// Override fluent api to configure models` mapping properties
@@ -44,6 +45,31 @@
 
                 //Set content prop required
                 entity.Property(c => c.Content).IsRequired();
+            });
+
+            //User like post mapping table configuration
+            builder.Entity<UserLikePost>(entity =>
+            {
+                // Set primary keys for the mapping table to be userId and postId
+                entity.HasKey(up => new { up.UserId, up.PostId });
+
+                /* Establish connection between the mapping table`s User prop 
+                 * with User entity`s collection Liked posts and 
+                 * set foreign key to be UserId prop from mapping table.
+                 */
+                entity.HasOne(up => up.User)
+                    .WithMany(u => u.LikedPosts)
+                    .HasForeignKey(up => up.UserId)
+                    .OnDelete(DeleteBehavior.Cascade);
+
+                /* Establish connection between the mapping table`s Post prop 
+                 * with Post entity`s collection users likes and 
+                 * set foreign key to be PostId prop from mapping table.
+                 */
+                entity.HasOne(up => up.Post)
+                    .WithMany(p => p.UsersLikes)
+                    .HasForeignKey(up => up.PostId)
+                    .OnDelete(DeleteBehavior.Cascade);
             });
 
             base.OnModelCreating(builder);

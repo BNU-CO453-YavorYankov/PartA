@@ -2,6 +2,7 @@
 {
     using Microsoft.AspNetCore.Http;
     using System;
+    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     
@@ -18,6 +19,10 @@
         [MinLength(MIN_CONTENT_LENGTH), MaxLength(MAX_CONTENT_LENGTH)]
         public string Content { get; set; }
 
+        /// <summary>
+        /// Name of the photo/image of this posts with extension
+        /// Example: image-name.jpeg
+        /// </summary>
         public string PhotoName { get; set; }
 
         [NotMapped]
@@ -28,5 +33,10 @@
         public string AuthorId { get; set; }
 
         public User Author { get; set; }
+        
+        /// <summary>
+        /// Collection of users that liked this post
+        /// </summary>
+        public ICollection<UserLikePost> UsersLikes { get; set; }
     }
 }
