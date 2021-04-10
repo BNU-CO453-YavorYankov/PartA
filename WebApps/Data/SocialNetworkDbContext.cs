@@ -59,8 +59,7 @@
                  */
                 entity.HasOne(up => up.User)
                     .WithMany(u => u.LikedPosts)
-                    .HasForeignKey(up => up.UserId)
-                    .OnDelete(DeleteBehavior.Cascade);
+                    .HasForeignKey(up => up.UserId);
 
                 /* Establish connection between the mapping table`s Post prop 
                  * with Post entity`s collection users likes and 
@@ -68,8 +67,7 @@
                  */
                 entity.HasOne(up => up.Post)
                     .WithMany(p => p.UsersLikes)
-                    .HasForeignKey(up => up.PostId)
-                    .OnDelete(DeleteBehavior.Cascade);
+                    .HasForeignKey(up => up.PostId);
             });
 
             base.OnModelCreating(builder);

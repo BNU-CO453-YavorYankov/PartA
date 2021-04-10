@@ -6,6 +6,7 @@
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using System;
+    using System.Collections.Generic;
     using System.IO;
     using System.Threading.Tasks;
     using WebApps.Models.App04;
@@ -65,6 +66,26 @@
                 return RedirectToAction("Index", "HomeSocialNetwork");
             }
             return View(post);
+        }
+
+        public async Task<JsonResult> IncreaseLikes([FromQuery] int id)
+        {
+            var post = await this._postService
+                .GetPostById(id);
+
+            var currentUserId = this._userManager
+                .GetUserId(User);
+
+            // Add new user like post as set post id and user id
+            post.UsersLikes.Add(new UserLikePost
+            {
+                PostId = post.PostId,
+                UserId = currentUserId
+            });
+
+            await this._postService.EditPost(post);
+
+            return new JsonResult(true);
         }
 
         // GET: Posts/Edit/5

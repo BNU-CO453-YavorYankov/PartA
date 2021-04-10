@@ -37,6 +37,7 @@
             IsPostExist(post.PostId);
 
             this._data.Posts.Update(post);
+
             await SaveChangesAsync();
         }
 
@@ -52,11 +53,13 @@
         public async Task<Post> GetPostById(int id)
             => await this._data.Posts
                 .Include(a =>a.Author)
+                .Include(l =>l.UsersLikes)
                 .FirstOrDefaultAsync(i => i.PostId == id);
 
         public IEnumerable<Post> GetPosts()
             => this._data.Posts
-                .Include(a =>a.Author);
+                .Include(a =>a.Author)
+                .Include(ul =>ul.UsersLikes);
         
         public IEnumerable<Post> GetPostsByAuthorId(string authorId)
             => GetPosts()

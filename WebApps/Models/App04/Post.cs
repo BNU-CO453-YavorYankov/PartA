@@ -14,6 +14,11 @@
     /// </summary>
     public class Post
     {
+        public Post()
+        {
+            this.UsersLikes = new HashSet<UserLikePost>();
+        }
+
         public int PostId { get; set; }
 
         [MinLength(MIN_CONTENT_LENGTH), MaxLength(MAX_CONTENT_LENGTH)]

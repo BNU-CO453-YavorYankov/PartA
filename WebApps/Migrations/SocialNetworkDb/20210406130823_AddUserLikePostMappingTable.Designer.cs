@@ -10,7 +10,7 @@ using WebApps.Data;
 namespace WebApps.Migrations.SocialNetworkDb
 {
     [DbContext(typeof(SocialNetworkDbContext))]
-    [Migration("20210406121802_AddUserLikePostMappingTable")]
+    [Migration("20210406130823_AddUserLikePostMappingTable")]
     partial class AddUserLikePostMappingTable
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
