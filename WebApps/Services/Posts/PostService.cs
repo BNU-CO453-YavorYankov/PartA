@@ -59,7 +59,8 @@
         public IEnumerable<Post> GetPosts()
             => this._data.Posts
                 .Include(a =>a.Author)
-                .Include(ul =>ul.UsersLikes);
+                .Include(ul =>ul.UsersLikes)
+                .AsNoTracking();
         
         public IEnumerable<Post> GetPostsByAuthorId(string authorId)
             => GetPosts()

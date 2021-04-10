@@ -8,6 +8,7 @@
     using System;
     using System.Collections.Generic;
     using System.IO;
+    using System.Linq;
     using System.Threading.Tasks;
     using WebApps.Models.App04;
     using WebApps.Services.Posts;
@@ -66,26 +67,6 @@
                 return RedirectToAction("Index", "HomeSocialNetwork");
             }
             return View(post);
-        }
-
-        public async Task<JsonResult> IncreaseLikes([FromQuery] int id)
-        {
-            var post = await this._postService
-                .GetPostById(id);
-
-            var currentUserId = this._userManager
-                .GetUserId(User);
-
-            // Add new user like post as set post id and user id
-            post.UsersLikes.Add(new UserLikePost
-            {
-                PostId = post.PostId,
-                UserId = currentUserId
-            });
-
-            await this._postService.EditPost(post);
-
-            return new JsonResult(true);
         }
 
         // GET: Posts/Edit/5
@@ -155,7 +136,58 @@
         {
             await this._postService.DeletePost(id);
 
-            return RedirectToAction("Index","Profiles");
+            return RedirectToAction("Index", "Profiles");
+        }
+
+        /// <summary>
+        /// Increase the likes of a given post
+        /// </summary>
+        public async Task<JsonResult> IncreaseLikes([FromQuery] int id)
+        {
+            var post = await this._postService
+                .GetPostById(id);
+
+            var currentUserId = this._userManager
+                .GetUserId(User);
+
+            // Add new user like post as set post id and user id
+            post.UsersLikes.Add(new UserLikePost
+            {
+                PostId = post.PostId,
+                UserId = currentUserId
+            });
+
+            await this._postService.EditPost(post);
+
+            return new JsonResult(true);
+        }
+
+        /// <summary>
+        /// Increase the likes of a given post
+        /// when it is not the current user
+        /// </summary>
+        [HttpPost]
+        public async Task<JsonResult> IncreaseLikes([FromBody] UserLikePost userLikePost)
+        {
+            if (IsUserExist(userLikePost.UserId) && IsPostExist(userLikePost.PostId))
+            {
+                var post = await this._postService
+                    .GetPostById(userLikePost.PostId);
+
+                // Add new user like post as set post id and user id
+                post.UsersLikes.Add(new UserLikePost
+                {
+                    PostId = userLikePost.PostId,
+                    UserId = userLikePost.UserId
+                });
+                await this._postService.EditPost(post);
+
+                return new JsonResult(true);
+            }
+            else
+            {
+                throw new ArgumentException($"Invalid data.");
+            }
         }
 
         /// <summary>
@@ -192,5 +224,11 @@
                 this.ModelState.AddModelError(nameof(Post.Content), $"Content required and cannot be less than {MIN_CONTENT_LENGTH} or more than {MAX_CONTENT_LENGTH} symbols long.");
             }
         }
+
+        private bool IsUserExist(string userId)
+            => this._userManager.Users.Any(i => i.Id == userId);
+
+        private bool IsPostExist(int postId)
+            => this._postService.GetPosts().Any(p => p.PostId == postId);
     }
 }
