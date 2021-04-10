@@ -155,7 +155,7 @@
         {
             await this._postService.DeletePost(id);
 
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Index","Profiles");
         }
 
         /// <summary>
