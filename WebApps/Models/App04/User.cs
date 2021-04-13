@@ -15,6 +15,8 @@
         public User()
         {
             this.Posts = new HashSet<Post>();
+            this.LikedPosts = new HashSet<UserLikePost>();
+            this.Comments = new HashSet<Comment>();
         }
 
         [MinLength(MIN_NAME_LENGTH), MaxLength(MAX_NAME_LENGTH)]
@@ -33,6 +35,8 @@
         public ICollection<Post> Posts{ get; set; }
      
         public ICollection<UserLikePost> LikedPosts{ get; set; }
+
+        public ICollection<Comment> Comments{ get; set; }
     }
     
     public enum Gender

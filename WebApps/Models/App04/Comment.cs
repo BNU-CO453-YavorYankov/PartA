@@ -14,7 +14,7 @@
 
         public DateTime CreatedOn { get; set; }
 
-        public Post PostId { get; set; }
+        public int PostId { get; set; }
         //Commented post
         public Post Post { get; set; }
         

@@ -1,8 +1,8 @@
 ﻿namespace WebApps.Data
 {
-    using WebApps.Models.App04;
-    using Microsoft.EntityFrameworkCore;
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+    using Microsoft.EntityFrameworkCore;
+    using WebApps.Models.App04;
 
     public class SocialNetworkDbContext : IdentityDbContext<User>
     {
@@ -11,6 +11,7 @@
         { }
 
         public DbSet<Post> Posts { get; set; }
+        public DbSet<Comment> Comments { get; set; }
         public DbSet<UserLikePost> UsersLikePosts { get; set; }
 
         /// <summary>
@@ -35,6 +36,7 @@
                     .WithOne(a => a.Author)
                     .HasForeignKey(aId => aId.AuthorId)
                     .OnDelete(DeleteBehavior.Cascade);
+
             });
 
             // Post configuration
@@ -69,6 +71,28 @@
                     .WithMany(p => p.UsersLikes)
                     .HasForeignKey(up => up.PostId);
             });
+
+            //Comment model configuration
+            builder.Entity<Comment>(entity =>
+            {
+                //Set content prop required
+                entity.Property(c => c.Content).IsRequired();
+
+                /* Comment model has one author
+                 * but author can have many comments
+                 */
+                entity.HasOne(a => a.Author)
+                    .WithMany(c => c.Comments)
+                    .HasForeignKey(aId => aId.AuthorId);
+
+                /* Comment model has one post
+                 * but post can have many comments
+                 */
+                entity.HasOne(p => p.Post)
+                    .WithMany(c => c.Comments)
+                    .HasForeignKey(pId => pId.PostId);
+            });
+
 
             base.OnModelCreating(builder);
         }

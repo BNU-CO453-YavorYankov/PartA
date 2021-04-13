@@ -17,6 +17,7 @@
         public Post()
         {
             this.UsersLikes = new HashSet<UserLikePost>();
+            this.Comments = new HashSet<Comment>();
         }
 
         public int PostId { get; set; }
@@ -43,5 +44,7 @@
         /// Collection of users that liked this post
         /// </summary>
         public ICollection<UserLikePost> UsersLikes { get; set; }
+
+        public ICollection<Comment> Comments { get; set; }
     }
 }
