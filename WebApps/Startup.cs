@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using WebApps.Data;
 using WebApps.Models.App04;
+using WebApps.Services.Comments;
 using WebApps.Services.Posts;
 
 namespace WebApps
@@ -47,6 +48,9 @@ namespace WebApps
 
             //Registration of post service
             services.AddScoped<IPostService, PostService>();
+
+            //Registration of comment service
+            services.AddScoped<ICommentService, CommentService>();
 
             services.AddRazorPages();
             services.AddControllersWithViews();
