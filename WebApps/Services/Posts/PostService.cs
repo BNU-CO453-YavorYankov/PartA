@@ -60,6 +60,7 @@
             => this._data.Posts
                 .Include(a =>a.Author)
                 .Include(ul =>ul.UsersLikes)
+                .Include(c =>c.Comments)
                 .AsNoTracking();
         
         public IEnumerable<Post> GetPostsByAuthorId(string authorId)
@@ -67,7 +68,7 @@
                 .Where(aId => aId.AuthorId == authorId)
                 .ToList();
 
-        private bool IsPostExist(int postId)
+        public bool IsPostExist(int postId)
         {
             if (this._data.Posts.Any(i => i.PostId == postId))
             {

@@ -169,7 +169,7 @@
         [HttpPost]
         public async Task<JsonResult> IncreaseLikes([FromBody] UserLikePost userLikePost)
         {
-            if (IsUserExist(userLikePost.UserId) && IsPostExist(userLikePost.PostId))
+            if (IsUserExist(userLikePost.UserId) && this._postService.IsPostExist(userLikePost.PostId))
             {
                 var post = await this._postService
                     .GetPostById(userLikePost.PostId);
@@ -214,9 +214,9 @@
         }
 
         /// <summary>
-        /// validate whether 
+        /// validate whether the post valid
         /// </summary>
-        /// <param name="post"></param>
+        /// <param name="post">the post to be validated</param>
         private void Validate(Post post)
         {
             if (post.Content is null || post.Content.Length < MIN_CONTENT_LENGTH || post.Content.Length > MAX_CONTENT_LENGTH)
@@ -227,8 +227,5 @@
 
         private bool IsUserExist(string userId)
             => this._userManager.Users.Any(i => i.Id == userId);
-
-        private bool IsPostExist(int postId)
-            => this._postService.GetPosts().Any(p => p.PostId == postId);
     }
 }

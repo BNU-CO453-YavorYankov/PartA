@@ -43,5 +43,12 @@
         /// <param name="authorId">Author id</param>
         /// <returns>Posts of an author</returns>
         IEnumerable<Post> GetPostsByAuthorId(string authorId);
+
+        /// <summary>
+        /// Checks is a post exist
+        /// </summary>
+        /// <param name="postId">the id of the post</param>
+        /// <returns></returns>
+        bool IsPostExist(int postId);
     }
 }

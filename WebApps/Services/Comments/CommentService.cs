@@ -1,5 +1,7 @@
 ﻿namespace WebApps.Services.Comments
 {
+    using System.Collections.Generic;
+    using System.Linq;
     using System.Threading.Tasks;
     using WebApps.Data;
     using WebApps.Models.App04;
@@ -23,6 +25,11 @@
             await this._data.Comments.AddAsync(comment);
             await SaveChangesAsync();
         }
+
+        public IEnumerable<Comment> GetCommentsByPostId(int postId)
+            => this._data.Comments
+                .Where(pId =>pId.PostId == postId)
+                .ToList();
 
         private async Task SaveChangesAsync()
             => await this._data.SaveChangesAsync();
