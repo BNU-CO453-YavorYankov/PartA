@@ -6,7 +6,6 @@
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using System;
-    using System.Collections.Generic;
     using System.IO;
     using System.Linq;
     using System.Threading.Tasks;
@@ -141,53 +140,63 @@
 
         /// <summary>
         /// Increase the likes of a given post
-        /// </summary>
-        public async Task<JsonResult> IncreaseLikes([FromQuery] int id)
-        {
-            var post = await this._postService
-                .GetPostById(id);
-
-            var currentUserId = this._userManager
-                .GetUserId(User);
-
-            // Add new user like post as set post id and user id
-            post.UsersLikes.Add(new UserLikePost
-            {
-                PostId = post.PostId,
-                UserId = currentUserId
-            });
-
-            await this._postService.EditPost(post);
-
-            return new JsonResult(true);
-        }
-
-        /// <summary>
-        /// Increase the likes of a given post
-        /// when it is not the current user
+        /// when it is not the current user.
+        /// It returns true if new like is added to a post,
+        /// return false if it is unliked
         /// </summary>
         [HttpPost]
         public async Task<JsonResult> IncreaseLikes([FromBody] UserLikePost userLikePost)
         {
+            //If there is no id of the user who like the post, it will be set the current user`s id
+            if (userLikePost.UserId is null)
+            {
+                userLikePost.UserId = this._userManager.GetUserId(User);
+            }
+
             if (IsUserExist(userLikePost.UserId) && this._postService.IsPostExist(userLikePost.PostId))
             {
                 var post = await this._postService
                     .GetPostById(userLikePost.PostId);
 
-                // Add new user like post as set post id and user id
-                post.UsersLikes.Add(new UserLikePost
+                if (await IsPostLikedAsync(userLikePost.PostId, userLikePost.UserId))
                 {
-                    PostId = userLikePost.PostId,
-                    UserId = userLikePost.UserId
-                });
-                await this._postService.EditPost(post);
+                    //like to be removed 
+                    var like = post.UsersLikes.FirstOrDefault(l => l.UserId == userLikePost.UserId && l.PostId == userLikePost.PostId);
 
-                return new JsonResult(true);
+                    post.UsersLikes.Remove(like);
+
+                    await this._postService.EditPost(post);
+
+                    return new JsonResult(false);
+                }
+                else
+                {
+                    // Add new user like post as set post id and user id
+                    post.UsersLikes.Add(new UserLikePost
+                    {
+                        PostId = userLikePost.PostId,
+                        UserId = userLikePost.UserId
+                    });
+                    await this._postService.EditPost(post);
+
+                    return new JsonResult(true);
+                }
             }
             else
             {
                 throw new ArgumentException($"Invalid data.");
             }
+        }
+
+        private async Task<bool> IsPostLikedAsync(int postId, string userId)
+        {
+            var postLikes = await this._postService.GetPostById(postId);
+            if (postLikes.UsersLikes.Any(l =>l.UserId == userId && l.PostId == postId))
+            {
+                //post is already liked by this user
+                return true;
+            }
+            return false;
         }
 
         /// <summary>
