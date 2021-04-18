@@ -1,6 +1,7 @@
 ﻿namespace WebApps.Controllers.App04
 {
     using Microsoft.AspNetCore.Mvc;
+    using System;
     using System.Linq;
     using WebApps.Services.Posts;
 
@@ -15,9 +16,22 @@
         public HomeSocialNetworkController(IPostService postService)
             => this._postService = postService;
 
-        public ActionResult Index()
+        public IActionResult Index(string dateFilter = null)
         {
-            return View(this._postService.GetPosts().ToList());
+            if (dateFilter is not null)
+            {
+                var date = DateTime.Parse(dateFilter).ToString("dd/MM/yyyy");
+
+                TempData["dateFilter"] = $"Posts published on {date}";
+
+                return View(this._postService.GetPosts()
+                    .Where(c =>c.CreatedOn.ToString("dd/MM/yyyy") == date)
+                    .OrderByDescending(c =>c.CreatedOn)
+                    .ToList());
+            }
+            return View(this._postService.GetPosts()
+                .OrderByDescending(c =>c.CreatedOn)
+                .ToList());
         }
     }
 }
