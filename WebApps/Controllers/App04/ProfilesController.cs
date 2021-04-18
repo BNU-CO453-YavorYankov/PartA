@@ -6,10 +6,12 @@
     using WebApps.Models.App04;
     using WebApps.Services.Posts;
     using System.Threading.Tasks;
+    using Microsoft.AspNetCore.Authorization;
 
     /// <summary>
     /// The controller responsible for user profile
     /// </summary>
+    [Authorize]
     public class ProfilesController : Controller
     {
         private UserManager<User> _userManager;
@@ -28,7 +30,7 @@
             var currentUser = await this._userManager.GetUserAsync(User);
 
             currentUser.Posts = this._postService.GetPostsByAuthorId(currentUser.Id).ToList();
-
+            
             return View(currentUser);
         }
     }

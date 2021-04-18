@@ -1,9 +1,9 @@
 ﻿namespace WebApps.Controllers.App04
 {
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using System;
-    using System.Collections.Generic;
     using System.Threading.Tasks;
     using WebApps.Models.App04;
     using WebApps.Services.Comments;
@@ -11,6 +11,7 @@
 
     using static Models.ModelConstants.Post;
 
+    [Authorize]
     public class CommentsController : Controller
     {
         /// <summary>
@@ -37,7 +38,7 @@
         }
 
         //GET: Comments/ListCommentsByPostId
-        public IActionResult ListCommentsByPostId(int postId) 
+        public IActionResult ListCommentsByPostId(int postId)
         {
             if (this._postService.IsPostExist(postId))
             {
@@ -77,7 +78,7 @@
                 comment.CreatedOn = DateTime.Now;
 
                 await this._commentService.AddComment(comment);
-                
+
                 return RedirectToAction("Index", "HomeSocialNetwork");
             }
             return View(comment);

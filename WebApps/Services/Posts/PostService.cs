@@ -7,6 +7,7 @@
     using System.Threading.Tasks;
     using WebApps.Data;
     using WebApps.Models.App04;
+    using WebApps.Services.Comments;
 
     /// <summary>
     /// Post service implement post service interface.
@@ -17,14 +18,22 @@
         /// <summary>
         /// Injected database
         /// </summary>
-        private readonly SocialNetworkDbContext _data;
+        private SocialNetworkDbContext _data;
+        /// <summary>
+        /// Injected comment service
+        /// </summary>
+        private ICommentService _commentService;
 
         /// <summary>
-        /// Create post service as inject the db context
+        /// Create post service as inject the db context and comment service
         /// </summary>
         /// <param name="data">Db context</param>
-        public PostService(SocialNetworkDbContext data)
-            => this._data = data;
+        /// <param name="data">Comment service interface</param>
+        public PostService(SocialNetworkDbContext data, ICommentService commentService)
+        {
+            this._data = data;
+            this._commentService = commentService;
+        }
 
         public async Task AddPost(Post post)
         {
@@ -52,21 +61,37 @@
 
         public async Task<Post> GetPostById(int id)
             => await this._data.Posts
-                .Include(a =>a.Author)
-                .Include(l =>l.UsersLikes)
+                .Include(a => a.Author)
+                .Include(l => l.UsersLikes)
                 .FirstOrDefaultAsync(i => i.PostId == id);
 
         public IEnumerable<Post> GetPosts()
-            => this._data.Posts
-                .Include(a =>a.Author)
-                .Include(ul =>ul.UsersLikes)
-                .Include(c =>c.Comments)
-                .AsNoTracking();
-        
+        {
+            var posts = this._data.Posts
+                    .Include(a => a.Author)
+                    .Include(ul => ul.UsersLikes)
+                    .AsNoTracking()
+                    .ToList();
+
+            foreach (var post in posts)
+            {
+                post.Comments = this._commentService
+                    .GetCommentsByPostId(post.PostId)
+                    .ToList();
+            }
+
+            return posts;
+        }
+
+        /// <summary>
+        /// Get all posts then on each post get its comments
+        /// </summary>
+        /// <param name="authorId">The id of the author</param>
+        /// <returns></returns>
         public IEnumerable<Post> GetPostsByAuthorId(string authorId)
             => GetPosts()
-                .Where(aId => aId.AuthorId == authorId)
-                .ToList();
+                  .Where(aId => aId.AuthorId == authorId)
+                  .ToList();
 
         public bool IsPostExist(int postId)
         {

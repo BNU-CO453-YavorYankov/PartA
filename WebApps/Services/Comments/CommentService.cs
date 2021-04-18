@@ -1,5 +1,6 @@
 ﻿namespace WebApps.Services.Comments
 {
+    using Microsoft.EntityFrameworkCore;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
@@ -28,6 +29,7 @@
 
         public IEnumerable<Comment> GetCommentsByPostId(int postId)
             => this._data.Comments
+                .Include(a => a.Author)    
                 .Where(pId =>pId.PostId == postId)
                 .ToList();
 

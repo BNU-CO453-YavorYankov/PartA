@@ -92,7 +92,7 @@
                                         <!-- begin timeline-body -->
                                         <div class="timeline-body">
                                             <div class="timeline-header">
-                                                <span class="username"><a href="javascript:;">@post.Author.FullName</a> <small></small></span>
+                                                <span class="username"><strong>@post.Author.FullName</strong></span>
                                             </div>
                                             <div class="timeline-content">
                                                 <p>@post.Content</p>
@@ -136,12 +136,30 @@
                                                         <path d="m2.165 15.803.02-.004c1.83-.363 2.948-.842 3.468-1.105A9.06 9.06 0 0 0 8 15c4.418 0 8-3.134 8-7s-3.582-7-8-7-8 3.134-8 7c0 1.76.743 3.37 1.97 4.6a10.437 10.437 0 0 1-.524 2.318l-.003.011a10.722 10.722 0 0 1-.244.637c-.079.186.074.394.273.362a21.673 21.673 0 0 0 .693-.125zm.8-3.108a1 1 0 0 0-.287-.801C1.618 10.83 1 9.468 1 8c0-3.192 3.004-6 7-6s7 2.808 7 6c0 3.193-3.004 6-7 6a8.06 8.06 0 0 1-2.088-.272 1 1 0 0 0-.711.074c-.387.196-1.24.57-2.634.893a10.97 10.97 0 0 0 .398-2z" />
                                                     </svg> Comment
                                                 </a>
-                                                    <a asp-controller="Posts" asp-action="Delete" asp-route-id="@post.PostId" class="btn btn-danger text-inverse-lighter">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle" viewBox="0 0 16 16">
-                                                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
-                                                            <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
-                                                        </svg> Delete
-                                                    </a>
+                                                <a asp-controller="Posts" asp-action="Delete" asp-route-id="@post.PostId" class="btn btn-danger text-inverse-lighter">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle" viewBox="0 0 16 16">
+                                                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                                                        <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
+                                                    </svg> Delete
+                                                </a>
+                                            </div>
+                                            <div class="timeline-comment-box">
+                                                @if (post.Comments.Count > 0)
+                                                {
+                                                    @foreach (var comment in post.Comments.OrderByDescending(c => c.CreatedOn))
+                                                    {
+                                                        <div style="margin-bottom: 3%; padding: 6%; background-color: #fff;">
+                                                            <span class="username"><strong>@comment.Author.FullName</strong></span>
+                                                            <hr />
+                                                            <p>@comment.Content</p>
+                                                            <hr />
+                                                            <div align="right">
+                                                                <span class="date">@comment.CreatedOn.Date.ToString("dd/MM/yyyy")</span>
+                                                                <span class="time">@comment.CreatedOn.ToString("HH:mm")</span>
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                }
                                             </div>
                                         </div>
                                     </li>
@@ -164,23 +182,31 @@
         /* Ajax post request that invoke IncreaseLikes method of posts controller.
          * It pass the post id to the method.
          */
-        function increaseLikes(id) {
+        function increaseLikes(id, userId) {
             $.ajax({
-                type: 'GET',
-                url: '/Posts/IncreaseLikes',
-                data: { 'id': id },
+                type: 'POST',
+                url: '@Url.Action("IncreaseLikes", "Posts")',
+                data: JSON.stringify({
+                        'UserId': userId,
+                        'PostId': id,
+                    }),
                 contentType: 'application/json',
                 dataType: 'json',
                 success: function (res) {
-
+                    var badgeId = 'users-likes-' + id;
                     //get users-likes badge
-                    var badge = document.getElementById('users-likes').innerHTML;
+                    var badge = document.getElementById(badgeId).innerHTML;
                     //convert users` likes to int
                     var likes = parseInt(badge);
-                    //increase value of users likes badge with one and set to span
-                    $('#users-likes').text(likes + 1);
 
-                    $('#like-btn').attr('disabled', true);
+                    if (res === true) {
+                        //increase value of users likes badge with one 
+                        $('#users-likes-' + id).text(likes + 1);
+                    }
+                    else if (res === false) {
+                        //decrease value of users likes badge with one 
+                        $('#users-likes-' + id).text(likes - 1);
+                    }
                 },
                 error: function (err) {
                     console.log(err);
