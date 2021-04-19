@@ -3,17 +3,16 @@
     using Bogus;
     using WebApps.Models.App04;
 
-    public static class PostFakes
+    public class CommentFakes
     {
-        /// <summary>
-        /// This post is without author and comments
+        /// <summary> 
+        /// This comment is without author and post 
         /// </summary>
-        public static Post GetPost()
-        => new Faker<Post>().CustomInstantiator(f => new Post
+        public static Comment GetComment()
+        => new Faker<Comment>().CustomInstantiator(f => new Comment
         {
             Content = f.Lorem.Random.AlphaNumeric(5),
             CreatedOn = f.Date.Recent(),
-            PhotoName = f.Image.PlaceImgUrl(),
         }).Generate();
     }
 }

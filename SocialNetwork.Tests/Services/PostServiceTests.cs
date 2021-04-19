@@ -167,7 +167,7 @@
         }
 
         [Fact]
-        public void GetPostByAuthorIdShouldReturnPostsOfAuthor()
+        public void GetPostsByAuthorIdShouldReturnPostsOfAuthor()
         {
             //Arrange
             using (var context = new SocialNetworkDbContext(this._data.ContextOptions))

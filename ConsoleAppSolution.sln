@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApps", "WebApps\WebApps.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleApp.Menu", "ConsoleApp.Menu\ConsoleApp.Menu.csproj", "{35E619E8-1D1A-4EF0-B947-F8D0070F2052}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SocialNetwork.Tests", "SocialNetwork.Tests\SocialNetwork.Tests.csproj", "{FBB60170-5E2F-4C97-9847-F9A88C03BAC1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{35E619E8-1D1A-4EF0-B947-F8D0070F2052}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{35E619E8-1D1A-4EF0-B947-F8D0070F2052}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{35E619E8-1D1A-4EF0-B947-F8D0070F2052}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FBB60170-5E2F-4C97-9847-F9A88C03BAC1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FBB60170-5E2F-4C97-9847-F9A88C03BAC1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FBB60170-5E2F-4C97-9847-F9A88C03BAC1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FBB60170-5E2F-4C97-9847-F9A88C03BAC1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
