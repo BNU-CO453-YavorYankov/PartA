@@ -1,0 +1,14 @@
+﻿@page "/game"
+@using Models;
+
+@inject Services.GameService _gameService
+
+<h3>Game</h3>
+<p>@this._gameService.Name, one game includes @this._gameService.Rounds rounds</p>
+
+
+
+@code {
+    private int robotWon = 0;
+    private int playerWon = 0;
+}

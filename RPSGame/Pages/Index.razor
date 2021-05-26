@@ -1,0 +1,66 @@
+﻿@page "/"
+
+@using RPSGame.Models;
+
+@inject Services.GameService _gameService
+@inject NavigationManager _navigationManager
+
+<div class="container">
+    <div class="row">
+        @*-- Heading --*@
+        <div class="col-12">
+            @* d-flex align the content inside div element in the center of the column *@
+            <div class="d-flex justify-content-center">
+                <h2>Rock Paper Scissors Game</h2>
+            </div>
+            <br />
+            <div class="d-flex justify-content-center">
+                <h4>by Yavor Yankov</h4>
+            </div>
+        </div>
+    </div>
+    <hr />
+    <div class="row">
+        <div class="col-6">
+
+            @*game setup form where the user input its name and number of rounds*@
+            <h3>Game setup</h3>
+            <div class="form-group">
+                <label>Name</label>
+                <input @bind="this._gameService.Name" class="form-control" /><br />
+            </div>
+            <div class="form-group">
+                <label>Number of rounds</label>
+                <input @bind="this._gameService.Rounds" type="number" class="form-control" /><br />
+            </div>
+            <div class="form-group">
+                <button @onclick="SetUser" class="btn btn-primary">Play</button>
+            </div>
+        </div>
+        <div class="col-6">
+            <p>
+                Rock paper scissors is a hand game usually played between two people, 
+                in which each player simultaneously forms one of three shapes 
+                with an outstretched hand. 
+                These shapes are "rock", "paper", and "scissors".
+            </p>
+            <p>
+                Input your name in the name field,
+                choose how many rounds you would like to play
+                and when you are ready click on play button.
+            </p>
+        </div>
+    </div>
+</div>
+
+@code{
+
+    private void SetUser()
+    {
+
+        if (!string.IsNullOrWhiteSpace(this._gameService.Name) || this._gameService.Rounds > 0)
+        {
+            this._navigationManager.NavigateTo($"/game");
+        }
+    }
+}

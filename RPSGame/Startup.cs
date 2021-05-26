@@ -1,11 +1,12 @@
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using RPSGame.Services;
+
 namespace RPSGame
 {
-    using Microsoft.AspNetCore.Builder;
-    using Microsoft.AspNetCore.Hosting;
-    using Microsoft.Extensions.Configuration;
-    using Microsoft.Extensions.DependencyInjection;
-    using Microsoft.Extensions.Hosting;
-
     public class Startup
     {
         public Startup(IConfiguration configuration)
@@ -19,6 +20,7 @@ namespace RPSGame
         {
             services.AddRazorPages();
             services.AddServerSideBlazor();
+            services.AddScoped<GameService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
