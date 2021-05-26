@@ -1,7 +1,4 @@
 ﻿@page "/"
-
-@using RPSGame.Models;
-
 @inject Services.GameService _gameService
 @inject NavigationManager _navigationManager
 
@@ -55,9 +52,12 @@
 
 @code{
 
+    /// <summary>
+    /// Check does the user`s name and number of rounds set
+    /// if so it redirect to the game page
+    /// </summary>
     private void SetUser()
     {
-
         if (!string.IsNullOrWhiteSpace(this._gameService.Name) || this._gameService.Rounds > 0)
         {
             this._navigationManager.NavigateTo($"/game");

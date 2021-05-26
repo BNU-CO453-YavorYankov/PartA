@@ -1,14 +1,45 @@
-﻿@page "/game"
-@using Models;
+﻿@*Game page renders the whole game.
+    Firstly, it print user`s name and number of rounds making one game.
+    Then, it renders three images which the user should choose.
+    After that the game shows the robot`s choice and print out the winner.
+    The game is over whenever one of them has more rounds won.*@
 
+@page "/game"
 @inject Services.GameService _gameService
 
-<h3>Game</h3>
-<p>@this._gameService.Name, one game includes @this._gameService.Rounds rounds</p>
-
-
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div class="d-flex justify-content-center">
+                <h4>
+                    @this._gameService.Name, one game includes @this._gameService.Rounds rounds,<br />
+                    choose ROCK, PAPER or SCISSORS
+                </h4>
+            </div>
+        </div>
+    </div>
+    <div class="row" hidden="@_isPlayerChoose">
+        <PlayerChoice @bind-Choice="PlayerChoice" />
+    </div>
+</div>
 
 @code {
-    private int robotWon = 0;
-    private int playerWon = 0;
+
+    private bool _isPlayerChoose = false;
+    private int _playerChoice = 0;
+
+    public int PlayerChoice
+    {
+        get => this._playerChoice;
+        set
+        {
+            this._playerChoice = value;
+            
+            if (this._playerChoice != 0)
+            {
+                this._isPlayerChoose = true;
+            }
+        }
+    }
 }
+

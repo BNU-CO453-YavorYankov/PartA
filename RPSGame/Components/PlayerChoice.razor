@@ -1,0 +1,25 @@
+﻿<div class="col-4">
+    <img @onclick='() => UpdatePlayerChoice(1)' width="100%"
+         height="80%" src="img/rock_human.png" alt="Rock" />
+</div>
+<div class="col-4">
+    <img @onclick='() => UpdatePlayerChoice(2)' width="100%"
+         height="80%" src="img/paper_human.png" alt="Paper" />
+</div>
+<div class="col-4">
+    <img @onclick='() => UpdatePlayerChoice(3)' width="100%"
+         height="80%" src="img/scissors_human.png" alt="Scissors" />
+</div>
+
+@code {
+    [Parameter]
+    public int Choice { get; set; }
+
+    [Parameter]
+    public EventCallback<int> ChoiceChanged { get; set; }
+
+    private async Task UpdatePlayerChoice(int choice)
+    {
+        await this.ChoiceChanged.InvokeAsync(choice);
+    }
+}
