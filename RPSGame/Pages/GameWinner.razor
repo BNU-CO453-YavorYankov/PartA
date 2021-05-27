@@ -28,6 +28,13 @@
 </div>
 
 @code {
+    /// <summary>
+    /// Before this page to be rendered this method writes the game stat in the XML file
+    /// </summary>
+    protected override void OnInitialized()
+    {
+        this._gameService.SaveGame();
+    }
 
     /// <summary>
     /// This method is invoked whenever the user press play again button.

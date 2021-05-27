@@ -1,5 +1,6 @@
 ﻿namespace RPSGame.Services
 {
+    using RPSGame.Services.Models;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -7,13 +8,16 @@
     public class GameService
     {
         private Random _random;
+        private XMLService _xmlService;
 
         /// <summary>
         /// Initialize new GameService with random instance
         /// </summary>
-        public GameService()
+        public GameService(
+            XMLService xmlService)
         {
             this._random = new();
+            this._xmlService = xmlService;
             this.WinnersByRounds = new();
         }
 
@@ -132,6 +136,32 @@
             this.CurrentRound = 0;
             this.WinnersByRounds = new();
             this.GameWinner = default;
+        }
+
+        /// <summary>
+        /// Save the last game into the XML file
+        /// </summary>
+        public void SaveGame() 
+        {
+            var gameStatModel = new GameStatServiceModel
+            {
+                PlayerName = this.Name
+            };
+
+            if (this.GameWinner.Key is Winners.Player)
+            {
+                gameStatModel.Result = "win";
+            }
+            else if(this.GameWinner.Key is Winners.Robot)
+            {
+                gameStatModel.Result = "lose";
+            }
+            else
+            {
+                gameStatModel.Result = "draw";
+            }
+
+            this._xmlService.WriteXMLFile(gameStatModel);
         }
 
         private void CalculateGameWinner()

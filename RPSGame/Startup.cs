@@ -21,6 +21,7 @@ namespace RPSGame
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddScoped<GameService>();
+            services.AddScoped<XMLService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
