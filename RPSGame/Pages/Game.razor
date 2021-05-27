@@ -18,28 +18,46 @@
             </div>
         </div>
     </div>
-    <div class="row" hidden="@_isPlayerChoose">
-        <PlayerChoice @bind-Choice="PlayerChoice" />
+    <div class="row" hidden="@IsPlayerChoiceSet">
+        <PlayerChoice @bind-IsChoice="IsPlayerChoiceSet" />
+    </div>
+    <div class="row" hidden="@_isResultHidden">
+        
     </div>
 </div>
 
 @code {
+    private bool _isResultHidden = true;
+    private bool _isPlayerChoiceSet = false;
 
-    private bool _isPlayerChoose = false;
-    private int _playerChoice = 0;
-
-    public int PlayerChoice
+    public bool IsPlayerChoiceSet
     {
-        get => this._playerChoice;
+        get => this._isPlayerChoiceSet;
         set
         {
-            this._playerChoice = value;
-            
-            if (this._playerChoice != 0)
+            this._isPlayerChoiceSet = value;
+
+            ShowWinner();
+
+            // Re-render the whole page as notify that the state has changed
+            InvokeAsync(() =>
             {
-                this._isPlayerChoose = true;
-            }
+                StateHasChanged();
+            });
         }
+    }
+
+    /// <summary>
+    /// Invoke method to set the robot choice,
+    /// then set the winner,
+    /// finally show the winner
+    /// </summary>
+    private void ShowWinner()
+    {
+        this._gameService.SetRobotChoice();
+        this._gameService.SetWinner();
+        this._isResultHidden = false;
+        StateHasChanged();
     }
 }
 
