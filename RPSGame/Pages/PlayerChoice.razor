@@ -1,4 +1,5 @@
-﻿@page "/playerchoice"
+﻿@*This page render the 3 possible choice that the user should choose.*@
+@page "/playerchoice"
 
 @using Services
 @inject GameService _gameService
@@ -6,14 +7,29 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-12">
-            <div class="d-flex justify-content-center">
-                <h4>
-                    @this._gameService.Name, one game includes @this._gameService.Rounds rounds,<br />
-                    choose ROCK, PAPER or SCISSORS
-                </h4>
+        @if (this._gameService.CurrentRound > 0)
+        {
+            <div class="col-12">
+                <div class="d-flex justify-content-center">
+                    <h4>
+                        @this._gameService.Rounds rounds left,<br />
+                        choose ROCK, PAPER or SCISSORS
+                    </h4>
+                </div>
             </div>
-        </div>
+        }
+        else
+        {
+            //In the first round print out how many rounds form one game
+            <div class="col-12">
+                <div class="d-flex justify-content-center">
+                    <h4>
+                        @this._gameService.Name, one game includes @this._gameService.Rounds rounds,<br />
+                        choose ROCK, PAPER or SCISSORS
+                    </h4>
+                </div>
+            </div>
+        }
     </div>
     <div class="row">
         <div class="col-4">
@@ -32,6 +48,11 @@
 </div>
 
 @code {
+    /// <summary>
+    /// Set the choice of the player in the game service
+    /// then navigate the user to the result page.
+    /// </summary>
+    /// <param name="choice"></param>
     private void SetPlayerChoice(Choices choice)
     {
         this._gameService.PlayerChoice = choice;

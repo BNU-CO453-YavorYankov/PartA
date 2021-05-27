@@ -1,6 +1,7 @@
 ﻿namespace RPSGame.Services
 {
     using System;
+    using System.Collections.Generic;
 
     public class GameService
     {
@@ -12,6 +13,7 @@
         public GameService()
         {
             this._random = new();
+            this.WinnersByRounds = new();
         }
 
         /// <summary>
@@ -33,7 +35,7 @@
         /// The choice of the robot
         /// </summary>
         public Choices RobotChoice { get; private set; }
-
+        
         /// <summary>
         /// Winner of the game
         /// </summary>
@@ -43,6 +45,18 @@
         /// If true the game is finished
         /// </summary>
         public bool IsGameFinished { get; private set; } = false;
+
+        /// <summary>
+        /// The last round number
+        /// </summary>
+        public int CurrentRound { get; set; } = 0;
+
+        /// <summary>
+        /// <key>key - round number</key>
+        /// <br/>
+        /// <value>value - who won the round</value>
+        /// </summary>
+        public Dictionary<int, Winners> WinnersByRounds{ get; set; }
 
         /// <summary>
         /// Set robot choice as invoke next method 
@@ -59,7 +73,7 @@
         /// Set winner as check for possible combinations,
         /// if there is a match set the winner.
         /// </summary>
-        public void SetWinner()
+        public void SetRoundWinner()
         {
             if (this.PlayerChoice == Choices.Papper && this.RobotChoice == Choices.Papper ||
                 this.PlayerChoice == Choices.Rock && this.RobotChoice == Choices.Rock ||
@@ -91,11 +105,15 @@
             {
                 this.Winner = Winners.Player;
             }
+
+            this.WinnersByRounds.Add(this.CurrentRound+1, this.Winner);
         }
 
         public void UpdateRoundsStat() 
         {
             this.Rounds--;
+            this.CurrentRound++;
+
             if (this.Rounds is 0)
             {
                 this.IsGameFinished = true;

@@ -1,68 +1,134 @@
-﻿@page "/result"
+﻿@*This page render the player`s and robot`s choice.
+    It print out the winner or draw if they make same choise.
+    It shows the remaining rounds.*@
+@page "/result"
 
 @using Services
 @inject GameService _gameService
 @inject NavigationManager _navManager
 
-    <div class="container">
-        <div class="row">
-            <div class="col-4">
-                @if (this._gameService.PlayerChoice == Services.Choices.Rock)
+<div class="container">
+    <div class="row">
+        @*-- Player choise --*@
+        <div class="col-4">
+            @if (this._gameService.PlayerChoice == Services.Choices.Rock)
+            {
+                <img width="100%" height="80%" src="img/rock_human.png" />
+            }
+            @if (this._gameService.PlayerChoice == Services.Choices.Papper)
+            {
+                <img width="100%" height="80%" src="img/paper_human.png" />
+            }
+            @if (this._gameService.PlayerChoice == Services.Choices.Scissors)
+            {
+                <img width="100%" height="80%" src="img/scissors_human.png" />
+            }
+        </div>
+        <div class="col-4">
+            @*-- Current round winner --*@
+            <div class="d-flex justify-content-center">
+                @if (this._gameService.Winner is Services.Winners.Player)
                 {
-                    <img width="100%" height="80%" src="img/rock_human.png" />
+                    <h3>@this._gameService.Name won this round</h3>
                 }
-                @if (this._gameService.PlayerChoice == Services.Choices.Papper)
+                @if (this._gameService.Winner is Services.Winners.Robot)
                 {
-                    <img width="100%" height="80%" src="img/paper_human.png" />
+                    <h3>Robot won this round</h3>
                 }
-                @if (this._gameService.PlayerChoice == Services.Choices.Scissors)
+                @if (this._gameService.Winner is Services.Winners.Draw)
                 {
-                    <img width="100%" height="80%" src="img/scissors_human.png" />
+                    <h3>Draw</h3>
                 }
             </div>
-            <div class="col-4">
-                <div class="d-flex justify-content-center">
-                    @if (this._gameService.Winner is Services.Winners.Player)
-                    {
-                        <h3>@this._gameService.Name won this round</h3>
-                    }
-                    @if (this._gameService.Winner is Services.Winners.Robot)
-                    {
-                        <h3>Robot won this round</h3>
-                    }
-                    @if (this._gameService.Winner is Services.Winners.Draw)
-                    {
-                        <h3>Draw</h3>
-                    }
-                </div>
-                <div class="d-flex justify-content-center">
-                    <a @onclick="NewRound" class="btn btn-primary">Next Round</a>
-                </div>
+            <div class="d-flex justify-content-center">
+                @*-- table with results --*@
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Round</th>
+                            <th scope="col">@this._gameService.Name</th>
+                            <th scope="col">Robot</th>
+                            <th scope="col">Draw</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            var results = this._gameService.WinnersByRounds;
+                        }
+                        @*for loop lenght is sum of number of rounds plus the current
+                            round because in the game service, rounds deacrease with one each round*@
+                        @for (int i = 0; i < (this._gameService.Rounds + this._gameService.CurrentRound); i++)
+                        {
+                        <tr>
+                            <th scope="row">@(i+1)</th>
+                            @if (results.Count < i + 1)
+                            {
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            }
+                            else
+                            {
+                                @if (results.ElementAt(i).Value is Winners.Player)
+                                {
+                                    <td>V</td>
+                                    <td></td>
+                                    <td></td>
+                                }
+                                else if (results.ElementAt(i).Value is Winners.Robot)
+                                {
+                                    <td></td>
+                                    <td>V</td>
+                                    <td></td>
+                                }
+                                else
+                                {
+                                    <td></td>
+                                    <td></td>
+                                    <td>V</td>
+                                }
+                            }
+                        </tr>
+                        }
+                    </tbody>
+                </table>
             </div>
-            <div class="col-4">
-                @if (this._gameService.RobotChoice == Services.Choices.Rock)
-                {
-                    <img width="100%" height="80%" src="img/rock_robot.png" />
-                }
-                @if (this._gameService.RobotChoice == Services.Choices.Papper)
-                {
-                    <img width="100%" height="80%" src="img/paper_robot.png" />
-                }
-                @if (this._gameService.RobotChoice == Services.Choices.Scissors)
-                {
-                    <img width="100%" height="80%" src="img/scissors_robot.png" />
-                }
+            @*-- Next round button --*@
+            <div class="d-flex justify-content-center">
+                <a @onclick="NewRound" class="btn btn-primary">Next Round</a>
             </div>
         </div>
+        @*-- Robot choise --*@
+        <div class="col-4">
+            @if (this._gameService.RobotChoice == Services.Choices.Rock)
+            {
+                <img width="100%" height="80%" src="img/rock_robot.png" />
+            }
+            @if (this._gameService.RobotChoice == Services.Choices.Papper)
+            {
+                <img width="100%" height="80%" src="img/paper_robot.png" />
+            }
+            @if (this._gameService.RobotChoice == Services.Choices.Scissors)
+            {
+                <img width="100%" height="80%" src="img/scissors_robot.png" />
+            }
+        </div>
     </div>
+</div>
 
-    @code {
+@code {
+    /// <summary>
+    /// Navige the user to the player choice page
+    /// </summary>
+    private void NewRound() => this._navManager.NavigateTo("/playerchoice");
 
-        private void NewRound() => this._navManager.NavigateTo("/playerchoice");
-
-        protected override void OnInitialized()
-        {
-            this._gameService.SetRobotChoice();
-            this._gameService.SetWinner();
-        }
+    /// <summary>
+    /// Before this page to be rendered this method set robot choice and set the winner of the current round
+    /// </summary>
+    protected override void OnInitialized()
+    {
+        this._gameService.SetRobotChoice();
+        this._gameService.SetRoundWinner();
+        this._gameService.UpdateRoundsStat();
     }
+}
