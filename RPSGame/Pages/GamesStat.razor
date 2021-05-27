@@ -1,0 +1,120 @@
+﻿@page "/gamesstat"
+@using Services
+@inject XMLService _xmlService
+
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <h2>Leaderboard by won games</h2>
+        </div>
+        <div class="col-12">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Player name</th>
+                        <th scope="col">Wins</th>
+                        <th scope="col">Loses</th>
+                        <th scope="col">Draws</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var player in this._players)
+                    {
+                        <tr>
+                            <td>@player.Name</td>
+                            <td>@player.Wins</td>
+                            <td>@player.Loses</td>
+                            <td>@player.Draws</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@code {
+    private List<KeyValuePair<string, string>> _stat;
+    private List<Player> _players;
+
+    /// <summary>
+    /// Before this page to be rendered
+    /// this method set games stat and invoke calculate stat method.
+    /// </summary>
+    protected override void OnInitialized()
+    {
+        this._stat = this._xmlService.ReadXML();
+
+        CalculateStat();
+        OrderPlayers();
+    }
+
+    /// <summary>
+    /// Add all players from the XML file
+    /// and calculate their wins/loses/draws
+    /// </summary>
+    private void CalculateStat()
+    {
+        this._players = new();
+
+        foreach (var (playerName, result) in this._stat)
+        {
+            //If current player name already added
+            if (this._players.Any(p => p.Name == playerName))
+            {
+                var existingPlayer = this._players
+                    .FirstOrDefault(p => p.Name == playerName);
+
+                switch (result)
+                {
+                    case "win":
+                        existingPlayer.Wins++;
+                        break;
+                    case "lose":
+                        existingPlayer.Loses++;
+                        break;
+                    case "draw":
+                        existingPlayer.Draws++;
+                        break;
+                }
+            }
+            else
+            {
+                var player = new Player { Name = playerName };
+
+                switch (result)
+                {
+                    case "win":
+                        player.Wins++;
+                        break;
+                    case "lose":
+                        player.Loses++;
+                        break;
+                    case "draw":
+                        player.Draws++;
+                        break;
+                }
+
+                this._players.Add(player);
+            }
+        }
+    }
+
+    /// <summary>
+    /// Order the players by won games then draw games
+    /// </summary>
+    private void OrderPlayers()
+        => this._players
+            .OrderBy(p => p.Wins)
+            .ThenBy(p => p.Draws);
+
+    //This class can be accessed only from this page.
+    //It is responsible to store the player details from the XML file.
+    private class Player
+    {
+        public string Name { get; set; }
+        public int Wins { get; set; }
+        public int Loses { get; set; }
+        public int Draws { get; set; }
+    }
+}
