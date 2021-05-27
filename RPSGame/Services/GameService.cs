@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
 
     public class GameService
     {
@@ -39,12 +40,7 @@
         /// <summary>
         /// Winner of the game
         /// </summary>
-        public Winners Winner { get; set; }
-
-        /// <summary>
-        /// If true the game is finished
-        /// </summary>
-        public bool IsGameFinished { get; private set; } = false;
+        public Winners RoundWinner { get; set; }
 
         /// <summary>
         /// The last round number
@@ -57,6 +53,13 @@
         /// <value>value - who won the round</value>
         /// </summary>
         public Dictionary<int, Winners> WinnersByRounds{ get; set; }
+
+        /// <summary>
+        /// <key>key - who won the game</key>
+        /// <br/>
+        /// <value>value - rounds won</value>
+        /// </summary>
+        public KeyValuePair<Winners,int> GameWinner { get; set; }
 
         /// <summary>
         /// Set robot choice as invoke next method 
@@ -79,34 +82,34 @@
                 this.PlayerChoice == Choices.Rock && this.RobotChoice == Choices.Rock ||
                 this.PlayerChoice == Choices.Scissors && this.RobotChoice == Choices.Scissors)
             {
-                this.Winner = Winners.Draw;
+                this.RoundWinner = Winners.Draw;
             }
             else if (this.PlayerChoice == Choices.Rock && this.RobotChoice == Choices.Papper)
             {
-                this.Winner = Winners.Robot;
+                this.RoundWinner = Winners.Robot;
             }
             else if (this.PlayerChoice == Choices.Papper && this.RobotChoice == Choices.Rock)
             {
-                this.Winner = Winners.Player;
+                this.RoundWinner = Winners.Player;
             }
             else if (this.PlayerChoice == Choices.Scissors && this.RobotChoice == Choices.Rock)
             {
-                this.Winner = Winners.Robot;
+                this.RoundWinner = Winners.Robot;
             }
             else if (this.PlayerChoice == Choices.Rock && this.RobotChoice == Choices.Scissors)
             {
-                this.Winner = Winners.Player;
+                this.RoundWinner = Winners.Player;
             }
             else if (this.PlayerChoice == Choices.Papper && this.RobotChoice == Choices.Scissors)
             {
-                this.Winner = Winners.Robot;
+                this.RoundWinner = Winners.Robot;
             }
             else if (this.PlayerChoice == Choices.Scissors && this.RobotChoice == Choices.Papper)
             {
-                this.Winner = Winners.Player;
+                this.RoundWinner = Winners.Player;
             }
 
-            this.WinnersByRounds.Add(this.CurrentRound+1, this.Winner);
+            this.WinnersByRounds.Add(this.CurrentRound+1, this.RoundWinner);
         }
 
         public void UpdateRoundsStat() 
@@ -116,9 +119,49 @@
 
             if (this.Rounds is 0)
             {
-                this.IsGameFinished = true;
+                CalculateGameWinner();
             }
         }
+        
+        /// <summary>
+        /// Reset most of the props to their default values.
+        /// This method is used when the user wants to play again.
+        /// </summary>
+        public void ResetStat() 
+        {
+            this.CurrentRound = 0;
+            this.WinnersByRounds = new();
+            this.GameWinner = default;
+        }
+
+        private void CalculateGameWinner()
+        {
+            var robotRoundsWon = GetWonRoundsByRobot(); 
+            var playerRoundsWon = GetWonRoundsByPlayer();
+
+            if (robotRoundsWon > playerRoundsWon)
+            {
+                this.GameWinner = new(Winners.Robot,robotRoundsWon);
+            }
+            else if (robotRoundsWon < playerRoundsWon)
+            {
+                this.GameWinner = new(Winners.Player, playerRoundsWon);
+            }
+            else if (robotRoundsWon == playerRoundsWon)
+            {
+                this.GameWinner = new(Winners.Draw, 0);
+            }
+        }
+
+        private int GetWonRoundsByRobot()
+            => this.WinnersByRounds.Values
+                .Where(w => w == Winners.Robot)
+                .Count();
+
+        private int GetWonRoundsByPlayer()
+            => this.WinnersByRounds.Values
+                .Where(w => w == Winners.Player)
+                .Count();
     }
 
     public enum Choices

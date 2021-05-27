@@ -27,15 +27,15 @@
         <div class="col-4">
             @*-- Current round winner --*@
             <div class="d-flex justify-content-center">
-                @if (this._gameService.Winner is Services.Winners.Player)
+                @if (this._gameService.RoundWinner is Services.Winners.Player)
                 {
                     <h3>@this._gameService.Name won this round</h3>
                 }
-                @if (this._gameService.Winner is Services.Winners.Robot)
+                @if (this._gameService.RoundWinner is Services.Winners.Robot)
                 {
                     <h3>Robot won this round</h3>
                 }
-                @if (this._gameService.Winner is Services.Winners.Draw)
+                @if (this._gameService.RoundWinner is Services.Winners.Draw)
                 {
                     <h3>Draw</h3>
                 }
@@ -59,43 +59,50 @@
                             round because in the game service, rounds deacrease with one each round*@
                         @for (int i = 0; i < (this._gameService.Rounds + this._gameService.CurrentRound); i++)
                         {
-                        <tr>
-                            <th scope="row">@(i+1)</th>
-                            @if (results.Count < i + 1)
-                            {
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            }
-                            else
-                            {
-                                @if (results.ElementAt(i).Value is Winners.Player)
-                                {
-                                    <td>V</td>
-                                    <td></td>
-                                    <td></td>
-                                }
-                                else if (results.ElementAt(i).Value is Winners.Robot)
+                            <tr>
+                                <th scope="row">@(i+1)</th>
+                                @if (results.Count < i + 1)
                                 {
                                     <td></td>
-                                    <td>V</td>
+                                    <td></td>
                                     <td></td>
                                 }
                                 else
                                 {
-                                    <td></td>
-                                    <td></td>
-                                    <td>V</td>
+                                    @if (results.ElementAt(i).Value is Winners.Player)
+                                    {
+                                        <td>V</td>
+                                        <td></td>
+                                        <td></td>
+                                    }
+                                    else if (results.ElementAt(i).Value is Winners.Robot)
+                                    {
+                                        <td></td>
+                                        <td>V</td>
+                                        <td></td>
+                                    }
+                                    else
+                                    {
+                                        <td></td>
+                                        <td></td>
+                                        <td>V</td>
+                                    }
                                 }
-                            }
-                        </tr>
+                            </tr>
                         }
                     </tbody>
                 </table>
             </div>
             @*-- Next round button --*@
             <div class="d-flex justify-content-center">
-                <a @onclick="NewRound" class="btn btn-primary">Next Round</a>
+                @if (this._gameService.Rounds is 0)
+                {
+                    this._navManager.NavigateTo("/gamewinner");
+                }
+                else
+                {
+                    <a @onclick="NewRound" class="btn btn-primary">Next Round</a>
+                }
             </div>
         </div>
         @*-- Robot choise --*@

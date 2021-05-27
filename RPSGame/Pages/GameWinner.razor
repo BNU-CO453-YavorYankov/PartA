@@ -1,0 +1,41 @@
+﻿@*This page renders the winner of the game*@
+@page "/gamewinner"
+
+@using Services
+@inject GameService _gameService
+@inject NavigationManager _navManager
+
+<div class="container">
+    <div class="row">
+        <div class="col-6">
+            @if (this._gameService.GameWinner.Key is Winners.Player)
+            {
+                <h2>Congratulations @this._gameService.Name! You are the winner with @this._gameService.GameWinner.Value rounds won.</h2>
+            }
+            else if (this._gameService.GameWinner.Key is Winners.Robot)
+            {
+                <h2>Unfortunately, the robot defeat you.</h2>
+            }
+            else
+            {
+                <h2>There is no winner in this game.</h2>
+            }
+        </div>
+        <div class="col-6">
+            <a @onclick="PlayAgain" @onabort="(() => this._gameService.ResetStat())" class="btn btn-primary">Play again</a>
+        </div>
+    </div>
+</div>
+
+@code {
+
+    /// <summary>
+    /// This method is invoked whenever the user press play again button.
+    /// It reset stats stored in the game service and redirect the user to the home page.
+    /// </summary>
+    private void PlayAgain()
+    {
+        this._gameService.ResetStat();
+        this._navManager.NavigateTo("/");
+    }
+}

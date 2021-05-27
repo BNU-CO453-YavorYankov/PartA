@@ -28,7 +28,7 @@
             </div>
             <div class="form-group">
                 <label>Number of rounds</label>
-                <input @bind="this._gameService.Rounds" type="number" class="form-control" /><br />
+                <input @bind="this._gameService.Rounds" type="number" class="form-control" min="1" max="10"/><br />
             </div>
             <div class="form-group">
                 <button @onclick="SetUser" class="btn btn-primary">Play</button>
@@ -58,7 +58,8 @@
     /// </summary>
     private void SetUser()
     {
-        if (!string.IsNullOrWhiteSpace(this._gameService.Name) || this._gameService.Rounds > 0)
+        if (!string.IsNullOrWhiteSpace(this._gameService.Name) || 
+            this._gameService.Rounds > 0)
         {
             this._navigationManager.NavigateTo($"/playerchoice");
         }
